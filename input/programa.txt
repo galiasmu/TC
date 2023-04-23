@@ -1,0 +1,6 @@
+int z = 0;
+int y;
+int a, b, c;
+
+x = 10;
+miVAR = 123456;
