@@ -1,4 +1,4 @@
-// Generated from /home/galiasmu/Documents/TC/TC/test-gramatica/src/main/java/compiladores/parentesis.g4 by ANTLR 4.9.2
+// Generated from c:\Users\g-g-e\OneDrive - UNIVERSIDAD BLAS PASCAL\Facu\11-cuatri\TC\TPs\TC-1\src\main\java\compiladores\parentesis.g4 by ANTLR 4.9.2
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
@@ -16,19 +16,12 @@ public class parentesisBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitPrograma(parentesisParser.ProgramaContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSi(parentesisParser.SiContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitBalanceo(parentesisParser.BalanceoContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitParens(parentesisParser.ParensContext ctx) { return visitChildren(ctx); }
+	@Override public T visitS(parentesisParser.SContext ctx) { return visitChildren(ctx); }
 }

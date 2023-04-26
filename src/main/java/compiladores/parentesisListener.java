@@ -1,4 +1,4 @@
-// Generated from /home/galiasmu/Documents/TC/TC/test-gramatica/src/main/java/compiladores/parentesis.g4 by ANTLR 4.9.2
+// Generated from c:\Users\g-g-e\OneDrive - UNIVERSIDAD BLAS PASCAL\Facu\11-cuatri\TC\TPs\TC-1\src\main\java\compiladores\parentesis.g4 by ANTLR 4.9.2
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -7,33 +7,23 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface parentesisListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link parentesisParser#programa}.
+	 * Enter a parse tree produced by {@link parentesisParser#si}.
 	 * @param ctx the parse tree
 	 */
-	void enterPrograma(parentesisParser.ProgramaContext ctx);
+	void enterSi(parentesisParser.SiContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link parentesisParser#programa}.
+	 * Exit a parse tree produced by {@link parentesisParser#si}.
 	 * @param ctx the parse tree
 	 */
-	void exitPrograma(parentesisParser.ProgramaContext ctx);
+	void exitSi(parentesisParser.SiContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link parentesisParser#balanceo}.
+	 * Enter a parse tree produced by {@link parentesisParser#s}.
 	 * @param ctx the parse tree
 	 */
-	void enterBalanceo(parentesisParser.BalanceoContext ctx);
+	void enterS(parentesisParser.SContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link parentesisParser#balanceo}.
+	 * Exit a parse tree produced by {@link parentesisParser#s}.
 	 * @param ctx the parse tree
 	 */
-	void exitBalanceo(parentesisParser.BalanceoContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link parentesisParser#parens}.
-	 * @param ctx the parse tree
-	 */
-	void enterParens(parentesisParser.ParensContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link parentesisParser#parens}.
-	 * @param ctx the parse tree
-	 */
-	void exitParens(parentesisParser.ParensContext ctx);
+	void exitS(parentesisParser.SContext ctx);
 }

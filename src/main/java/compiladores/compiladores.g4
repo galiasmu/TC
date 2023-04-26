@@ -15,7 +15,11 @@ LLC : '}' ;
 ASIGN : '=' ;
 COMA : ',' ;
 EQ : '==' ;
-
+SUMA : '+';
+RESTA: '-';
+MULT : '*';
+DIV : '/';
+MDD : '%';
 NUMERO : DIGITO+ ;
 // OTRO : . ;
 
@@ -49,7 +53,7 @@ instruccion : asignacion
             | declaracion
             ;
 
-asignacion : ID ASIGN NUMERO PYC;
+asignacion : ID ASIGN expresion PYC;
 
 declaracion : INT ID inicializacion listaid PYC ;
 
@@ -60,3 +64,22 @@ inicializacion : ASIGN NUMERO
 listaid : COMA ID inicializacion listaid
         |
         ;
+
+expresion : termino exp ;
+
+exp : SUMA termino exp
+    | RESTA termino exp
+    |
+    ;
+
+termino : factor term;
+//term es algun operador o vacio
+term : MULT factor term
+  | DIV factor term
+  | MDD factor term
+  ;
+
+factor : NUMERO
+       | ID
+       | PA expresion PC
+       ;

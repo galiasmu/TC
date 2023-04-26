@@ -1,4 +1,4 @@
-// Generated from /home/galiasmu/Documents/TC/TC/test-gramatica/src/main/java/compiladores/parentesis.g4 by ANTLR 4.9.2
+// Generated from c:\Users\g-g-e\OneDrive - UNIVERSIDAD BLAS PASCAL\Facu\11-cuatri\TC\TPs\TC-1\src\main\java\compiladores\parentesis.g4 by ANTLR 4.9.2
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -16,25 +16,25 @@ public class parentesisParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		PA=1, PC=2, WS=3;
+		PI=1, PD=2, LI=3, LD=4, CI=5, CD=6, WS=7;
 	public static final int
-		RULE_programa = 0, RULE_balanceo = 1, RULE_parens = 2;
+		RULE_si = 0, RULE_s = 1;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"programa", "balanceo", "parens"
+			"si", "s"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'('", "')'"
+			null, "'('", "')'", "'{'", "'}'", "'['", "']'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "PA", "PC", "WS"
+			null, "PI", "PD", "LI", "LD", "CI", "CD", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -88,100 +88,51 @@ public class parentesisParser extends Parser {
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
-	public static class ProgramaContext extends ParserRuleContext {
-		public BalanceoContext balanceo() {
-			return getRuleContext(BalanceoContext.class,0);
+	public static class SiContext extends ParserRuleContext {
+		public SContext s() {
+			return getRuleContext(SContext.class,0);
 		}
 		public TerminalNode EOF() { return getToken(parentesisParser.EOF, 0); }
-		public ProgramaContext(ParserRuleContext parent, int invokingState) {
+		public SiContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_programa; }
+		@Override public int getRuleIndex() { return RULE_si; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof parentesisListener ) ((parentesisListener)listener).enterPrograma(this);
+			if ( listener instanceof parentesisListener ) ((parentesisListener)listener).enterSi(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof parentesisListener ) ((parentesisListener)listener).exitPrograma(this);
+			if ( listener instanceof parentesisListener ) ((parentesisListener)listener).exitSi(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof parentesisVisitor ) return ((parentesisVisitor<? extends T>)visitor).visitPrograma(this);
+			if ( visitor instanceof parentesisVisitor ) return ((parentesisVisitor<? extends T>)visitor).visitSi(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final ProgramaContext programa() throws RecognitionException {
-		ProgramaContext _localctx = new ProgramaContext(_ctx, getState());
-		enterRule(_localctx, 0, RULE_programa);
+	public final SiContext si() throws RecognitionException {
+		SiContext _localctx = new SiContext(_ctx, getState());
+		enterRule(_localctx, 0, RULE_si);
 		try {
-			enterOuterAlt(_localctx, 1);
-			{
 			setState(6);
-			balanceo();
-			setState(7);
-			match(EOF);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class BalanceoContext extends ParserRuleContext {
-		public List<ParensContext> parens() {
-			return getRuleContexts(ParensContext.class);
-		}
-		public ParensContext parens(int i) {
-			return getRuleContext(ParensContext.class,i);
-		}
-		public BalanceoContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_balanceo; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof parentesisListener ) ((parentesisListener)listener).enterBalanceo(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof parentesisListener ) ((parentesisListener)listener).exitBalanceo(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof parentesisVisitor ) return ((parentesisVisitor<? extends T>)visitor).visitBalanceo(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final BalanceoContext balanceo() throws RecognitionException {
-		BalanceoContext _localctx = new BalanceoContext(_ctx, getState());
-		enterRule(_localctx, 2, RULE_balanceo);
-		int _la;
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(12);
 			_errHandler.sync(this);
-			_la = _input.LA(1);
-			while (_la==PA) {
+			switch ( getInterpreter().adaptivePredict(_input,0,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
 				{
+				setState(4);
+				s();
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
 				{
-				setState(9);
-				parens();
+				setState(5);
+				match(EOF);
 				}
-				}
-				setState(14);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-			}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -195,43 +146,94 @@ public class parentesisParser extends Parser {
 		return _localctx;
 	}
 
-	public static class ParensContext extends ParserRuleContext {
-		public TerminalNode PA() { return getToken(parentesisParser.PA, 0); }
-		public BalanceoContext balanceo() {
-			return getRuleContext(BalanceoContext.class,0);
+	public static class SContext extends ParserRuleContext {
+		public TerminalNode LI() { return getToken(parentesisParser.LI, 0); }
+		public List<SContext> s() {
+			return getRuleContexts(SContext.class);
 		}
-		public TerminalNode PC() { return getToken(parentesisParser.PC, 0); }
-		public ParensContext(ParserRuleContext parent, int invokingState) {
+		public SContext s(int i) {
+			return getRuleContext(SContext.class,i);
+		}
+		public TerminalNode LD() { return getToken(parentesisParser.LD, 0); }
+		public TerminalNode PI() { return getToken(parentesisParser.PI, 0); }
+		public TerminalNode PD() { return getToken(parentesisParser.PD, 0); }
+		public TerminalNode CI() { return getToken(parentesisParser.CI, 0); }
+		public TerminalNode CD() { return getToken(parentesisParser.CD, 0); }
+		public SContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_parens; }
+		@Override public int getRuleIndex() { return RULE_s; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof parentesisListener ) ((parentesisListener)listener).enterParens(this);
+			if ( listener instanceof parentesisListener ) ((parentesisListener)listener).enterS(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof parentesisListener ) ((parentesisListener)listener).exitParens(this);
+			if ( listener instanceof parentesisListener ) ((parentesisListener)listener).exitS(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof parentesisVisitor ) return ((parentesisVisitor<? extends T>)visitor).visitParens(this);
+			if ( visitor instanceof parentesisVisitor ) return ((parentesisVisitor<? extends T>)visitor).visitS(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final ParensContext parens() throws RecognitionException {
-		ParensContext _localctx = new ParensContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_parens);
+	public final SContext s() throws RecognitionException {
+		SContext _localctx = new SContext(_ctx, getState());
+		enterRule(_localctx, 2, RULE_s);
 		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(15);
-			match(PA);
-			setState(16);
-			balanceo();
-			setState(17);
-			match(PC);
+			setState(24);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case LI:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(8);
+				match(LI);
+				setState(9);
+				s();
+				setState(10);
+				match(LD);
+				setState(11);
+				s();
+				}
+				break;
+			case PI:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(13);
+				match(PI);
+				setState(14);
+				s();
+				setState(15);
+				match(PD);
+				setState(16);
+				s();
+				}
+				break;
+			case CI:
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(18);
+				match(CI);
+				setState(19);
+				s();
+				setState(20);
+				match(CD);
+				setState(21);
+				s();
+				}
+				break;
+			case EOF:
+			case PD:
+			case LD:
+			case CD:
+				enterOuterAlt(_localctx, 4);
+				{
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -246,12 +248,15 @@ public class parentesisParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\5\26\4\2\t\2\4\3"+
-		"\t\3\4\4\t\4\3\2\3\2\3\2\3\3\7\3\r\n\3\f\3\16\3\20\13\3\3\4\3\4\3\4\3"+
-		"\4\3\4\2\2\5\2\4\6\2\2\2\23\2\b\3\2\2\2\4\16\3\2\2\2\6\21\3\2\2\2\b\t"+
-		"\5\4\3\2\t\n\7\2\2\3\n\3\3\2\2\2\13\r\5\6\4\2\f\13\3\2\2\2\r\20\3\2\2"+
-		"\2\16\f\3\2\2\2\16\17\3\2\2\2\17\5\3\2\2\2\20\16\3\2\2\2\21\22\7\3\2\2"+
-		"\22\23\5\4\3\2\23\24\7\4\2\2\24\7\3\2\2\2\3\16";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\t\35\4\2\t\2\4\3"+
+		"\t\3\3\2\3\2\5\2\t\n\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
+		"\3\3\3\3\3\3\3\3\5\3\33\n\3\3\3\2\2\4\2\4\2\2\2\36\2\b\3\2\2\2\4\32\3"+
+		"\2\2\2\6\t\5\4\3\2\7\t\7\2\2\3\b\6\3\2\2\2\b\7\3\2\2\2\t\3\3\2\2\2\n\13"+
+		"\7\5\2\2\13\f\5\4\3\2\f\r\7\6\2\2\r\16\5\4\3\2\16\33\3\2\2\2\17\20\7\3"+
+		"\2\2\20\21\5\4\3\2\21\22\7\4\2\2\22\23\5\4\3\2\23\33\3\2\2\2\24\25\7\7"+
+		"\2\2\25\26\5\4\3\2\26\27\7\b\2\2\27\30\5\4\3\2\30\33\3\2\2\2\31\33\3\2"+
+		"\2\2\32\n\3\2\2\2\32\17\3\2\2\2\32\24\3\2\2\2\32\31\3\2\2\2\33\5\3\2\2"+
+		"\2\4\b\32";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

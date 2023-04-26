@@ -1,4 +1,4 @@
-// Generated from /home/galiasmu/Documents/TC/TC/test-gramatica/src/main/java/compiladores/parentesis.g4 by ANTLR 4.9.2
+// Generated from c:\Users\g-g-e\OneDrive - UNIVERSIDAD BLAS PASCAL\Facu\11-cuatri\TC\TPs\TC-1\src\main\java\compiladores\parentesis.g4 by ANTLR 4.9.2
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -10,21 +10,15 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface parentesisVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link parentesisParser#programa}.
+	 * Visit a parse tree produced by {@link parentesisParser#si}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPrograma(parentesisParser.ProgramaContext ctx);
+	T visitSi(parentesisParser.SiContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link parentesisParser#balanceo}.
+	 * Visit a parse tree produced by {@link parentesisParser#s}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBalanceo(parentesisParser.BalanceoContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link parentesisParser#parens}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitParens(parentesisParser.ParensContext ctx);
+	T visitS(parentesisParser.SContext ctx);
 }
