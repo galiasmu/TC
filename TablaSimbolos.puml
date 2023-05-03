@@ -1,0 +1,39 @@
+@startuml
+
+
+
+class TablaSimbolos {
+    -List <Map<String, id> > ts
+    +addSimbolo(id)
+    +getSimbolo(String) : id
+    +buscarSimbolo(String) : id
+    +addContexto()
+    +delContexto()
+}
+
+
+
+
+class Variable{}
+
+
+abstract class id <<abstract>> {
+    -String nombre
+    -Boolean inicializado
+    -Boolean usado
+    -String tipoDato
+}
+
+class Funcion {
+    - List <String> argumentos
+}
+
+
+
+
+Variable -|> id
+Funcion -|> id
+TablaSimbolos -> id 
+
+
+@enduml

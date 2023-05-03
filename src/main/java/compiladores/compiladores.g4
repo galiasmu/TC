@@ -51,7 +51,9 @@ instrucciones : instruccion instrucciones
 
 instruccion : asignacion
             | declaracion
+            | bloque
             ;
+bloque : LLA instrucciones LLC;
 
 asignacion : ID ASIGN expresion PYC;
 
