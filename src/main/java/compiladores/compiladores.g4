@@ -13,13 +13,14 @@ PC  : ')' ;
 LLA : '{' ;
 LLC : '}' ;
 ASIGN : '=' ;
-COMA : ',' ;
+COMA  : ',' ;
+SUMA  : '+' ;
+RESTA : '-' ;
+MULT  : '*' ;
+DIV   : '/' ;
+MOD   : '%' ;
 EQ : '==' ;
-SUMA : '+';
-RESTA: '-';
-MULT : '*';
-DIV : '/';
-MDD : '%';
+
 NUMERO : DIGITO+ ;
 // OTRO : . ;
 
@@ -53,7 +54,8 @@ instruccion : asignacion
             | declaracion
             | bloque
             ;
-bloque : LLA instrucciones LLC;
+
+bloque : LLA instrucciones LLC ;
 
 asignacion : ID ASIGN expresion PYC;
 
@@ -67,21 +69,24 @@ listaid : COMA ID inicializacion listaid
         |
         ;
 
+// X = ( 3 + 5 ) / 4; // ID ASSIGN expresion PYC
+
 expresion : termino exp ;
 
-exp : SUMA termino exp
+exp : SUMA  termino exp
     | RESTA termino exp
     |
     ;
 
-termino : factor term;
-//term es algun operador o vacio
+termino : factor term ;
+
 term : MULT factor term
-  | DIV factor term
-  | MDD factor term
-  ;
+     | DIV  factor term
+     | MOD  factor term
+     |
+     ;
 
 factor : NUMERO
        | ID
-       | PA expresion PC
+       | PA expresion PC 
        ;

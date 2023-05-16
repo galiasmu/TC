@@ -7,6 +7,9 @@ grammar TP1;
 fragment LETRA : [A-Za-z] ;
 fragment DIGITO : [0-9] ;
 
+
+CI : '['  ;
+CD : ']'  ;
 PYC : ';' ;
 PA  : '(' ;
 PC  : ')' ;
@@ -47,7 +50,11 @@ instruccion : asignacion
             ;
 bloque : LLA instrucciones LLC ;
 
-asignacion : ID ASIGN (NUMERO|ID) PYC ;
+asignacion : ID ASIGN expresion PYC ;
+// el problema estaba aca, al yo poner (NUMERO|ID) en ves de expresion se asumia el trato de enteros,
+// pero para la division esto no siempre sera asi
+
+
 
 declaracion : INT ID inicializacion listaid PYC ;
 
@@ -63,15 +70,25 @@ iwhile : WHILE PA comparacion PC (bloque|instruccion);
 comparacion : (NUMERO|ID) COMP (NUMERO|ID);
 
  expresion : termino exp ;
- exp : SUMA  termino exp
+
+
+ termino : factor term ;
+
+ exp : SUMA termino exp
      | RESTA termino exp
-     |
-     
- termino : factor term 
+     |  
+     | term ((SUMA | RESTA) term) *
+     ;
+
+
+
+ 
  term : MULT factor term
       | DIV  factor term
       | MOD  factor term
+      | factor ((MULT | DIV | MOD) factor) *
       |
+      ;
       
  factor : NUMERO
         | ID

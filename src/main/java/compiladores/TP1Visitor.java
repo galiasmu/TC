@@ -1,4 +1,4 @@
-// Generated from c:\Users\g-g-e\OneDrive - UNIVERSIDAD BLAS PASCAL\Facu\11-cuatri\TC\TPs\TC-1\src\main\java\compiladores\TP1.g4 by ANTLR 4.9.2
+// Generated from /home/galiasmu/Documents/TC/TC-1/src/main/java/compiladores/TP1.g4 by ANTLR 4.9.2
  
     package compiladores;
 
@@ -72,4 +72,34 @@ public interface TP1Visitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitComparacion(TP1Parser.ComparacionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TP1Parser#expresion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpresion(TP1Parser.ExpresionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TP1Parser#termino}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTermino(TP1Parser.TerminoContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TP1Parser#exp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExp(TP1Parser.ExpContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TP1Parser#term}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTerm(TP1Parser.TermContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TP1Parser#factor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFactor(TP1Parser.FactorContext ctx);
 }
