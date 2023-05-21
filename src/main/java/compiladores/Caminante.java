@@ -19,7 +19,6 @@ public class Caminante extends compiladoresBaseVisitor<String> {
 
     @Override
     public String visitPrograma(ProgramaContext ctx) {
-        // TODO Auto-generated method stub
         String ret = super.visitPrograma(ctx);
         System.out.println("Se realizaron " + asignaciones + " Asignaciones");
         return ret;
