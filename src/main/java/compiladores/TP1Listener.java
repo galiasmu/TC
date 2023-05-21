@@ -1,4 +1,4 @@
-// Generated from c:\Users\g-g-e\OneDrive - UNIVERSIDAD BLAS PASCAL\Facu\11-cuatri\TC\TPs\TC-1\src\main\java\compiladores\TP1.g4 by ANTLR 4.9.2
+// Generated from /home/galiasmu/Documents/TC/TC-1/src/main/java/compiladores/TP1.g4 by ANTLR 4.9.2
  
     package compiladores;
 
@@ -99,6 +99,16 @@ public interface TP1Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIwhile(TP1Parser.IwhileContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TP1Parser#fi}.
+	 * @param ctx the parse tree
+	 */
+	void enterFi(TP1Parser.FiContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TP1Parser#fi}.
+	 * @param ctx the parse tree
+	 */
+	void exitFi(TP1Parser.FiContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link TP1Parser#comparacion}.
 	 * @param ctx the parse tree

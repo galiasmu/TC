@@ -1,4 +1,4 @@
-// Generated from c:\Users\g-g-e\OneDrive - UNIVERSIDAD BLAS PASCAL\Facu\11-cuatri\TC\TPs\TC-1\src\main\java\compiladores\TP1.g4 by ANTLR 4.9.2
+// Generated from /home/galiasmu/Documents/TC/TC-1/src/main/java/compiladores/TP1.g4 by ANTLR 4.9.2
  
     package compiladores;
 
@@ -66,6 +66,12 @@ public interface TP1Visitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitIwhile(TP1Parser.IwhileContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TP1Parser#fi}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFi(TP1Parser.FiContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link TP1Parser#comparacion}.
 	 * @param ctx the parse tree
