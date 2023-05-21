@@ -67,7 +67,10 @@ listaid : COMA ID inicializacion listaid
 
 iwhile : WHILE PA comparacion PC (bloque|instruccion); 
 
-comparacion : (NUMERO|ID) COMP (NUMERO|ID);
+comparacion : (NUMERO|ID) COMP (NUMERO|ID) 
+            | (NUMERO|ID)
+            ; 
+
 
  expresion : termino exp ;
 
@@ -76,8 +79,7 @@ comparacion : (NUMERO|ID) COMP (NUMERO|ID);
 
  exp : SUMA termino exp
      | RESTA termino exp
-     |  
-     | term ((SUMA | RESTA) term) *
+     |
      ;
 
 
@@ -86,7 +88,6 @@ comparacion : (NUMERO|ID) COMP (NUMERO|ID);
  term : MULT factor term
       | DIV  factor term
       | MOD  factor term
-      | factor ((MULT | DIV | MOD) factor) *
       |
       ;
       
