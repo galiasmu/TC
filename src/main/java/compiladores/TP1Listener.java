@@ -80,6 +80,16 @@ public interface TP1Listener extends ParseTreeListener {
 	 */
 	void exitInicializacion(TP1Parser.InicializacionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link TP1Parser#incremento}.
+	 * @param ctx the parse tree
+	 */
+	void enterIncremento(TP1Parser.IncrementoContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TP1Parser#incremento}.
+	 * @param ctx the parse tree
+	 */
+	void exitIncremento(TP1Parser.IncrementoContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link TP1Parser#listaid}.
 	 * @param ctx the parse tree
 	 */
@@ -109,6 +119,16 @@ public interface TP1Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFi(TP1Parser.FiContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TP1Parser#rof}.
+	 * @param ctx the parse tree
+	 */
+	void enterRof(TP1Parser.RofContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TP1Parser#rof}.
+	 * @param ctx the parse tree
+	 */
+	void exitRof(TP1Parser.RofContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link TP1Parser#comparacion}.
 	 * @param ctx the parse tree

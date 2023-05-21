@@ -25,7 +25,7 @@ public class Escucha extends compiladoresBaseListener {
         System.out.println("Se visitaron " + nodos + "nodos");
         System.out.println("Hay " + tokens + "Tokens");
         System.out.println("Hay " + error + "Errores");
-        System.out.println("Hay " + tokens + "Tokens");
+        System.out.println("Hay " + rules + "Rules");
     }
 
     

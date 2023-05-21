@@ -19,7 +19,10 @@ RESTA : '-' ;
 MULT  : '*' ;
 DIV   : '/' ;
 MOD   : '%' ;
-COMP : '=' |'==' | '>' | '<' | '=>' | '=<' | '||' | '&&' | '!=';
+// Deberia subdividir COMP? y hacer una regla gramatical que detecte cada uno
+COMP : '=' |'==' | '>' | '<' | '=>' | '=<' | '||' | '&&' | '!=' ;
+INC : '++' ;
+DEC : '--' ;
 //IF : 'if';
 //WHILE : 'while';
 
@@ -34,6 +37,8 @@ IF_TOKEN : 'if' ;
 ELSE_TOKEN : 'else' ;
 
 WHILE : 'while' ;
+
+FOR : 'for';
 
 ID : (LETRA | '_')(LETRA | DIGITO | '_')* ;
 
@@ -51,6 +56,7 @@ instruccion : asignacion
             | bloque
             | iwhile
             | fi
+            | rof
             ;
 
 bloque : LLA instrucciones LLC ;
@@ -64,16 +70,23 @@ declaracion : INT ID inicializacion listaid PYC ;
 inicializacion : COMP NUMERO
                |
                ;
+
+incremento : ID (INC|DEC)  ;
+
 listaid : COMA ID inicializacion listaid
         |
         ;
 
-iwhile : WHILE PA comparacion PC (bloque|instruccion);
+iwhile : WHILE PA comparacion PC (bloque|instruccion) ;
 
-fi : IF_TOKEN PA comparacion PC (bloque|instruccion) ;
+fi : IF_TOKEN PA comparacion PC (bloque|instruccion) ELSE_TOKEN bloque ;
 
-comparacion : (NUMERO|ID) COMP (NUMERO|ID) 
-            | (NUMERO|ID)
+rof : FOR PA inicializacion PYC comparacion PYC incremento PC (bloque|instruccion) ; 
+
+
+
+comparacion : expresion COMP expresion 
+            | 
             ; 
 
 

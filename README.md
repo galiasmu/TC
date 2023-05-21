@@ -13,3 +13,7 @@ Need [Java SE JDK 17](https://www.oracle.com/java/technologies/javase/jdk17-arch
 ## Importants Branches <br>
 
 The branch TP1-TC stay file .g4 with contanier the first test
+
+## Notes/help <br>
+[Documentation ANTLR4] (https://github.com/antlr/antlr4/blob/master/doc/index.md)
+[Notes for me of in the development](https://www.notion.so/Notas-primer-parcial-39390615f9f44a2a8640d2223b551884?pvs=4)

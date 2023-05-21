@@ -55,6 +55,12 @@ public interface TP1Visitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitInicializacion(TP1Parser.InicializacionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link TP1Parser#incremento}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIncremento(TP1Parser.IncrementoContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link TP1Parser#listaid}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -72,6 +78,12 @@ public interface TP1Visitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFi(TP1Parser.FiContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TP1Parser#rof}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRof(TP1Parser.RofContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link TP1Parser#comparacion}.
 	 * @param ctx the parse tree

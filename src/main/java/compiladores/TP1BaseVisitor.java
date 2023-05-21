@@ -68,6 +68,13 @@ public class TP1BaseVisitor<T> extends AbstractParseTreeVisitor<T> implements TP
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitIncremento(TP1Parser.IncrementoContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitListaid(TP1Parser.ListaidContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -83,6 +90,13 @@ public class TP1BaseVisitor<T> extends AbstractParseTreeVisitor<T> implements TP
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitFi(TP1Parser.FiContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitRof(TP1Parser.RofContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

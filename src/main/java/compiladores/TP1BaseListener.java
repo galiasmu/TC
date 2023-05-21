@@ -102,6 +102,18 @@ public class TP1BaseListener implements TP1Listener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterIncremento(TP1Parser.IncrementoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIncremento(TP1Parser.IncrementoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterListaid(TP1Parser.ListaidContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -133,6 +145,18 @@ public class TP1BaseListener implements TP1Listener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFi(TP1Parser.FiContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRof(TP1Parser.RofContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRof(TP1Parser.RofContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
