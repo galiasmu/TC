@@ -26,12 +26,17 @@ DEC : '--' ;
 //IF : 'if';
 //WHILE : 'while';
 
+TIPO : 'void' | 'char' | 'short' | 'int' | 'long' | 'float' | 'double' | 'signed' | 'unsigned' | 'string' ;
+
+
 fragment LETRA : [A-Za-z] ;
 fragment DIGITO : [0-9] ;
 
 NUMERO : DIGITO+ ;
 
-INT : 'int' ;
+// INT : 'int' ;
+
+// VOID : 'void';
 
 IF_TOKEN : 'if' ;
 ELSE_TOKEN : 'else' ;
@@ -65,7 +70,7 @@ asignacion : ID COMP expresion PYC ;
 // el problema estaba aca, al yo poner (NUMERO|ID) en ves de expresion se asumia el trato de enteros,
 // pero para la division esto no siempre sera asi
 
-declaracion : INT ID inicializacion listaid PYC ;
+declaracion : TIPO ID inicializacion listaid PYC ;
 
 inicializacion : COMP NUMERO
                |
@@ -77,11 +82,18 @@ listaid : COMA ID inicializacion listaid
         |
         ;
 
+funcion : TIPO ID  parametros  (bloque|instruccion) ;
+
+parametros : PA parametro (COMA parametro)* PC ;
+parametro : TIPO ID ;
+
+dec : TIPO ID (COMP expresion)? PYC ;
+
 iwhile : WHILE PA comparacion PC (bloque|instruccion) ;
 
 fi : IF_TOKEN PA comparacion PC (bloque|instruccion) ELSE_TOKEN bloque ;
 
-rof : FOR PA inicializacion PYC comparacion PYC incremento PC (bloque|instruccion) ; 
+rof : FOR PA inicializacion  comparacion  incremento PC (bloque|instruccion) ; 
 
 
 

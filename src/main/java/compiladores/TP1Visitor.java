@@ -67,6 +67,30 @@ public interface TP1Visitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitListaid(TP1Parser.ListaidContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link TP1Parser#funcion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncion(TP1Parser.FuncionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TP1Parser#parametros}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParametros(TP1Parser.ParametrosContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TP1Parser#parametro}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParametro(TP1Parser.ParametroContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TP1Parser#dec}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDec(TP1Parser.DecContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link TP1Parser#iwhile}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

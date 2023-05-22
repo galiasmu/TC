@@ -100,6 +100,46 @@ public interface TP1Listener extends ParseTreeListener {
 	 */
 	void exitListaid(TP1Parser.ListaidContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link TP1Parser#funcion}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncion(TP1Parser.FuncionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TP1Parser#funcion}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncion(TP1Parser.FuncionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TP1Parser#parametros}.
+	 * @param ctx the parse tree
+	 */
+	void enterParametros(TP1Parser.ParametrosContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TP1Parser#parametros}.
+	 * @param ctx the parse tree
+	 */
+	void exitParametros(TP1Parser.ParametrosContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TP1Parser#parametro}.
+	 * @param ctx the parse tree
+	 */
+	void enterParametro(TP1Parser.ParametroContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TP1Parser#parametro}.
+	 * @param ctx the parse tree
+	 */
+	void exitParametro(TP1Parser.ParametroContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TP1Parser#dec}.
+	 * @param ctx the parse tree
+	 */
+	void enterDec(TP1Parser.DecContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TP1Parser#dec}.
+	 * @param ctx the parse tree
+	 */
+	void exitDec(TP1Parser.DecContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link TP1Parser#iwhile}.
 	 * @param ctx the parse tree
 	 */
