@@ -1,3 +1,14 @@
-int gali (double a) {
+int gali () {
     int a;
+    while (a = 1) {
+        int x = 5;
+    }
+
+    if (x = 1) {
+        int ha = 20;
+        int zi = 231;
+    }
+    else {
+        int j = 0;
+    }
 }

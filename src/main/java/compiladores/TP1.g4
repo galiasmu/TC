@@ -64,6 +64,7 @@ instruccion : asignacion
             | iwhile
             | fi
             | rof
+            | funcion
             ;
 
 bloque : LLA instrucciones LLC ;
@@ -71,16 +72,17 @@ bloque : LLA instrucciones LLC ;
 asignacion : ID ASIGN expresion PYC ;
 
 incFor : asignacion
-      | incremento
-      | ID COMP ID
-      | exp
-      | term
+      |  incremento
+      |  ID COMP ID
+      |  exp
+      |  term
       |
       ;
 // el problema estaba aca, al yo poner (NUMERO|ID) en ves de expresion se asumia el trato de enteros,
 // pero para la division esto no siempre sera asi
 
 declaracion : TIPO ID inicializacion listaid PYC ;
+
 
 inicializacion : ASIGN NUMERO
                |
@@ -92,7 +94,12 @@ listaid : COMA ID inicializacion listaid
         |
         ;
 
-funcion : TIPO ID  PA asignacion PC instruccion ;
+funcion : TIPO ID PA  (TIPO parametrosfunc)? PC instruccion ;
+
+decFunc : ID listaid;
+
+parametrosfunc: decFunc (COMA decFunc)* ;
+
 
 dec : TIPO ID (COMP expresion)? PYC ;
 
@@ -105,7 +112,8 @@ rof : FOR PA declaracion  comparacion PYC incFor PC instruccion ;
 
 
 comparacion : expresion COMP expresion 
-            | 
+            | expresion ASIGN expresion
+            |
             ; 
 
 

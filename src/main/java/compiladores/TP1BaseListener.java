@@ -1,4 +1,4 @@
-// Generated from c:\Users\g-g-e\OneDrive - UNIVERSIDAD BLAS PASCAL\Facu\11-cuatri\TC\TPs\TC-1\src\main\java\compiladores\TP1.g4 by ANTLR 4.9.2
+// Generated from /home/galiasmu/Documents/TC/TC-1/src/main/java/compiladores/TP1.g4 by ANTLR 4.9.2
  
     package compiladores;
 
@@ -145,6 +145,30 @@ public class TP1BaseListener implements TP1Listener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFuncion(TP1Parser.FuncionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDecFunc(TP1Parser.DecFuncContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDecFunc(TP1Parser.DecFuncContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterParametrosfunc(TP1Parser.ParametrosfuncContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitParametrosfunc(TP1Parser.ParametrosfuncContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

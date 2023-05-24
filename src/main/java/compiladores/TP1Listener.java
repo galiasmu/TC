@@ -1,4 +1,4 @@
-// Generated from c:\Users\g-g-e\OneDrive - UNIVERSIDAD BLAS PASCAL\Facu\11-cuatri\TC\TPs\TC-1\src\main\java\compiladores\TP1.g4 by ANTLR 4.9.2
+// Generated from /home/galiasmu/Documents/TC/TC-1/src/main/java/compiladores/TP1.g4 by ANTLR 4.9.2
  
     package compiladores;
 
@@ -119,6 +119,26 @@ public interface TP1Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFuncion(TP1Parser.FuncionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TP1Parser#decFunc}.
+	 * @param ctx the parse tree
+	 */
+	void enterDecFunc(TP1Parser.DecFuncContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TP1Parser#decFunc}.
+	 * @param ctx the parse tree
+	 */
+	void exitDecFunc(TP1Parser.DecFuncContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TP1Parser#parametrosfunc}.
+	 * @param ctx the parse tree
+	 */
+	void enterParametrosfunc(TP1Parser.ParametrosfuncContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TP1Parser#parametrosfunc}.
+	 * @param ctx the parse tree
+	 */
+	void exitParametrosfunc(TP1Parser.ParametrosfuncContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link TP1Parser#dec}.
 	 * @param ctx the parse tree
