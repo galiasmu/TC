@@ -4,7 +4,7 @@ grammar TP1;
     package compiladores;
 }
 
-// tokens
+// * tokens
 CI : '['  ;
 CD : ']'  ;
 PYC : ';' ;
@@ -51,7 +51,7 @@ ID : (LETRA | '_')(LETRA | DIGITO | '_')* ;
 
 WS : [ \t\n\r] -> skip ;
 
-//reglas gramaticales
+// * reglas gramaticales
 programa : instrucciones EOF ;
 
 instrucciones : instruccion instrucciones
