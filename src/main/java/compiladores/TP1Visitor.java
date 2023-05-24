@@ -1,4 +1,4 @@
-// Generated from /home/galiasmu/Documents/TC/TC-1/src/main/java/compiladores/TP1.g4 by ANTLR 4.9.2
+// Generated from c:\Users\g-g-e\OneDrive - UNIVERSIDAD BLAS PASCAL\Facu\11-cuatri\TC\TPs\TC-1\src\main\java\compiladores\TP1.g4 by ANTLR 4.9.2
  
     package compiladores;
 
@@ -43,6 +43,12 @@ public interface TP1Visitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAsignacion(TP1Parser.AsignacionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link TP1Parser#incFor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIncFor(TP1Parser.IncForContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link TP1Parser#declaracion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -72,18 +78,6 @@ public interface TP1Visitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFuncion(TP1Parser.FuncionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link TP1Parser#parametros}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitParametros(TP1Parser.ParametrosContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link TP1Parser#parametro}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitParametro(TP1Parser.ParametroContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link TP1Parser#dec}.
 	 * @param ctx the parse tree

@@ -1,3 +1,3 @@
-double calcularAreaCirculo(double radio) {
-    double area = 3.14159 * radio * radio
+int gali (double a) {
+    int a;
 }

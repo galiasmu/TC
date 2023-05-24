@@ -1,4 +1,4 @@
-// Generated from /home/galiasmu/Documents/TC/TC-1/src/main/java/compiladores/TP1.g4 by ANTLR 4.9.2
+// Generated from c:\Users\g-g-e\OneDrive - UNIVERSIDAD BLAS PASCAL\Facu\11-cuatri\TC\TPs\TC-1\src\main\java\compiladores\TP1.g4 by ANTLR 4.9.2
  
     package compiladores;
 
@@ -78,6 +78,18 @@ public class TP1BaseListener implements TP1Listener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterIncFor(TP1Parser.IncForContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIncFor(TP1Parser.IncForContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterDeclaracion(TP1Parser.DeclaracionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -133,30 +145,6 @@ public class TP1BaseListener implements TP1Listener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFuncion(TP1Parser.FuncionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterParametros(TP1Parser.ParametrosContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitParametros(TP1Parser.ParametrosContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterParametro(TP1Parser.ParametroContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitParametro(TP1Parser.ParametroContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -12,7 +12,7 @@ PA  : '(' ;
 PC  : ')' ;
 LLA : '{' ;
 LLC : '}' ;
-//ASIGN : '=' ;
+ASIGN : '=' ;
 COMA  : ',' ;
 SUMA  : '+' ;
 RESTA : '-' ;
@@ -20,7 +20,7 @@ MULT  : '*' ;
 DIV   : '/' ;
 MOD   : '%' ;
 // Deberia subdividir COMP? y hacer una regla gramatical que detecte cada uno
-COMP : '=' |'==' | '>' | '<' | '=>' | '=<' | '||' | '&&' | '!=' ;
+COMP :  '==' | '>' | '<' | '=>' | '=<' | '||' | '&&' | '!=' ;
 INC : '++' ;
 DEC : '--' ;
 //IF : 'if';
@@ -41,9 +41,11 @@ NUMERO : DIGITO+ ;
 IF_TOKEN : 'if' ;
 ELSE_TOKEN : 'else' ;
 
+FOR : 'for' ;
+
 WHILE : 'while' ;
 
-FOR : 'for';
+
 
 ID : (LETRA | '_')(LETRA | DIGITO | '_')* ;
 
@@ -66,13 +68,21 @@ instruccion : asignacion
 
 bloque : LLA instrucciones LLC ;
 
-asignacion : ID COMP expresion PYC ;
+asignacion : ID ASIGN expresion PYC ;
+
+incFor : asignacion
+      | incremento
+      | ID COMP ID
+      | exp
+      | term
+      |
+      ;
 // el problema estaba aca, al yo poner (NUMERO|ID) en ves de expresion se asumia el trato de enteros,
 // pero para la division esto no siempre sera asi
 
 declaracion : TIPO ID inicializacion listaid PYC ;
 
-inicializacion : COMP NUMERO
+inicializacion : ASIGN NUMERO
                |
                ;
 
@@ -82,18 +92,15 @@ listaid : COMA ID inicializacion listaid
         |
         ;
 
-funcion : TIPO ID  parametros  (bloque|instruccion) ;
-
-parametros : PA parametro (COMA parametro)* PC ;
-parametro : TIPO ID ;
+funcion : TIPO ID  PA asignacion PC instruccion ;
 
 dec : TIPO ID (COMP expresion)? PYC ;
 
-iwhile : WHILE PA comparacion PC (bloque|instruccion) ;
+iwhile : WHILE PA comparacion PC instruccion ;
 
-fi : IF_TOKEN PA comparacion PC (bloque|instruccion) ELSE_TOKEN bloque ;
+fi : IF_TOKEN PA comparacion PC instruccion ELSE_TOKEN instruccion ;
 
-rof : FOR PA inicializacion  comparacion  incremento PC (bloque|instruccion) ; 
+rof : FOR PA declaracion  comparacion PYC incFor PC instruccion ; 
 
 
 

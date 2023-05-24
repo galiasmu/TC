@@ -1,4 +1,4 @@
-// Generated from /home/galiasmu/Documents/TC/TC-1/src/main/java/compiladores/TP1.g4 by ANTLR 4.9.2
+// Generated from c:\Users\g-g-e\OneDrive - UNIVERSIDAD BLAS PASCAL\Facu\11-cuatri\TC\TPs\TC-1\src\main\java\compiladores\TP1.g4 by ANTLR 4.9.2
  
     package compiladores;
 
@@ -60,6 +60,16 @@ public interface TP1Listener extends ParseTreeListener {
 	 */
 	void exitAsignacion(TP1Parser.AsignacionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link TP1Parser#incFor}.
+	 * @param ctx the parse tree
+	 */
+	void enterIncFor(TP1Parser.IncForContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TP1Parser#incFor}.
+	 * @param ctx the parse tree
+	 */
+	void exitIncFor(TP1Parser.IncForContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link TP1Parser#declaracion}.
 	 * @param ctx the parse tree
 	 */
@@ -109,26 +119,6 @@ public interface TP1Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFuncion(TP1Parser.FuncionContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link TP1Parser#parametros}.
-	 * @param ctx the parse tree
-	 */
-	void enterParametros(TP1Parser.ParametrosContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link TP1Parser#parametros}.
-	 * @param ctx the parse tree
-	 */
-	void exitParametros(TP1Parser.ParametrosContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link TP1Parser#parametro}.
-	 * @param ctx the parse tree
-	 */
-	void enterParametro(TP1Parser.ParametroContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link TP1Parser#parametro}.
-	 * @param ctx the parse tree
-	 */
-	void exitParametro(TP1Parser.ParametroContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link TP1Parser#dec}.
 	 * @param ctx the parse tree
