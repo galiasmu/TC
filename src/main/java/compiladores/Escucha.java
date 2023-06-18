@@ -14,7 +14,7 @@ public class Escucha extends compiladoresBaseListener {
 
     @Override
     public void enterPrograma(ProgramaContext ctx) {
-        System.out.println("\tNueva asignacion: |" + ctx.getText() + "| - hijos = " + ctx.getChildCount() );
+        System.out.println("   tNueva asignacion: |" + ctx.getText() + "| - hijos = " + ctx.getChildCount() );
         super.enterPrograma(ctx);
     }
 
