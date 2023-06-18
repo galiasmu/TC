@@ -11,6 +11,7 @@ public class Escucha extends compiladoresBaseListener {
     private Integer tokens = 0;
     private Integer rules = 0;
     private Integer error = 0;
+    //chau
 
     @Override
     public void enterPrograma(ProgramaContext ctx) {
