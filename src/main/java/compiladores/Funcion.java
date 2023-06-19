@@ -8,6 +8,8 @@ public class Funcion extends Id {
         //TODO Auto-generated constructor stub
     }
     private List<String> argumentos;
+	public Object getArgumentos() {
+		return null;
+	}
 }
 
-//hola
