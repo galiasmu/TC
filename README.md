@@ -13,7 +13,8 @@ Need [Java SE JDK 17](https://www.oracle.com/java/technologies/javase/jdk17-arch
 
 ## Importants Branches <br>
 
-The branch TP1-TC stay file .g4 with contanier the first test
+The branch TP1-TC stay file .g4 with contanier the first test <br>
+The branch TP2-TC stay structure for errors detection
 
 ## Notes/help <br>
 [Documentation ANTLR4](https://github.com/antlr/antlr4/blob/master/doc/index.md) <br>
