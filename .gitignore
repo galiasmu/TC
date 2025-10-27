@@ -5,7 +5,10 @@ target
 __pycache__
 compiladores*.java
 compiladores*.py
+parentesis*.java
+reglaSimple*.java
 *.out
 *.class
 *.jar
 *.tokens
+*.interp
