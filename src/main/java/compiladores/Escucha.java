@@ -4,9 +4,9 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
-import compiladores.compiladoresParser.ProgramaContext;
+import compiladores.TP1Parser.ProgramaContext;
 
-public class Escucha extends compiladoresBaseListener {
+public class Escucha extends TP1BaseListener {
     private Integer nodos = 0;
     private Integer tokens = 0;
     private Integer rules = 0;

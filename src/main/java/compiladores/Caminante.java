@@ -2,10 +2,10 @@ package compiladores;
 
 import org.antlr.v4.runtime.tree.TerminalNode;
 
-import compiladores.compiladoresParser.AsignacionContext;
-import compiladores.compiladoresParser.ProgramaContext;
+import compiladores.TP1Parser.AsignacionContext;
+import compiladores.TP1Parser.ProgramaContext;
 
-public class Caminante extends compiladoresBaseVisitor<String> {
+public class Caminante extends TP1BaseVisitor<String> {
 
     private Integer asignaciones = 0;
 

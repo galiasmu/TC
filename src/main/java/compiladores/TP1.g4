@@ -65,7 +65,10 @@ instruccion : asignacion
             | fi
             | rof
             | funcion
+            | expresionInstruccion
             ;
+
+expresionInstruccion : expresion PYC ;
 
 bloque : LLA instrucciones LLC ;
 

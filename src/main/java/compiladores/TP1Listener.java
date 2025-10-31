@@ -1,4 +1,4 @@
-// Generated from c:\Users\g-g-e\OneDrive - UNIVERSIDAD BLAS PASCAL\Facu\11-cuatri\TC\TPs\TC-1\src\main\java\compiladores\TP1.g4 by ANTLR 4.9.2
+// Generated from TP1.g4 by ANTLR 4.13.1
  
     package compiladores;
 
@@ -39,6 +39,16 @@ public interface TP1Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitInstruccion(TP1Parser.InstruccionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TP1Parser#expresionInstruccion}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpresionInstruccion(TP1Parser.ExpresionInstruccionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TP1Parser#expresionInstruccion}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpresionInstruccion(TP1Parser.ExpresionInstruccionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link TP1Parser#bloque}.
 	 * @param ctx the parse tree

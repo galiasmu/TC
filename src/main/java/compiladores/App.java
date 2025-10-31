@@ -15,7 +15,7 @@ public class App {
         // create a lexer that feeds off of input CharStream
         //consume caracteres
         // lexer es el encanrago de convertir una secuencia de caracteres en tokens
-        compiladoresLexer lexer = new compiladoresLexer(input);
+        TP1Lexer lexer = new TP1Lexer(input);
         
         // create a buffer of tokens pulled from the lexer
 
@@ -23,10 +23,10 @@ public class App {
         
         // create a parser that feeds off the tokens buffer
         // parser es el que se alimenta de los tokens
-        compiladoresParser parser = new compiladoresParser(tokens);
+        TP1Parser parser = new TP1Parser(tokens);
                 
         // create Listener
-        compiladoresBaseListener escucha = new Escucha();
+        TP1BaseListener escucha = new Escucha();
         // ExpRegBaseListener escucha = new Escucha();
 
         // Conecto el objeto con Listeners al parser

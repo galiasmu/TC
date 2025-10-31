@@ -1,4 +1,4 @@
-// Generated from c:\Users\g-g-e\OneDrive - UNIVERSIDAD BLAS PASCAL\Facu\11-cuatri\TC\TPs\TC-1\src\main\java\compiladores\TP1.g4 by ANTLR 4.9.2
+// Generated from TP1.g4 by ANTLR 4.13.1
  
     package compiladores;
 
@@ -30,6 +30,12 @@ public interface TP1Visitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitInstruccion(TP1Parser.InstruccionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TP1Parser#expresionInstruccion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpresionInstruccion(TP1Parser.ExpresionInstruccionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link TP1Parser#bloque}.
 	 * @param ctx the parse tree
