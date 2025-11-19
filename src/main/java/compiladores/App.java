@@ -1,53 +1,37 @@
 package compiladores;
 
-
-import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
-import compiladores.Errores.ErrorListener;
-import compiladores.Errores.CustomError;
-import compiladores.Errores.TablaSimbolos;
-import compiladores.Errores.Variable;
-import compiladores.Errores.ID;
-// Las diferentes entradas se explicaran oportunamente
+import org.antlr.v4.runtime.tree.ParseTree;
+
 public class App {
     public static void main(String[] args) throws Exception {
-        //System.out.println("Hello, Compilador!!!");
-        // create a CharStream that reads from file
-        CharStream input = CharStreams.fromFileName("input/programa.txt");
+        System.out.println(">>> Iniciando Compilador (TP1) <<<");
 
-        // create a lexer that feeds off of input CharStream
-        //consume caracteres
-        // lexer es el encanrago de convertir una secuencia de caracteres en tokens
-        compiladoresLexer lexer = new compiladoresLexer(input);
+        // 1. ENTRADA:
+        // Para probar rápido, usamos texto directo. 
+        // Cuando compile bien, descomenta la línea de abajo para leer archivo.
+        CharStream input = CharStreams.fromString("int a = 10; if(a>5) { a = a + 1; }");
+        // CharStream input = CharStreams.fromFileName("input/programa.txt");
+
+        // 2. LEXER: 
+        // Fíjate que ahora se llama TP1Lexer (coincide con grammar TP1)
+        TP1Lexer lexer = new TP1Lexer(input);
         
-        // create a buffer of tokens pulled from the lexer
-
+        // 3. TOKENS:
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         
-        // create a parser that feeds off the tokens buffer
-        // parser es el que se alimenta de los tokens
-        compiladoresParser parser = new compiladoresParser(tokens);
+        // 4. PARSER:
+        // Ahora se llama TP1Parser
+        TP1Parser parser = new TP1Parser(tokens);
                 
-        // create Listener
-        compiladoresBaseListener escucha = new Escucha();
-        // ExpRegBaseListener escucha = new Escucha();
-
-        // Conecto el objeto con Listeners al parser
-         parser.addParseListener(escucha);
-
-        // Solicito al parser que comience indicando una regla gramatical
-        // En este caso la regla es el simbolo inicial
-         //parser.s();
-        ParseTree tree =  parser.programa();
-        // Conectamos el visitor
-        // Caminante visitor = new Caminante();
-        // visitor.visit(tree);
-        // System.out.println(visitor);
-        // System.out.println(visitor.getErrorNodes());
-        // Imprime el arbol obtenido
+        // 5. EJECUCIÓN:
+        // "programa" es la regla inicial de tu TP1.g4
+        ParseTree tree = parser.programa();
+        
+        // 6. SALIDA (LISP style tree):
+        System.out.println("Árbol generado:");
         System.out.println(tree.toStringTree(parser));
-        // System.out.println(escucha);
     }
 }
