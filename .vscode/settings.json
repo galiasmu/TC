@@ -1,0 +1,24 @@
+{
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "files.exclude": {
+        "**/target": true,
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true
+    },
+    "antlr4.generation": {
+        // IMPORTANTE: "external" significa "Deja que Maven lo haga"
+        // Esto evita los errores de clases duplicadas que tuvimos antes.
+        "mode": "external", 
+        "language": "Java",
+        "listeners": true,
+        "visitors": true,
+        "package": "com.compilador",
+        "outputDirectory": "src/main/java"
+    },
+    "antlr4.debug": {
+        "visualParseTreeHorizontal": false,
+        "visualParseTreeClustered": true
+    },
+    "java.debug.settings.onBuildFailureProceed": true
+}

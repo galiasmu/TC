@@ -1,0 +1,24 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "🌳 Debug ANTLR4 (Visual)",
+            "type": "antlr-debug",
+            "request": "launch",
+            "grammar": "/home/galiasmu/Documents/Facu/TC/Compilador2025/demo/src/main/antlr4/com/MiniLenguaje.g4"
+            // CORRECCIÓN: Ruta exacta a tu archivo .txt nuevo
+            "input": "${workspaceFolder}/src/main/input/input.txt",
+            "startRule": "programa",
+            "printParseTree": true,
+            "visualParseTree": true
+        },
+        {
+            "type": "java",
+            "name": "🚀 Correr Compilador (App)",
+            "request": "launch",
+            "mainClass": "com.compilador.App",
+            "projectName": "demo",
+            "cwd": "${workspaceFolder}" 
+        }
+    ]
+}
