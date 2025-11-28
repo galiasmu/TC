@@ -12,12 +12,10 @@ Incluye:
 - ⏳ Análisis Semántico  
 - ⏳ Generación de Código (si corresponde)
 
----
 
 ## 📁 Estructura del Proyecto
-
+---
 ```
-
 src/
 ├── main/
 │   ├── java/
@@ -35,7 +33,7 @@ src/
 │
 └── test/ (no se usa de momento)
 
-````
+```
 
 ---
 
@@ -168,29 +166,3 @@ Contenido:
 *.java text eol=lf
 ````
 
----
-
-# 📦 Estructura RECOMENDADA FINAL
-
-Esto es lo que deberías tener después de ordenar todo:
-
-```
-demo/
- ├── pom.xml
- ├── .gitignore
- ├── .gitattributes
- ├── README.md
- ├── src/
- │   └── main/
- │       ├── java/
- │       │   └── com/compilador/
- │       │       ├── App.java
- │       │       ├── MiniLenguajeErrorListener.java
- │       │       ├── (archivos generados ANTLR)
- │       │
- │       └── antlr4/
- │           └── com/compilador/
- │               └── MiniLenguaje.g4
-```
-
----
