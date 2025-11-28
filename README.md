@@ -11,10 +11,8 @@ Incluye:
 - ⏳ Construcción del AST (próximo paso)  
 - ⏳ Análisis Semántico  
 - ⏳ Generación de Código (si corresponde)
-
-
-## 📁 Estructura del Proyecto
 ---
+## 📁 Estructura del Proyecto
 ```
 src/
 ├── main/

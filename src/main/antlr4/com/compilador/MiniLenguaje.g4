@@ -1,5 +1,7 @@
 grammar MiniLenguaje;
 
+
+
 // --- SINTAXIS (PARSER) ---
 
 programa : (instruccion | funcion)* EOF ;
@@ -45,7 +47,7 @@ expresion
     | DECIMAL                           # ExprDecimal
     | CADENA                            # ExprCadena
     | CHAR                              # ExprChar
-    | ('true' | 'false')                  # ExprBoolean
+    | ('true' | 'false')                # ExprBoolean
     ;
 
 argumentos : expresion (',' expresion)* ;

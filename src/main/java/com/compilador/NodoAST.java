@@ -10,10 +10,15 @@ public abstract class NodoAST {
     public final int linea;
     public final int columna;
 
+    public NodoAST() {
+        this(0,0);
+    }
     protected NodoAST(int linea, int columna) {
         this.linea = linea;
         this.columna = columna;
     }
+
+    
 
     public abstract String toString(String prefijo);
 

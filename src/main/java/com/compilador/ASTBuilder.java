@@ -85,20 +85,61 @@ public class ASTBuilder extends MiniLenguajeBaseVisitor<NodoAST> {
     }
 
     @Override
-public NodoAST visitInstrReturn(MiniLenguajeParser.InstrReturnContext ctx) {
-    // 'return' expresion? ';' #InstrReturn
-    ExpresionNodo expr = null;
-    MiniLenguajeParser.ExpresionContext ectx = ctx.expresion(); // puede ser null
+    public NodoAST visitInstrReturn(MiniLenguajeParser.InstrReturnContext ctx) {
+        // 'return' expresion? ';' #InstrReturn
+        ExpresionNodo expr = null;
+        MiniLenguajeParser.ExpresionContext ectx = ctx.expresion(); // puede ser null
 
-    if (ectx != null) {
-        expr = construirExpresion(ectx);
+        if (ectx != null) {
+            expr = construirExpresion(ectx);
+        }
+
+        return new ReturnNodo(linea(ctx), columna(ctx), expr);
     }
 
-    return new ReturnNodo(linea(ctx), columna(ctx), expr);
-}
+    @Override
+    public NodoAST visitInstrIf(MiniLenguajeParser.InstrIfContext ctx) {
+        int linea = ctx.start.getLine();
+        int columna = ctx.start.getCharPositionInLine();
 
-    // Por ahora ignoramos InstrIf, InstrWhile, InstrExpresion, InstrBloque
-    // (podés agregarlos más adelante si los necesitás)
+        // 1) Construimos la expresión condicional
+        ExpresionNodo condicion = construirExpresion(ctx.expresion());
+
+        // 2) Construimos el bloque THEN
+        List<NodoAST> thenStmts = new ArrayList<>();
+        for (MiniLenguajeParser.InstruccionContext insCtx
+                : ctx.bloque(0).instructions().instruccion()) {
+            thenStmts.add(visit(insCtx));
+        }
+
+        // 3) Construimos (si existe) el bloque ELSE
+        List<NodoAST> elseStmts = null;
+        if (ctx.bloque().size() > 1) { // hay 'else'
+            elseStmts = new ArrayList<>();
+            for (MiniLenguajeParser.InstruccionContext insCtx
+                    : ctx.bloque(1).instructions().instruccion()) {
+                elseStmts.add(visit(insCtx));
+            }
+        }
+
+        return new IfNodo(linea, columna, condicion, thenStmts, elseStmts);
+    }
+
+    @Override
+    public NodoAST visitInstrWhile(MiniLenguajeParser.InstrWhileContext ctx) {
+        int linea = ctx.start.getLine();
+        int columna = ctx.start.getCharPositionInLine();
+
+        ExpresionNodo condicion = construirExpresion(ctx.expresion());
+
+        List<NodoAST> cuerpo = new ArrayList<>();
+        for (MiniLenguajeParser.InstruccionContext insCtx
+                : ctx.bloque().instructions().instruccion()) {
+            cuerpo.add(visit(insCtx));
+        }
+
+        return new WhileNodo(linea, columna, condicion, cuerpo);
+    }
 
     // ===== declaración =====
 
@@ -107,8 +148,7 @@ public NodoAST visitInstrReturn(MiniLenguajeParser.InstrReturnContext ctx) {
         String tipo = ctx.TIPO().getText();
 
         // La regla permite varias variables en una misma línea (int a, b, c;)
-        // Por ahora tomamos solo la primera para simplificar, o podrías
-        // devolver una lista de DeclaracionVariableNodo.
+        // Por ahora tomamos solo la primera para simplificar
         String nombre = ctx.ID(0).getText();
 
         return new DeclaracionVariableNodo(linea(ctx), columna(ctx), tipo, nombre);

@@ -1,6 +1,7 @@
 package com.compilador;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -82,6 +83,33 @@ public class App
 
             System.out.println("\n===== AST (formato simplificado) =====");
             System.out.println(ast);
+
+            // 12) Análisis semántico
+            AnalizadorSemantico sem = new AnalizadorSemantico();
+            sem.analizar(ast);
+
+            System.out.println("\n===== ERRORES SEMÁNTICOS =====");
+            if (sem.getErrores().isEmpty()) {
+                System.out.println("Ninguno");
+            } else {
+                sem.getErrores().forEach(System.out::println);
+            }
+
+            System.out.println("\n===== WARNINGS SEMÁNTICOS =====");
+            if (sem.getWarnings().isEmpty()) {
+                System.out.println("Ninguno");
+            } else {
+                sem.getWarnings().forEach(System.out::println);
+            }
+
+            // 13) Generación de código intermedio (TAC)
+
+            System.out.println("\n===== TRES DIRECCIONES (TAC) =====");
+            TACGenerator tac = new TACGenerator();
+            List<String> codigo = tac.generar(ast);
+            codigo.forEach(System.out::println);
+
+
 
         } catch (IOException e) {
             System.err.println("Error al leer archivo: " + archivoEntrada);

@@ -4,7 +4,7 @@ int variableGlobal; // ERROR: Variable duplicada en el mismo ámbito
 double valorGlobal;
 char caracterGlobal;
 
-// Función con múltiples errores
+// Función con múltiples errores + IF / WHILE / lógicos
 int miFuncion(int parametro1, double parametro2) {
     int variableLocal;
     int variableLocal; // ERROR: Variable duplicada en función
@@ -16,6 +16,18 @@ int miFuncion(int parametro1, double parametro2) {
     
     parametro1 = 100; // OK: asignación a parámetro
     variableLocal = parametro1 + 5; // OK: uso de variable
+
+    // IF con condición lógica
+    if (parametro1 > 0 && parametro2 < 10.0) {
+        variableLocal = variableLocal + 1;
+    } else {
+        variableLocal = variableLocal - 1;
+    }
+
+    // WHILE con condición relacional
+    while (variableLocal < 120) {
+        variableLocal = variableLocal + 2;
+    }
     
     // ERROR: Asignación a variable no declarada
     variableFantasma = 42;
@@ -36,6 +48,21 @@ void funcionVoid() {
     
     x = 10; // OK
     y = x + 5; // OK: uso de variables
+
+    // IF simple con booleanos
+    bool cond1;
+    bool cond2;
+    cond1 = true;
+    cond2 = false;
+
+    if (cond1 || cond2) {
+        x = x + 1;
+    }
+
+    // WHILE con condición lógica
+    while (x < 20 && !cond2) {
+        x = x + 2;
+    }
     
     // ERROR: variable no declarada
     w = x + y;
@@ -48,6 +75,18 @@ int main() {
     
     resultado = miFuncion(5, 3.14); // OK: uso de función
     valor = resultado + 10;         // OK: uso de variables
+    
+    // IF usando comparaciones y lógicos
+    if (valor >= 10 && valor != 15) {
+        variableGlobal = valor;
+    } else {
+        variableGlobal = 0;
+    }
+
+    // Bucle while simple
+    while (variableGlobal < 100) {
+        variableGlobal = variableGlobal + 5;
+    }
     
     // ERROR: variable no declarada
     variableFinal = valor;
