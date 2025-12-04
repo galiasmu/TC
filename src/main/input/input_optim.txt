@@ -1,0 +1,49 @@
+// Programa de prueba para OPTIMIZACIONES
+
+int aGlobal;
+int bGlobal;
+
+int optimTest(int x) {
+    int y;
+    int z;
+    int t;
+
+    // --- Propagación de constantes / constant folding ---
+    y = 3 + 5;          // 3 + 5 es constante
+    z = y + 0;          // + 0 se puede simplificar
+    t = 1 * z;          // * 1 se puede simplificar
+
+    aGlobal = 2 * 3;    // 2 * 3 también es constante
+    bGlobal = aGlobal + 0;
+
+    // --- If con condición booleana simple ---
+    bool cond;
+    cond = true;
+
+    if (cond) {
+        z = t + 10;
+    } else {
+        z = 0;          // rama que idealmente podría considerarse muerta
+    }
+
+    // --- While con condición que NO cambia dentro del cuerpo ---
+    // (sirve al menos para ver TAC de bucle y posibles mejoras futuras)
+    int i;
+    i = 0;
+    while (i < 3) {
+        i = i + 1;
+        y = y + 0;      // otra expresión simplificable
+    }
+
+    return z;
+}
+
+int main() {
+    int r;
+    int k;
+
+    k = 10;
+    r = optimTest(k);
+
+    return r;
+}

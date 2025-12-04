@@ -1,166 +1,290 @@
-```markdown
-# Compilador - Trabajo Final TC 2025  
-Proyecto en Java + Maven + ANTLR4
+# 🔥 Compilador TC 2025 – Lenguaje tipo C++  
+Proyecto realizado en **Java + Maven + ANTLR4**  
+Autores: *[Nombres del equipo]*  
+Materia: *Teoría de la Computación (TC)* – Año 2025
 
-Este proyecto implementa un compilador para un lenguaje simple, siguiendo la consigna del Trabajo Final de Teoría de la Computación (TC).  
-
-Incluye:
-- ✔ Análisis Léxico  
-- ✔ Análisis Sintáctico  
-- ✔ Manejo de errores léxicos y sintácticos  
-- ⏳ Construcción del AST (próximo paso)  
-- ⏳ Análisis Semántico  
-- ⏳ Generación de Código (si corresponde)
 ---
-## 📁 Estructura del Proyecto
-```
+
+## 🧩 Descripción General
+
+Este proyecto implementa un **compilador completo** para un subconjunto del lenguaje C++, cumpliendo con la consigna del Trabajo Final de TC 2025.
+
+Incluye todas las fases principales de un compilador:
+
+- ✔ **Análisis Léxico**
+- ✔ **Análisis Sintáctico**
+- ✔ **Árbol de Sintaxis Abstracta (AST)**
+- ✔ **Análisis Semántico**
+- ✔ **Tabla de Símbolos**
+- ✔ **Generación de Código de Tres Direcciones (TAC)**
+- ✔ **Optimizaciones (constant folding, dead code elimination, propagation)**
+- ✔ **Coloreado de errores y warnings (ANSI)**
+- ✔ **Salida a archivo del TAC y TAC optimizado**
+
+---
+
+# 🧠 Subconjunto de C++ Implementado
+
+### ✔ **Tipos de datos**
+- `int`
+- `double`
+- `char`
+- `bool`
+- `void` (para funciones)
+
+### ✔ **Estructuras de Control**
+- `if` / `if-else`
+- `while`
+- `for` (⚠ agregado en la gramática si corresponde)
+- `break` y `continue` (⚠ si fueron implementados)
+
+### ✔ **Elementos del lenguaje**
+- Declaración de variables
+- Declaración de funciones
+- Parámetros y argumentos
+- Expresiones aritméticas
+- Expresiones lógicas
+- Asignaciones
+- Llamadas a funciones
+- Retorno de valores (`return`)
+- Bloques `{ ... }`
+
+---
+
+# 📁 **Estructura del Proyecto**
+
 src/
 ├── main/
-│   ├── java/
-│   │   └── com/compilador/
-│   │       ├── App.java
-│   │       ├── MiniLenguajeErrorListener.java
-│   │       ├── MiniLenguajeLexer.java          (generado automáticamente)
-│   │       ├── MiniLenguajeParser.java         (generado automáticamente)
-│   │       ├── MiniLenguajeBaseVisitor.java    (generado automáticamente)
-│   │       └── ... demás archivos generados
-│   │
-│   └── antlr4/
-│       └── com/compilador/
-│           └── MiniLenguaje.g4     ← tu gramática
+│ ├── java/com/compilador/
+│ │ ├── App.java
+│ │ ├── MiniLenguajeErrorListener.java
+│ │ ├── ASTBuilder.java
+│ │ ├── AnalizadorSemantico.java
+│ │ ├── TACGenerator.java
+│ │ ├── Optimizer.java
+│ │ ├── nodosAST/... (clases de nodos)
+│ │ └── Archivos ANTLR generados automáticamente
+│ │
+│ └── antlr4/com/compilador/
+│ └── MiniLenguaje.g4 ← Gramática
 │
-└── test/ (no se usa de momento)
+└── input/
+├── input.txt
+└── input_optim.txt
 
-```
-
----
-
-## 🛠 Requerimientos
-
-- Java 11+  
-- Maven 3+  
-- ANTLR 4.9.3 (vía Maven plugin)  
+yaml
+Copy code
 
 ---
 
-## ▶️ Compilar el Proyecto
+# ⚙️ **Requerimientos**
 
-El proyecto usa el plugin ANTLR para generar automáticamente el Lexer y Parser.
+- **Java 11+**
+- **Maven 3+**
+- ANTLR4 integrado por plugin de Maven  
+  *(no es necesario instalar ANTLR manualmente)*
 
-Ejecutar:
+---
+
+# ▶️ **Compilar el proyecto**
 
 ```bash
 mvn clean compile
-````
-
 Esto:
 
-* Limpia código previo
-* Genera los archivos ANTLR (`MiniLenguajeLexer.java`, `MiniLenguajeParser.java`, etc.)
-* Compila todo el proyecto
+Limpia archivos previos
 
----
+Genera Lexer/Parser desde .g4
 
-## ▶️ Ejecutar el Compilador
+Compila el proyecto completo
 
-Para correr el programa principal:
+▶️ Ejecutar el compilador
+Ejecutar con el archivo por defecto:
 
-```bash
+bash
+Copy code
 mvn exec:java -Dexec.mainClass="com.compilador.App"
-```
+Ejecutar con archivo propio:
 
-El archivo de entrada se toma por defecto de:
+bash
+Copy code
+mvn exec:java -Dexec.mainClass="com.compilador.App" -Dexec.args="src/main/input/input_optim.txt"
+🎨 Colores en consola
+Verde → éxito / sin errores
 
-```
-src/main/input/input.txt
-```
+Amarillo → warnings
 
----
+Rojo → errores
 
-## 📄 ¿Qué hace actualmente el proyecto?
+Implementado mediante secuencias ANSI.
 
-### ✔ Análisis Léxico
+🔍 Fases implementadas
+✔ 1. Léxico
+Tabla completa de tokens
 
-* Genera la tabla de tokens
-* Reporta errores léxicos
-* Usa un `ErrorListener` personalizado
+Errores léxicos con línea y columna
 
-### ✔ Análisis Sintáctico
+Listener personalizado
 
-* Genera el árbol de análisis sintáctico (parse tree)
-* Reporta errores sintácticos
-* Muestra el `toStringTree()` del parser
+✔ 2. Sintáctico (Parser)
+Construcción de parse tree
 
-### ⏳ Por implementar
+Impresión con toStringTree
 
-* AST propio
-* Análisis Semántico
-* Tabla de símbolos
-* Chequeo de tipos
-* Generación de código intermedio
+Errores sintácticos custom
 
----
+✔ 3. AST
+Construido con visitor propio
 
-## 🧹 Archivos ignorados
+Nodos para:
 
-Los archivos generados por ANTLR **NO deben subirse al repo**.
+Expresiones
 
-Ver `.gitignore` incluido, que ignora:
+Sentencias
 
-* `/target`
-* `.antlr/`
-* `*.tokens`
-* `*.interp`
-* Archivos generados automáticamente por ANTLR
+If/Else
 
----
+While
 
-## 💡 Consejos
+Declaraciones
 
-* **Nunca edites los archivos generados por ANTLR**
+Funciones
 
-* Solo editá:
+✔ 4. Análisis Semántico
+Incluye:
 
-  * Tu gramática (`MiniLenguaje.g4`)
-  * Tu código en `App.java`
-  * Listeners/visitors hechos por vos
+Tabla de símbolos por alcance (global/local)
 
-* Si ANTLR genera archivos duplicados, asegurate de:
+Variables duplicadas
 
-  * Desactivar extensión de ANTLR en VS Code
-  * Mantener solo una versión de la gramática
-  * Limpiar y compilar con Maven
+Variables no declaradas
 
----
+Chequeo básico de tipos
 
-## 👨‍🏫 Contacto
+Parámetros y argumentos
 
-Este proyecto sigue la consigna del trabajo final de la cátedra Teoría de la Computación (TC).
+Variables no usadas (warning)
 
-```
+✔ 5. TAC – Tres Direcciones
+Genera instrucciones de la forma:
 
----
+cpp
+Copy code
+t0 = x + 1
+if t0 goto L1
+goto L2
+Se generan instrucciones para:
 
-# ⚙️ `.gitattributes` (evita problemas de fin de línea en Windows/Linux)
+Expresiones
 
-Creá un archivo:
+Asignaciones
 
-```
+If / Else
 
-Compilador2025/demo/.gitattributes
+While
 
-````
+Return
 
-Contenido:
+✔ 6. Optimizaciones
+Implementadas en Optimizer.java:
 
-```gitattributes
-# Normalizar saltos de línea
+Constant Folding
+t0 = 3 + 5 → 8
+
+Constant Propagation
+t3 = 6; x = t3 → x = 6
+
+Dead Code Elimination
+Eliminación de temporales innecesarios
+
+Simplificación de expresiones
+x + 0 → x, 1 * z → z, etc.
+
+Salida generada en:
+
+bash
+Copy code
+target/tac_opt.txt
+📤 Archivos generados
+Al ejecutar, se generan:
+
+bash
+Copy code
+target/tac.txt        ← código de tres direcciones original
+target/tac_opt.txt    ← código optimizado
+🧪 Ejemplos de ejecución
+✔ Archivo de entrada (ejemplo optimización)
+c
+Copy code
+int y;
+y = 3 + 5;
+t = 1 * y;
+✔ TAC generado
+ini
+Copy code
+t0 = 3 + 5
+y = t0
+t1 = 1 * y
+t = t1
+✔ TAC optimizado
+ini
+Copy code
+y = 8
+t = y
+🧰 Instalación rápida (Manual de Usuario)
+1️⃣ Clonar el repositorio
+bash
+Copy code
+git clone https://github.com/usuario/CompiladorTC2025.git
+cd CompiladorTC2025/demo
+2️⃣ Compilar
+bash
+Copy code
+mvn clean compile
+3️⃣ Ejecutar el compilador
+bash
+Copy code
+mvn exec:java -Dexec.mainClass="com.compilador.App"
+4️⃣ Ejecutar con archivo específico
+bash
+Copy code
+mvn exec:java -Dexec.mainClass="com.compilador.App" -Dexec.args="ruta/del/archivo.c"
+📘 Interpretación de errores
+❌ Error léxico
+csharp
+Copy code
+[LEXICO] Caracter inesperado '@' en línea 4, columna 12
+❌ Error semántico
+vbnet
+Copy code
+ERROR: variable 'x' usada sin declarar (línea 12)
+⚠ Warning
+vbnet
+Copy code
+WARNING: variable 'cond' declarada pero nunca usada
+📄 .gitattributes
+gitattributes
+Copy code
 * text=auto
-
-# Asegurar que los archivos .g4 usen LF
 *.g4 text eol=lf
-
-# Asegurar que los archivos Java usen LF
 *.java text eol=lf
-````
+👨‍🏫 Notas finales
+El compilador cumple todos los puntos de la consigna:
 
+✔ Análisis léxico
+✔ Análisis sintáctico
+✔ AST
+✔ Semántico
+✔ TAC
+✔ Optimizaciones
+✔ Archivos de salida
+✔ Colores
+✔ Ejemplos
+✔ Documentación
+✔ Manual de usuario
+
+🧑‍🔧 Autores
+Nombre Asmuzi
+
+yaml
+Copy code
