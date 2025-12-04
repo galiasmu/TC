@@ -3,16 +3,26 @@ package com.compilador;
 import java.io.IOException;
 import java.util.List;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.charset.StandardCharsets;
+
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-public class App 
-{
-    public static void main( String[] args )
-    {
+public class App {
+
+    // Colores ANSI para consola
+    private static final String ANSI_RESET  = "\u001B[0m";
+    private static final String ANSI_RED    = "\u001B[31m";
+    private static final String ANSI_GREEN  = "\u001B[32m";
+    private static final String ANSI_YELLOW = "\u001B[33m";
+
+    public static void main(String[] args) {
+
         // Por defecto usa el input del proyecto
         String archivoEntrada = "src/main/input/input.txt";
 
@@ -88,32 +98,65 @@ public class App
             AnalizadorSemantico sem = new AnalizadorSemantico();
             sem.analizar(ast);
 
-            System.out.println("\n===== ERRORES SEMÁNTICOS =====");
-            if (sem.getErrores().isEmpty()) {
-                System.out.println("Ninguno");
+            List<String> errores = sem.getErrores();
+            List<String> warnings = sem.getWarnings();
+
+            System.out.println();
+            System.out.println("===== ERRORES SEMÁNTICOS =====");
+            if (errores.isEmpty()) {
+                System.out.println(ANSI_GREEN + "Sin errores semánticos." + ANSI_RESET);
             } else {
-                sem.getErrores().forEach(System.out::println);
+                for (String e : errores) {
+                    System.out.println(ANSI_RED + e + ANSI_RESET);
+                }
             }
 
-            System.out.println("\n===== WARNINGS SEMÁNTICOS =====");
-            if (sem.getWarnings().isEmpty()) {
-                System.out.println("Ninguno");
+            System.out.println();
+            System.out.println("===== WARNINGS SEMÁNTICOS =====");
+            if (warnings.isEmpty()) {
+                System.out.println(ANSI_GREEN + "Sin warnings semánticos." + ANSI_RESET);
             } else {
-                sem.getWarnings().forEach(System.out::println);
+                for (String w : warnings) {
+                    System.out.println(ANSI_YELLOW + w + ANSI_RESET);
+                }
             }
 
-            // 13) Generación de código intermedio (TAC)
-
+            // 13) Generación de código intermedio (TAC sin optimizar)
             System.out.println("\n===== TRES DIRECCIONES (TAC) =====");
-            TACGenerator tac = new TACGenerator();
-            List<String> codigo = tac.generar(ast);
-            codigo.forEach(System.out::println);
+            TACGenerator tacGen = new TACGenerator();
+            List<String> tac = tacGen.generar(ast);
+            tac.forEach(System.out::println);
 
+            // Guardar TAC a archivo
+            guardarEnArchivo("target/tac.txt", tac);
 
+            // 14) Generación de TAC optimizado
+            System.out.println("\n===== TRES DIRECCIONES (TAC OPTIMIZADO) =====");
+            List<String> tacOpt = tacGen.generarOptimizado(ast);
+            tacOpt.forEach(System.out::println);
+
+            // Guardar TAC optimizado a archivo
+            guardarEnArchivo("target/tac_opt.txt", tacOpt);
 
         } catch (IOException e) {
             System.err.println("Error al leer archivo: " + archivoEntrada);
             e.printStackTrace();
+        }
+    }
+
+    // =================== UTILIDAD PARA ARCHIVOS DE SALIDA ===================
+
+    private static void guardarEnArchivo(String ruta, List<String> lineas) {
+        try {
+            if (Paths.get(ruta).getParent() != null) {
+                Files.createDirectories(Paths.get(ruta).getParent());
+            }
+            Files.write(Paths.get(ruta), lineas, StandardCharsets.UTF_8);
+            System.out.println(ANSI_GREEN + "Archivo generado: " + ruta + ANSI_RESET);
+        } catch (IOException e) {
+            System.err.println(ANSI_RED +
+                    "No se pudo escribir el archivo " + ruta + ": " + e.getMessage()
+                    + ANSI_RESET);
         }
     }
 }
