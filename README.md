@@ -1,7 +1,7 @@
 
 ---
 
-# 🔥 Compilador TC – Lenguaje tipo C++
+# Compilador TC – Lenguaje tipo C++
 
 **Proyecto realizado en Java + Maven + ANTLR4**
 **Autor:** Gali Asmuzi
@@ -9,7 +9,7 @@
 
 ---
 
-## 🧩 Descripción General
+## Descripción General
 
 Este proyecto implementa un **compilador completo** para un subconjunto del lenguaje C++, cumpliendo todos los requisitos del Trabajo Final de la materia.
 
@@ -27,7 +27,7 @@ Incluye todas las fases principales de un compilador:
 
 ---
 
-# 🧠 Subconjunto de C++ Implementado
+# Subconjunto de C++ Implementado
 
 ### ✔ Tipos de datos
 
@@ -80,7 +80,7 @@ src/
 
 ---
 
-# ⚙️ Requerimientos
+# Requerimientos
 
 * **Java 11+**
 * **Maven 3+**
@@ -89,9 +89,9 @@ src/
 
 ---
 
-# ▶️ Compilar el proyecto
+# Compilar el proyecto
 
-### 1️⃣ Compilar todo
+### Compilar todo
 
 ```bash
 mvn clean compile
@@ -131,7 +131,7 @@ Implementado mediante secuencias ANSI.
 
 ---
 
-# 🔍 Fases Implementadas
+#  Fases Implementadas
 
 ## ✔ 1. Análisis Léxico
 
@@ -202,35 +202,12 @@ Salida generada en:
 
 ---
 
-# 🧪 Ejemplo de Ejecución
+# Ejemplo de Ejecución
 
 ### Código de entrada
+Se pueden utilizar cualquiera de los inputs, el ejemplo_correcto no deberia generar ningun error y ejemplo_multiples_errores deberia devolver errores.
 
-```
-int y;
-y = 3 + 5;
-t = 1 * y;
-```
-
-### TAC generado
-
-```
-t0 = 3 + 5
-y = t0
-t1 = 1 * y
-t = t1
-```
-
-### TAC optimizado
-
-```
-y = 8
-t = y
-```
-
----
-
-# 🧰 Instalación Rápida (Manual de Usuario)
+# Instalación Rápida
 
 ### 1️⃣ Clonar el repositorio
 
@@ -256,36 +233,3 @@ mvn exec:java -Dexec.mainClass="com.compilador.App"
 ```bash
 mvn exec:java -Dexec.mainClass="com.compilador.App" -Dexec.args="ruta/del/archivo.c"
 ```
-
----
-
-# 📘 Interpretación de errores
-
-### ❌ Error léxico
-
-```
-[LEXICO] Caracter inesperado '@' en línea 4, columna 12
-```
-
-### ❌ Error semántico
-
-```
-ERROR: variable 'x' usada sin declarar (línea 12)
-```
-
-### ⚠ Warning
-
-```
-WARNING: variable 'cond' declarada pero nunca usada
-```
-
----
-
-# 📄 .gitattributes recomendado
-
-```
-* text=auto
-*.g4 text eol=lf
-*.java text eol=lf
-```
----
