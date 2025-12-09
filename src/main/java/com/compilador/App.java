@@ -23,8 +23,7 @@ public class App {
 
     public static void main(String[] args) {
 
-        // Por defecto usa el input del proyecto
-        String archivoEntrada = "src/main/input/input.txt";
+        String archivoEntrada = "src/main/input/ejemplo_correcto.txt";
 
         // Si pasan un archivo por parámetro, usar ese
         if (args.length > 0) {

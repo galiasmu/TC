@@ -1,290 +1,291 @@
-# 🔥 Compilador TC 2025 – Lenguaje tipo C++  
-Proyecto realizado en **Java + Maven + ANTLR4**  
-Autores: *[Nombres del equipo]*  
-Materia: *Teoría de la Computación (TC)* – Año 2025
+
+---
+
+# 🔥 Compilador TC – Lenguaje tipo C++
+
+**Proyecto realizado en Java + Maven + ANTLR4**
+**Autor:** Gali Asmuzi
+**Materia:** Técnicas de Compilación
 
 ---
 
 ## 🧩 Descripción General
 
-Este proyecto implementa un **compilador completo** para un subconjunto del lenguaje C++, cumpliendo con la consigna del Trabajo Final de TC 2025.
+Este proyecto implementa un **compilador completo** para un subconjunto del lenguaje C++, cumpliendo todos los requisitos del Trabajo Final de la materia.
 
 Incluye todas las fases principales de un compilador:
 
-- ✔ **Análisis Léxico**
-- ✔ **Análisis Sintáctico**
-- ✔ **Árbol de Sintaxis Abstracta (AST)**
-- ✔ **Análisis Semántico**
-- ✔ **Tabla de Símbolos**
-- ✔ **Generación de Código de Tres Direcciones (TAC)**
-- ✔ **Optimizaciones (constant folding, dead code elimination, propagation)**
-- ✔ **Coloreado de errores y warnings (ANSI)**
-- ✔ **Salida a archivo del TAC y TAC optimizado**
+* ✔ Análisis Léxico
+* ✔ Análisis Sintáctico
+* ✔ Construcción de AST
+* ✔ Análisis Semántico
+* ✔ Tabla de Símbolos
+* ✔ Generación de Código de Tres Direcciones (TAC)
+* ✔ Optimizaciones clásicas
+* ✔ Reporte de errores y warnings con colores ANSI
+* ✔ Exportación a archivos TAC (original y optimizado)
 
 ---
 
 # 🧠 Subconjunto de C++ Implementado
 
-### ✔ **Tipos de datos**
-- `int`
-- `double`
-- `char`
-- `bool`
-- `void` (para funciones)
+### ✔ Tipos de datos
 
-### ✔ **Estructuras de Control**
-- `if` / `if-else`
-- `while`
-- `for` (⚠ agregado en la gramática si corresponde)
-- `break` y `continue` (⚠ si fueron implementados)
+* `int`
+* `double`
+* `char`
+* `bool`
+* `void`
 
-### ✔ **Elementos del lenguaje**
-- Declaración de variables
-- Declaración de funciones
-- Parámetros y argumentos
-- Expresiones aritméticas
-- Expresiones lógicas
-- Asignaciones
-- Llamadas a funciones
-- Retorno de valores (`return`)
-- Bloques `{ ... }`
+### ✔ Estructuras de control
+
+* `if` / `if-else`
+* `while`
+* `for`
+* `break`, `continue`
+
+### ✔ Elementos del lenguaje
+
+* Declaración de variables
+* Declaración de funciones
+* Parámetros y argumentos
+* Expresiones aritméticas y lógicas
+* Asignaciones
+* Llamadas a funciones
+* `return`
+* Bloques `{ ... }`
 
 ---
 
-# 📁 **Estructura del Proyecto**
+# 📁 Estructura del Proyecto
 
+```
 src/
 ├── main/
-│ ├── java/com/compilador/
-│ │ ├── App.java
-│ │ ├── MiniLenguajeErrorListener.java
-│ │ ├── ASTBuilder.java
-│ │ ├── AnalizadorSemantico.java
-│ │ ├── TACGenerator.java
-│ │ ├── Optimizer.java
-│ │ ├── nodosAST/... (clases de nodos)
-│ │ └── Archivos ANTLR generados automáticamente
-│ │
-│ └── antlr4/com/compilador/
-│ └── MiniLenguaje.g4 ← Gramática
-│
+│   ├── java/com/compilador/
+│   │   ├── App.java
+│   │   ├── MiniLenguajeErrorListener.java
+│   │   ├── ASTBuilder.java
+│   │   ├── AnalizadorSemantico.java
+│   │   ├── TACGenerator.java
+│   │   ├── Optimizer.java
+│   │   ├── nodosAST/... (clases de nodos)
+│   │   └── Archivos ANTLR generados automáticamente
+│   └── antlr4/com/compilador/
+│       └── MiniLenguaje.g4
 └── input/
-├── input.txt
-└── input_optim.txt
-
-yaml
-Copy code
+    ├── input.txt
+    └── input_optim.txt
+```
 
 ---
 
-# ⚙️ **Requerimientos**
+# ⚙️ Requerimientos
 
-- **Java 11+**
-- **Maven 3+**
-- ANTLR4 integrado por plugin de Maven  
-  *(no es necesario instalar ANTLR manualmente)*
+* **Java 11+**
+* **Maven 3+**
+* ANTLR4 integrado mediante plugin de Maven
+  *(no se necesita instalar ANTLR manualmente)*
 
 ---
 
-# ▶️ **Compilar el proyecto**
+# ▶️ Compilar el proyecto
+
+### 1️⃣ Compilar todo
 
 ```bash
 mvn clean compile
-Esto:
+```
 
-Limpia archivos previos
+Esto realiza:
 
-Genera Lexer/Parser desde .g4
+* Limpieza de archivos previos
+* Generación automática del Lexer/Parser desde `MiniLenguaje.g4`
+* Compilación completa del proyecto
 
-Compila el proyecto completo
+---
 
-▶️ Ejecutar el compilador
-Ejecutar con el archivo por defecto:
+# ▶️ Ejecutar el compilador
 
-bash
-Copy code
+### Ejecutar con el archivo por defecto
+
+```bash
 mvn exec:java -Dexec.mainClass="com.compilador.App"
-Ejecutar con archivo propio:
+```
 
-bash
-Copy code
+### Ejecutar con archivo propio
+
+```bash
 mvn exec:java -Dexec.mainClass="com.compilador.App" -Dexec.args="src/main/input/input_optim.txt"
-🎨 Colores en consola
-Verde → éxito / sin errores
+```
 
-Amarillo → warnings
+---
 
-Rojo → errores
+# 🎨 Colores en consola
+
+* 🟩 **Verde:** éxito, ejecución correcta
+* 🟨 **Amarillo:** warnings
+* 🟥 **Rojo:** errores
 
 Implementado mediante secuencias ANSI.
 
-🔍 Fases implementadas
-✔ 1. Léxico
-Tabla completa de tokens
+---
 
-Errores léxicos con línea y columna
+# 🔍 Fases Implementadas
 
-Listener personalizado
+## ✔ 1. Análisis Léxico
 
-✔ 2. Sintáctico (Parser)
-Construcción de parse tree
+* Tabla completa de tokens
+* Errores léxicos con línea y columna
+* Listener personalizado
 
-Impresión con toStringTree
+## ✔ 2. Análisis Sintáctico (Parser)
 
-Errores sintácticos custom
+* Construcción del parse tree
+* Impresión con `toStringTree`
+* Manejo de errores sintácticos personalizados
 
-✔ 3. AST
-Construido con visitor propio
+## ✔ 3. Árbol de Sintaxis Abstracta (AST)
 
-Nodos para:
+* Visitor propio
+* Nodos para:
 
-Expresiones
+  * Expresiones
+  * Sentencias
+  * If / Else
+  * While
+  * Declaraciones
+  * Funciones
 
-Sentencias
+## ✔ 4. Análisis Semántico
 
-If/Else
+* Tabla de símbolos con manejo de alcances
+* Variables duplicadas
+* Variables no declaradas
+* Chequeo básico de tipos
+* Parámetros y argumentos
+* Variables no usadas (warning)
 
-While
+## ✔ 5. TAC – Código de Tres Direcciones
 
-Declaraciones
+Ejemplo de TAC generado:
 
-Funciones
-
-✔ 4. Análisis Semántico
-Incluye:
-
-Tabla de símbolos por alcance (global/local)
-
-Variables duplicadas
-
-Variables no declaradas
-
-Chequeo básico de tipos
-
-Parámetros y argumentos
-
-Variables no usadas (warning)
-
-✔ 5. TAC – Tres Direcciones
-Genera instrucciones de la forma:
-
-cpp
-Copy code
+```
 t0 = x + 1
 if t0 goto L1
 goto L2
-Se generan instrucciones para:
+```
 
-Expresiones
+Se genera TAC para:
 
-Asignaciones
+* Expresiones
+* Asignaciones
+* If / Else
+* While
+* Return
 
-If / Else
+## ✔ 6. Optimizaciones (Optimizer.java)
 
-While
-
-Return
-
-✔ 6. Optimizaciones
-Implementadas en Optimizer.java:
-
-Constant Folding
-t0 = 3 + 5 → 8
-
-Constant Propagation
-t3 = 6; x = t3 → x = 6
-
-Dead Code Elimination
-Eliminación de temporales innecesarios
-
-Simplificación de expresiones
-x + 0 → x, 1 * z → z, etc.
+* **Constant Folding:**
+  `3 + 5 → 8`
+* **Constant Propagation:**
+  `t3 = 6; x = t3 → x = 6`
+* **Dead Code Elimination**
+* **Simplificación de expresiones:**
+  `x + 0 → x`
+  `1 * z → z`
 
 Salida generada en:
 
-bash
-Copy code
-target/tac_opt.txt
-📤 Archivos generados
-Al ejecutar, se generan:
+* `target/tac.txt` — TAC original
+* `target/tac_opt.txt` — TAC optimizado
 
-bash
-Copy code
-target/tac.txt        ← código de tres direcciones original
-target/tac_opt.txt    ← código optimizado
-🧪 Ejemplos de ejecución
-✔ Archivo de entrada (ejemplo optimización)
-c
-Copy code
+---
+
+# 🧪 Ejemplo de Ejecución
+
+### Código de entrada
+
+```
 int y;
 y = 3 + 5;
 t = 1 * y;
-✔ TAC generado
-ini
-Copy code
+```
+
+### TAC generado
+
+```
 t0 = 3 + 5
 y = t0
 t1 = 1 * y
 t = t1
-✔ TAC optimizado
-ini
-Copy code
+```
+
+### TAC optimizado
+
+```
 y = 8
 t = y
-🧰 Instalación rápida (Manual de Usuario)
-1️⃣ Clonar el repositorio
-bash
-Copy code
+```
+
+---
+
+# 🧰 Instalación Rápida (Manual de Usuario)
+
+### 1️⃣ Clonar el repositorio
+
+```bash
 git clone https://github.com/usuario/CompiladorTC2025.git
 cd CompiladorTC2025/demo
-2️⃣ Compilar
-bash
-Copy code
+```
+
+### 2️⃣ Compilar
+
+```bash
 mvn clean compile
-3️⃣ Ejecutar el compilador
-bash
-Copy code
+```
+
+### 3️⃣ Ejecutar el compilador
+
+```bash
 mvn exec:java -Dexec.mainClass="com.compilador.App"
-4️⃣ Ejecutar con archivo específico
-bash
-Copy code
+```
+
+### 4️⃣ Ejecutar con archivo específico
+
+```bash
 mvn exec:java -Dexec.mainClass="com.compilador.App" -Dexec.args="ruta/del/archivo.c"
-📘 Interpretación de errores
-❌ Error léxico
-csharp
-Copy code
+```
+
+---
+
+# 📘 Interpretación de errores
+
+### ❌ Error léxico
+
+```
 [LEXICO] Caracter inesperado '@' en línea 4, columna 12
-❌ Error semántico
-vbnet
-Copy code
+```
+
+### ❌ Error semántico
+
+```
 ERROR: variable 'x' usada sin declarar (línea 12)
-⚠ Warning
-vbnet
-Copy code
+```
+
+### ⚠ Warning
+
+```
 WARNING: variable 'cond' declarada pero nunca usada
-📄 .gitattributes
-gitattributes
-Copy code
+```
+
+---
+
+# 📄 .gitattributes recomendado
+
+```
 * text=auto
 *.g4 text eol=lf
 *.java text eol=lf
-👨‍🏫 Notas finales
-El compilador cumple todos los puntos de la consigna:
-
-✔ Análisis léxico
-✔ Análisis sintáctico
-✔ AST
-✔ Semántico
-✔ TAC
-✔ Optimizaciones
-✔ Archivos de salida
-✔ Colores
-✔ Ejemplos
-✔ Documentación
-✔ Manual de usuario
-
-🧑‍🔧 Autores
-Nombre Asmuzi
-
-yaml
-Copy code
+```
+---
