@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
  * Visitor que construye un AST a partir del parse tree de ANTLR.
@@ -148,24 +149,23 @@ public class ASTBuilder extends MiniLenguajeBaseVisitor<NodoAST> {
 
     @Override
     public NodoAST visitDeclaracion(MiniLenguajeParser.DeclaracionContext ctx) {
-    String tipo = ctx.TIPO().getText();
-    String nombre = ctx.ID().getText();
+        String tipo = ctx.TIPO().getText();
+        String nombre = ctx.ID().getText();
 
-    // ¿Es array?  TIPO ID [ NUMERO ] ...
-    if (ctx.COR_IZQ() != null && ctx.COR_DER() != null && ctx.NUMERO() != null) {
-        int tamanio = Integer.parseInt(ctx.NUMERO().getText());
-        return new DeclaracionArrayNodo(linea(ctx), columna(ctx), tipo, nombre, tamanio);
+        // ¿Es array?  TIPO ID [ NUMERO ] ...
+        if (ctx.COR_IZQ() != null && ctx.COR_DER() != null && ctx.NUMERO() != null) {
+            int tamanio = Integer.parseInt(ctx.NUMERO().getText());
+            return new DeclaracionArrayNodo(linea(ctx), columna(ctx), tipo, nombre, tamanio);
+        }
+
+        // Variable simple, con o sin inicialización
+        ExpresionNodo init = null;
+        if (ctx.ASIGN() != null && ctx.expresion() != null) {
+            init = construirExpresion(ctx.expresion());
+        }
+
+        return new DeclaracionVariableNodo(linea(ctx), columna(ctx), tipo, nombre, init);
     }
-
-    // Variable simple, con o sin inicialización
-    ExpresionNodo init = null;
-    if (ctx.ASIGN() != null && ctx.expresion() != null) {
-        init = construirExpresion(ctx.expresion());
-    }
-
-    return new DeclaracionVariableNodo(linea(ctx), columna(ctx), tipo, nombre, init);
-}
-
 
     // ===== asignación =====
 
@@ -192,96 +192,155 @@ public class ASTBuilder extends MiniLenguajeBaseVisitor<NodoAST> {
         return construirExpresionRec(ctx);
     }
 
-    private ExpresionNodo construirExpresionRec(ParserRuleContext ctx) {
-
+    /**
+     * Construye el árbol de ExpresionNodo recorriendo MiniLenguajeParser.ExpresionContext.
+     * NO usa ctx.atomo() ni constructores raros.
+     */
+    private ExpresionNodo construirExpresionRec(MiniLenguajeParser.ExpresionContext ctx) {
         if (ctx == null) {
-        return new ExpresionNodo(0, 0, "<error-expr>");
-    }
-
-
-        // --- 1) ATOMO (ID, ID[exp], literales, true/false) ---
-        if (ctx instanceof MiniLenguajeParser.AtomoContext) {
-            MiniLenguajeParser.AtomoContext actx = (MiniLenguajeParser.AtomoContext) ctx;
-
-            // ID[exp] → AccesoArrayNodo
-            if (actx.ID() != null && actx.COR_IZQ() != null) {
-                String nombreArray = actx.ID().getText();
-                ExpresionNodo indice = construirExpresionRec((ParserRuleContext) actx.expresion());
-                return new AccesoArrayNodo(linea(actx), columna(actx), nombreArray, indice);
-            }
-
-            // ID simple
-            if (actx.ID() != null) {
-                return new ExpresionNodo(linea(actx), columna(actx), actx.ID().getText());
-            }
-
-            if (actx.NUMERO() != null) {
-                return new ExpresionNodo(linea(actx), columna(actx), actx.NUMERO().getText());
-            }
-
-            if (actx.DECIMAL() != null) {
-                return new ExpresionNodo(linea(actx), columna(actx), actx.DECIMAL().getText());
-            }
-
-            if (actx.CHAR() != null) {
-                return new ExpresionNodo(linea(actx), columna(actx), actx.CHAR().getText());
-            }
-
-            if (actx.TRUE() != null) {
-                return new ExpresionNodo(linea(actx), columna(actx), "true");
-            }
-
-            if (actx.FALSE() != null) {
-                return new ExpresionNodo(linea(actx), columna(actx), "false");
-            }
+            // No debería pasar en un programa bien formado, pero evitamos NPE.
+            return new ExpresionNodo(0, 0, "<error-expr>");
         }
 
-        // --- 2) EXPRESION compuesta ---
-        if (ctx instanceof MiniLenguajeParser.ExpresionContext) {
-            MiniLenguajeParser.ExpresionContext ectx = (MiniLenguajeParser.ExpresionContext) ctx;
+        int n = ctx.getChildCount();
 
-            int n = ectx.getChildCount();
+        // ========= CASO: llamada a función: ID '(' argumentos? ')' =========
+        // Árbol típico:
+        // (expresion sumar ( (argumentos (expresion ...) , (expresion ...)) ))
+        if (n >= 3
+                && ctx.getChild(0) instanceof TerminalNode
+                && "(".equals(ctx.getChild(1).getText())) {
 
-            // Un solo hijo → bajar un nivel (paréntesis, atomo, etc.)
-            if (n == 1) {
-                ParseTree unico = ectx.getChild(0);
-                if (unico instanceof ParserRuleContext) {
-                    return construirExpresionRec((ParserRuleContext) unico);
-                } else {
-                    return new ExpresionNodo(linea(ectx), columna(ectx), unico.getText());
+            String nombreFun = ctx.getChild(0).getText();
+            ExpresionNodo llamada = new ExpresionNodo(linea(ctx), columna(ctx), nombreFun);
+
+            // Buscar subárbol de argumentos (si existe)
+            for (int i = 0; i < n; i++) {
+                ParseTree hijo = ctx.getChild(i);
+                if (hijo instanceof MiniLenguajeParser.ArgumentosContext) {
+                    MiniLenguajeParser.ArgumentosContext argsCtx =
+                            (MiniLenguajeParser.ArgumentosContext) hijo;
+
+                    for (MiniLenguajeParser.ExpresionContext ectx : argsCtx.expresion()) {
+                        llamada.agregarHijo(construirExpresionRec(ectx));
+                    }
                 }
             }
 
-            // Unario: op expr  (ej: -x, !cond)
-            if (n == 2) {
-                String op = ectx.getChild(0).getText();
-                ParserRuleContext exprCtx = (ParserRuleContext) ectx.getChild(1);
-                ExpresionNodo hijo = construirExpresionRec(exprCtx);
-
-                ExpresionNodo nodo = new ExpresionNodo(linea(ectx), columna(ectx), op);
-                nodo.agregarHijo(hijo);
-                return nodo;
-            }
-
-            // Binario: expr op expr
-            if (n == 3) {
-                ParserRuleContext izqCtx = (ParserRuleContext) ectx.getChild(0);
-                ParseTree opNode = ectx.getChild(1);
-                ParserRuleContext derCtx = (ParserRuleContext) ectx.getChild(2);
-
-                String op = opNode.getText();
-                ExpresionNodo nodo = new ExpresionNodo(linea(ectx), columna(ectx), op);
-                nodo.agregarHijo(construirExpresionRec(izqCtx));
-                nodo.agregarHijo(construirExpresionRec(derCtx));
-                return nodo;
-            }
-
-            // Llamadas a función u otras formas más complejas:
-            // lo tratamos como hoja con el texto completo (ej: miFuncion(5,3.14))
-            return new ExpresionNodo(linea(ectx), columna(ectx), ectx.getText());
+            return llamada;
         }
 
-        // Fallback genérico
+        // ========= CASO: binario: expr op expr =========
+        // ej: a + b, x < 3, a && b, etc.
+        if (n == 3
+                && ctx.getChild(0) instanceof MiniLenguajeParser.ExpresionContext
+                && ctx.getChild(2) instanceof MiniLenguajeParser.ExpresionContext) {
+
+            MiniLenguajeParser.ExpresionContext izqCtx =
+                    (MiniLenguajeParser.ExpresionContext) ctx.getChild(0);
+            MiniLenguajeParser.ExpresionContext derCtx =
+                    (MiniLenguajeParser.ExpresionContext) ctx.getChild(2);
+
+            String op = ctx.getChild(1).getText();
+
+            ExpresionNodo izq = construirExpresionRec(izqCtx);
+            ExpresionNodo der = construirExpresionRec(derCtx);
+
+            ExpresionNodo nodo = new ExpresionNodo(linea(ctx), columna(ctx), op);
+            nodo.agregarHijo(izq);
+            nodo.agregarHijo(der);
+            return nodo;
+        }
+
+        // ========= CASO: unario: op expr =========
+        // ej: -x, !flag
+        if (n == 2
+                && ctx.getChild(1) instanceof MiniLenguajeParser.ExpresionContext) {
+
+            String op = ctx.getChild(0).getText();
+            MiniLenguajeParser.ExpresionContext hijoCtx =
+                    (MiniLenguajeParser.ExpresionContext) ctx.getChild(1);
+
+            ExpresionNodo hijo = construirExpresionRec(hijoCtx);
+
+            ExpresionNodo nodo = new ExpresionNodo(linea(ctx), columna(ctx), op);
+            nodo.agregarHijo(hijo);
+            return nodo;
+        }
+
+        // ========= CASO: 1 solo hijo =========
+        // Puede ser:
+        //   - (expresion ...)
+        //   - (atomo ...)
+        if (n == 1) {
+            ParseTree unico = ctx.getChild(0);
+
+            // Sub-expresión (paréntesis): bajamos un nivel
+            if (unico instanceof MiniLenguajeParser.ExpresionContext) {
+                return construirExpresionRec((MiniLenguajeParser.ExpresionContext) unico);
+            }
+
+            // Atomo: lo manejamos aparte
+            if (unico instanceof MiniLenguajeParser.AtomoContext) {
+                return construirDesdeAtomo((MiniLenguajeParser.AtomoContext) unico);
+            }
+
+            // Token suelto raro → lo tomamos como literal/ID directo
+            return new ExpresionNodo(linea(ctx), columna(ctx), unico.getText());
+        }
+
+        // ========= CASO FALLBACK =========
+        // Si nada matcheó (formas no previstas), metemos el texto completo.
         return new ExpresionNodo(linea(ctx), columna(ctx), ctx.getText());
+    }
+
+    /**
+     * Construye una ExpresionNodo a partir de un atomo:
+     *  - ID
+     *  - ID[expresion]  (→ AccesoArrayNodo)
+     *  - literales (número, decimal, char, true/false)
+     */
+    private ExpresionNodo construirDesdeAtomo(MiniLenguajeParser.AtomoContext actx) {
+        // ID[exp] → acceso a array
+        if (actx.ID() != null && actx.COR_IZQ() != null) {
+            String nombreArray = actx.ID().getText();
+            MiniLenguajeParser.ExpresionContext idxCtx = actx.expresion();
+            ExpresionNodo indice = null;
+            if (idxCtx != null) {
+                indice = construirExpresionRec(idxCtx);
+            } else {
+                indice = new ExpresionNodo(linea(actx), columna(actx), "0");
+            }
+            // AccesoArrayNodo debe extender ExpresionNodo
+            return new AccesoArrayNodo(linea(actx), columna(actx), nombreArray, indice);
+        }
+
+        // ID simple
+        if (actx.ID() != null) {
+            return new ExpresionNodo(linea(actx), columna(actx), actx.ID().getText());
+        }
+
+        if (actx.NUMERO() != null) {
+            return new ExpresionNodo(linea(actx), columna(actx), actx.NUMERO().getText());
+        }
+
+        if (actx.DECIMAL() != null) {
+            return new ExpresionNodo(linea(actx), columna(actx), actx.DECIMAL().getText());
+        }
+
+        if (actx.CHAR() != null) {
+            return new ExpresionNodo(linea(actx), columna(actx), actx.CHAR().getText());
+        }
+
+        if (actx.TRUE() != null) {
+            return new ExpresionNodo(linea(actx), columna(actx), "true");
+        }
+
+        if (actx.FALSE() != null) {
+            return new ExpresionNodo(linea(actx), columna(actx), "false");
+        }
+
+        // Fallback por si aparece algo raro
+        return new ExpresionNodo(linea(actx), columna(actx), actx.getText());
     }
 }

@@ -23,7 +23,7 @@ public class App {
 
     public static void main(String[] args) {
 
-        String archivoEntrada = "src/main/input/ejemplo_correcto.txt";
+        String archivoEntrada = "src/main/input/ejemplo_semanticos.txt";
 
         // Si pasan un archivo por parámetro, usar ese
         if (args.length > 0) {

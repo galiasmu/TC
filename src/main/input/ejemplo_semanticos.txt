@@ -1,0 +1,73 @@
+// =========================================
+// Archivo de prueba: SOLO errores semánticos
+//  - Sin errores léxicos
+//  - Sin errores sintácticos
+//  - Varios errores semánticos intencionales
+// =========================================
+
+// --------- Variables globales ------------
+int contador;
+double globalDouble;
+char letra;
+
+// Redeclaración de variable global (mismo nombre, mismo ámbito)
+int contador;          // ERROR semántico: variable duplicada en el mismo ámbito
+
+// --------- Función con varios errores ----
+int sumar(int a, double b) {
+    int a;             // ERROR: redeclaración del parámetro 'a' en el mismo ámbito
+
+    int local;
+    local = a + b;     // ERROR: a es int, b es double, expr es double y local es int (según tu regla de compatibilidad)
+
+    sinDeclarar = 10;  // ERROR: variable 'sinDeclarar' usada sin declarar
+
+    return b;          // ERROR: la función es int, pero retorna un double
+}
+
+// --------- Función void con return con valor ----
+void pruebaVoid() {
+    int x;
+    x = 5;
+    return x;          // ERROR: función void no debe retornar valor
+}
+
+// --------- Función con errores de arrays y tipos ----
+int funcionArrays() {
+    int arr[3];
+    int x;
+
+    arr[0] = 1;        // OK semánticamente
+    arr[1] = 2;        // OK semánticamente
+
+    x[0] = 3;          // ERROR: 'x' no es array, pero se usa como array
+
+    arr = 10;          // ERROR: asignación a un array como si fuera escalar
+
+    arr[2] = true;     // ERROR: bool asignado a array de int
+
+    return true;       // ERROR: función int retornando bool
+}
+
+// --------- main con errores de tipo y uso ----------
+int main() {
+    int r;
+
+    // Llamada correcta desde el punto de vista sintáctico.
+    // Semánticamente, dentro de 'sumar' ya hay errores.
+    r = sumar(3, 2.5);
+
+    // Esta línea ES sintácticamente válida en tu gramática:
+    // r = pruebaVoid;
+    // pero semánticamente:
+    //  - 'pruebaVoid' es una función de tipo void cargada en la tabla de símbolos
+    //  - inferirTipoExpresion('pruebaVoid') devuelve 'void'
+    //  - se intenta asignar 'void' a una variable int -> ERROR de tipos
+    r = pruebaVoid;    // ERROR: asignación incompatible (int <- void)
+
+    // Llamada a función con errores internos (funcionArrays tiene errores dentro)
+    r = funcionArrays();  // OK sintaxis; los errores son semánticos dentro de la función
+
+    // Return de tipo incorrecto
+    return 'X';        // ERROR: main es int, pero retorna char
+}

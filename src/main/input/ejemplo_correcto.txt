@@ -24,6 +24,7 @@ int main() {
     int fin = 50;
     int medio = 25;
     int valor =  inicio * fin / medio;
+    int prueba2 = valor % 7;
     
     // Inicializar variables globales
     contadorGlobal = 0;
