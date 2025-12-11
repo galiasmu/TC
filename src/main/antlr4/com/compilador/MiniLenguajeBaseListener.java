@@ -113,6 +113,18 @@ public class MiniLenguajeBaseListener implements MiniLenguajeListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterInstrReturn(MiniLenguajeParser.InstrReturnContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInstrReturn(MiniLenguajeParser.InstrReturnContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterInstrIf(MiniLenguajeParser.InstrIfContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -137,42 +149,6 @@ public class MiniLenguajeBaseListener implements MiniLenguajeListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInstrReturn(MiniLenguajeParser.InstrReturnContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitInstrReturn(MiniLenguajeParser.InstrReturnContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterInstrExpresion(MiniLenguajeParser.InstrExpresionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitInstrExpresion(MiniLenguajeParser.InstrExpresionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterInstrBloque(MiniLenguajeParser.InstrBloqueContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitInstrBloque(MiniLenguajeParser.InstrBloqueContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterDeclaracion(MiniLenguajeParser.DeclaracionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -180,6 +156,18 @@ public class MiniLenguajeBaseListener implements MiniLenguajeListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitDeclaracion(MiniLenguajeParser.DeclaracionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLvalue(MiniLenguajeParser.LvalueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLvalue(MiniLenguajeParser.LvalueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -197,85 +185,61 @@ public class MiniLenguajeBaseListener implements MiniLenguajeListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExprRelacional(MiniLenguajeParser.ExprRelacionalContext ctx) { }
+	@Override public void enterArgumentos(MiniLenguajeParser.ArgumentosContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExprRelacional(MiniLenguajeParser.ExprRelacionalContext ctx) { }
+	@Override public void exitArgumentos(MiniLenguajeParser.ArgumentosContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExprIgualdad(MiniLenguajeParser.ExprIgualdadContext ctx) { }
+	@Override public void enterExprLe(MiniLenguajeParser.ExprLeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExprIgualdad(MiniLenguajeParser.ExprIgualdadContext ctx) { }
+	@Override public void exitExprLe(MiniLenguajeParser.ExprLeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExprCadena(MiniLenguajeParser.ExprCadenaContext ctx) { }
+	@Override public void enterExprParen(MiniLenguajeParser.ExprParenContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExprCadena(MiniLenguajeParser.ExprCadenaContext ctx) { }
+	@Override public void exitExprParen(MiniLenguajeParser.ExprParenContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExprNegativo(MiniLenguajeParser.ExprNegativoContext ctx) { }
+	@Override public void enterExprAtom(MiniLenguajeParser.ExprAtomContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExprNegativo(MiniLenguajeParser.ExprNegativoContext ctx) { }
+	@Override public void exitExprAtom(MiniLenguajeParser.ExprAtomContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExprBoolean(MiniLenguajeParser.ExprBooleanContext ctx) { }
+	@Override public void enterExprNeg(MiniLenguajeParser.ExprNegContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExprBoolean(MiniLenguajeParser.ExprBooleanContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterExprChar(MiniLenguajeParser.ExprCharContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitExprChar(MiniLenguajeParser.ExprCharContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterExprLlamada(MiniLenguajeParser.ExprLlamadaContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitExprLlamada(MiniLenguajeParser.ExprLlamadaContext ctx) { }
+	@Override public void exitExprNeg(MiniLenguajeParser.ExprNegContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -293,13 +257,37 @@ public class MiniLenguajeBaseListener implements MiniLenguajeListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExprSumRest(MiniLenguajeParser.ExprSumRestContext ctx) { }
+	@Override public void enterExprGt(MiniLenguajeParser.ExprGtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExprSumRest(MiniLenguajeParser.ExprSumRestContext ctx) { }
+	@Override public void exitExprGt(MiniLenguajeParser.ExprGtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExprDiv(MiniLenguajeParser.ExprDivContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprDiv(MiniLenguajeParser.ExprDivContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExprEq(MiniLenguajeParser.ExprEqContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprEq(MiniLenguajeParser.ExprEqContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -317,49 +305,25 @@ public class MiniLenguajeBaseListener implements MiniLenguajeListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExprParentesis(MiniLenguajeParser.ExprParentesisContext ctx) { }
+	@Override public void enterExprCall(MiniLenguajeParser.ExprCallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExprParentesis(MiniLenguajeParser.ExprParentesisContext ctx) { }
+	@Override public void exitExprCall(MiniLenguajeParser.ExprCallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExprDecimal(MiniLenguajeParser.ExprDecimalContext ctx) { }
+	@Override public void enterExprLt(MiniLenguajeParser.ExprLtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExprDecimal(MiniLenguajeParser.ExprDecimalContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterExprMulDiv(MiniLenguajeParser.ExprMulDivContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitExprMulDiv(MiniLenguajeParser.ExprMulDivContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterExprNumero(MiniLenguajeParser.ExprNumeroContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitExprNumero(MiniLenguajeParser.ExprNumeroContext ctx) { }
+	@Override public void exitExprLt(MiniLenguajeParser.ExprLtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -377,25 +341,85 @@ public class MiniLenguajeBaseListener implements MiniLenguajeListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExprID(MiniLenguajeParser.ExprIDContext ctx) { }
+	@Override public void enterExprNeq(MiniLenguajeParser.ExprNeqContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExprID(MiniLenguajeParser.ExprIDContext ctx) { }
+	@Override public void exitExprNeq(MiniLenguajeParser.ExprNeqContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArgumentos(MiniLenguajeParser.ArgumentosContext ctx) { }
+	@Override public void enterExprSub(MiniLenguajeParser.ExprSubContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArgumentos(MiniLenguajeParser.ArgumentosContext ctx) { }
+	@Override public void exitExprSub(MiniLenguajeParser.ExprSubContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExprGe(MiniLenguajeParser.ExprGeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprGe(MiniLenguajeParser.ExprGeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExprMul(MiniLenguajeParser.ExprMulContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprMul(MiniLenguajeParser.ExprMulContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExprAdd(MiniLenguajeParser.ExprAddContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprAdd(MiniLenguajeParser.ExprAddContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExprMod(MiniLenguajeParser.ExprModContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprMod(MiniLenguajeParser.ExprModContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAtomo(MiniLenguajeParser.AtomoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAtomo(MiniLenguajeParser.AtomoContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

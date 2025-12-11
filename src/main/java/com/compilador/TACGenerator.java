@@ -58,42 +58,101 @@ public class TACGenerator {
     // ================== SENTENCIAS ==================
 
     private void generarSentencia(NodoAST nodo) {
-        if (nodo instanceof DeclaracionVariableNodo) {
-            // No generamos TAC para la declaración en sí.
-            return;
+
+    // ==============================
+    // 1) Declaración de variable
+    //    - sin inicialización -> nada
+    //    - con inicialización -> var = expr
+    // ==============================
+    if (nodo instanceof DeclaracionVariableNodo) {
+        DeclaracionVariableNodo d = (DeclaracionVariableNodo) nodo;
+
+        // Si no tiene inicialización: int x;
+        if (d.inicializacion == null) {
+            return; // no generamos TAC
         }
 
-        if (nodo instanceof AsignacionNodo) {
-            AsignacionNodo a = (AsignacionNodo) nodo;
-            String rhs = generarExpresion(a.expresion);
-            instrucciones.add(a.nombreVariable + " = " + rhs);
-            return;
-        }
-
-        if (nodo instanceof ReturnNodo) {
-            ReturnNodo r = (ReturnNodo) nodo;
-            if (r.expresion == null) {
-                instrucciones.add("return");
-            } else {
-                String val = generarExpresion(r.expresion);
-                instrucciones.add("return " + val);
-            }
-            return;
-        }
-
-        if (nodo instanceof IfNodo) {
-            generarIf((IfNodo) nodo);
-            return;
-        }
-
-        if (nodo instanceof WhileNodo) {
-            generarWhile((WhileNodo) nodo);
-            return;
-        }
-
-        // Si aparece algo que no manejamos explícitamente, lo ignoramos
-        // para no romper la ejecución.
+        // Si tiene inicialización: int x = expr;
+        String rhs = generarExpresion(d.inicializacion);
+        instrucciones.add(d.nombre + " = " + rhs);
+        return;
     }
+
+    // ==============================
+    // 2) Declaración de array
+    //    Por ahora no generamos TAC (no hacemos reserva de memoria real)
+    //    Solo existe a nivel semántico.
+    // ==============================
+    if (nodo instanceof DeclaracionArrayNodo) {
+        // Podrías, si querés, dejar un comentario en TAC:
+        // Declaración lógica de array, sin código.
+        // DeclaracionArrayNodo arr = (DeclaracionArrayNodo) nodo;
+        // instrucciones.add("// array " + arr.nombre + "[" + arr.tamanio + "]");
+        return;
+    }
+
+    // ==============================
+    // 3) Asignación simple: x = expr;
+    // ==============================
+    if (nodo instanceof AsignacionNodo) {
+        AsignacionNodo a = (AsignacionNodo) nodo;
+        String rhs = generarExpresion(a.expresion);
+        instrucciones.add(a.nombreVariable + " = " + rhs);
+        return;
+    }
+
+    // ==============================
+    // 4) Asignación a array: arr[i] = expr;
+    // ==============================
+    if (nodo instanceof AsignacionArrayNodo) {
+        AsignacionArrayNodo a = (AsignacionArrayNodo) nodo;
+
+        // Generamos el índice y el valor
+        String idx = generarExpresion(a.indice);
+        String val = generarExpresion(a.valor);
+
+        // arr[idx] = val
+        instrucciones.add(a.nombreArray + "[" + idx + "] = " + val);
+        return;
+    }
+
+    // ==============================
+    // 5) Return
+    // ==============================
+    if (nodo instanceof ReturnNodo) {
+        ReturnNodo r = (ReturnNodo) nodo;
+        if (r.expresion == null) {
+            instrucciones.add("return");
+        } else {
+            String val = generarExpresion(r.expresion);
+            instrucciones.add("return " + val);
+        }
+        return;
+    }
+
+    // ==============================
+    // 6) If
+    // ==============================
+    if (nodo instanceof IfNodo) {
+        generarIf((IfNodo) nodo);
+        return;
+    }
+
+    // ==============================
+    // 7) While
+    // ==============================
+    if (nodo instanceof WhileNodo) {
+        generarWhile((WhileNodo) nodo);
+        return;
+    }
+
+    // ==============================
+    // 8) Cualquier cosa no manejada
+    //    (mejor ignorar que romper)
+    // ==============================
+    // Nada
+}
+
 
     // ================== IF ==================
 

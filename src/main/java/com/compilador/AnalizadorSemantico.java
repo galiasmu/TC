@@ -9,6 +9,7 @@ import java.util.List;
  * - Verifica tipos, usos, declaraciones duplicadas.
  * - Soporta IF, ELSE, WHILE.
  * - Soporta operadores lógicos y comparaciones.
+ * - Ahora también soporta ARRAYS (declaración, asignación y acceso).
  */
 public class AnalizadorSemantico {
 
@@ -23,11 +24,17 @@ public class AnalizadorSemantico {
         generarWarningsNoUsadas();
     }
 
+    // ==========================================
+    //           PROGRAMA (ÁMBITO GLOBAL)
+    // ==========================================
     private void analizarPrograma(ProgramaNodo programa) {
         for (NodoAST nodo : programa.sentencias) {
 
             if (nodo instanceof DeclaracionVariableNodo) {
                 declararVariable((DeclaracionVariableNodo) nodo, "variable");
+            }
+            else if (nodo instanceof DeclaracionArrayNodo) {
+                declararArray((DeclaracionArrayNodo) nodo, "variable");
             }
             else if (nodo instanceof FuncionNodo) {
                 declararFuncion((FuncionNodo) nodo);
@@ -35,12 +42,25 @@ public class AnalizadorSemantico {
         }
     }
 
+    // ==========================================
+    //        DECLARACIONES (VAR / ARRAY)
+    // ==========================================
+
     private void declararVariable(DeclaracionVariableNodo decl, String categoria) {
         boolean ok = tabla.declarar(decl.nombre, decl.tipo, categoria, decl.linea);
         if (!ok) {
             errores.add(String.format(
                 "ERROR semántico: la %s '%s' ya fue declarada en este ámbito (línea %d)",
                 categoria, decl.nombre, decl.linea));
+        }
+    }
+
+    private void declararArray(DeclaracionArrayNodo decl, String categoria) {
+        boolean ok = tabla.declararArray(decl.nombre, decl.tipo, categoria, decl.linea, decl.tamanio);
+        if (!ok) {
+            errores.add(String.format(
+                "ERROR semántico: el array '%s' ya fue declarado en este ámbito (línea %d)",
+                decl.nombre, decl.linea));
         }
     }
 
@@ -64,6 +84,7 @@ public class AnalizadorSemantico {
             return;
         }
 
+        // Nuevo ámbito para parámetros + cuerpo
         tabla.entrarAmbito();
         declararParametros(fun);
 
@@ -74,14 +95,26 @@ public class AnalizadorSemantico {
         tabla.salirAmbito();
     }
 
+    // ==========================================
+    //        SENTENCIAS DENTRO DE FUNCIÓN
+    // ==========================================
+
     private void analizarSentenciaEnFuncion(FuncionNodo fun, NodoAST nodo) {
 
         if (nodo instanceof DeclaracionVariableNodo) {
             declararVariable((DeclaracionVariableNodo) nodo, "variable");
         }
 
+        else if (nodo instanceof DeclaracionArrayNodo) {
+            declararArray((DeclaracionArrayNodo) nodo, "variable");
+        }
+
         else if (nodo instanceof AsignacionNodo) {
             analizarAsignacion((AsignacionNodo) nodo);
+        }
+
+        else if (nodo instanceof AsignacionArrayNodo) {
+            analizarAsignacionArray((AsignacionArrayNodo) nodo);
         }
 
         else if (nodo instanceof ReturnNodo) {
@@ -89,7 +122,7 @@ public class AnalizadorSemantico {
         }
 
         /* ================================
-         *       IF (nuevo)
+         *       IF
          * ================================ */
         else if (nodo instanceof IfNodo) {
             IfNodo n = (IfNodo) nodo;
@@ -119,7 +152,7 @@ public class AnalizadorSemantico {
         }
 
         /* ================================
-         *       WHILE (nuevo)
+         *       WHILE
          * ================================ */
         else if (nodo instanceof WhileNodo) {
             WhileNodo n = (WhileNodo) nodo;
@@ -141,7 +174,7 @@ public class AnalizadorSemantico {
 
 
     /* ======================================
-     *      ASIGNACIÓN
+     *      ASIGNACIÓN VARIABLE SIMPLE
      * ====================================== */
     private void analizarAsignacion(AsignacionNodo asig) {
         TablaDeSimbolos.Simbolo s = tabla.buscar(asig.nombreVariable);
@@ -161,6 +194,45 @@ public class AnalizadorSemantico {
                 s.nombre, s.tipo, tipoExpr, asig.linea));
         }
     }
+
+    /* ======================================
+     *      ASIGNACIÓN A ARRAY  a[i] = expr;
+     * ====================================== */
+    /* ======================================
+ *      ASIGNACIÓN A ARRAY  a[i] = expr;
+ * ====================================== */
+private void analizarAsignacionArray(AsignacionArrayNodo asig) {
+    TablaDeSimbolos.Simbolo s = tabla.buscar(asig.nombreArray);
+    if (s == null) {
+        errores.add(String.format(
+            "ERROR semántico: array '%s' usado sin declarar (línea %d)",
+            asig.nombreArray, asig.linea));
+        return;
+    }
+
+    if (!s.esArray) {
+        errores.add(String.format(
+            "ERROR semántico: '%s' no es un array (línea %d)",
+            asig.nombreArray, asig.linea));
+        return;
+    }
+
+    s.usado = true;
+
+    // Tipo de índice (idealmente debería ser int)
+    //String tipoIndice = inferirTipoExpresion(asig.indice);
+    // Si quisieras ser estricto:
+    // if (tipoIndice != null && !"int".equals(tipoIndice)) { ... }
+
+    // OJO: acá usamos asig.expresion, no asig.valor
+    String tipoValor = inferirTipoExpresion(asig.valor);
+    if (tipoValor != null && !tipoCompatible(s.tipo, tipoValor)) {
+        errores.add(String.format(
+            "ERROR semántico: asignación incompatible al array '%s'. Tipo base '%s', valor '%s' (línea %d)",
+            asig.nombreArray, s.tipo, tipoValor, asig.linea));
+    }
+}
+
 
 
     /* ======================================
@@ -187,10 +259,36 @@ public class AnalizadorSemantico {
 
     /* ======================================
      *  INFERENCIA DE TIPOS (inciso 3.2)
-     *  Soporta operadores lógicos y comparaciones
+     *  Soporta operadores lógicos, comparaciones y ahora arrays.
      * ====================================== */
     private String inferirTipoExpresion(ExpresionNodo expr) {
         if (expr == null) return null;
+
+        // -------- ACCESO A ARRAY: numeros[i] --------
+        if (expr instanceof AccesoArrayNodo) {
+            AccesoArrayNodo a = (AccesoArrayNodo) expr;
+            TablaDeSimbolos.Simbolo s = tabla.buscar(a.nombreArray);
+
+            if (s == null) {
+                errores.add(String.format(
+                    "ERROR semántico: array '%s' usado sin declarar (línea %d)",
+                    a.nombreArray, a.linea));
+                return "error";
+            }
+            if (!s.esArray) {
+                errores.add(String.format(
+                    "ERROR semántico: '%s' no es un array (línea %d)",
+                    a.nombreArray, a.linea));
+                return "error";
+            }
+
+            // Chequeo índice
+            //String tipoIndice = inferirTipoExpresion(a.indice);
+            // Podrías exigir int acá si querés.
+
+            s.usado = true;
+            return s.tipo; // tipo base del array
+        }
 
         /* ----- CASOS HOJA ----- */
         if (expr.hijos.isEmpty()) {
@@ -202,6 +300,7 @@ public class AnalizadorSemantico {
             if (lex.startsWith("\"")) return "string";
             if (lex.startsWith("'")) return "char";
 
+            // Puede ser un identificador
             TablaDeSimbolos.Simbolo s = tabla.buscar(lex);
             if (s != null) {
                 s.usado = true;
@@ -213,22 +312,22 @@ public class AnalizadorSemantico {
         /* ----- OPERADORES RELACIONALES (<, >, ==, !=, <=, >=) ----- */
         switch (expr.etiqueta) {
             case "<": case ">": case "<=": case ">=": case "==": case "!=":
-                String t1 = inferirTipoExpresion(expr.hijos.get(0));
-                String t2 = inferirTipoExpresion(expr.hijos.get(1));
-                if (t1 == null || t2 == null) return "bool";
-                return "bool"; // siempre booleano
+                inferirTipoExpresion(expr.hijos.get(0));
+                inferirTipoExpresion(expr.hijos.get(1));
+                return "bool"; // el resultado siempre es bool
         }
 
         /* ----- OPERADORES LÓGICOS (&&, ||) ----- */
         switch (expr.etiqueta) {
             case "&&": case "||":
-              //  String a = inferirTipoExpresion(expr.hijos.get(0));
-               // String b = inferirTipoExpresion(expr.hijos.get(1));
+                inferirTipoExpresion(expr.hijos.get(0));
+                inferirTipoExpresion(expr.hijos.get(1));
                 return "bool";
         }
 
         /* ----- NEGACIÓN LÓGICA (!) ----- */
         if (expr.etiqueta.equals("!")) {
+            inferirTipoExpresion(expr.hijos.get(0));
             return "bool";
         }
 
@@ -240,8 +339,13 @@ public class AnalizadorSemantico {
             return "int";
         }
 
+        // Si no matchea nada específico, no forzamos tipo
         return null;
     }
+
+    // ======================================
+    //          UTILIDADES
+    // ======================================
 
     private boolean tipoCompatible(String tipoVar, String tipoExpr) {
         if (tipoExpr == null) return true;
@@ -260,6 +364,6 @@ public class AnalizadorSemantico {
         }
     }
 
-    public List<String> getErrores() { return errores; }
+    public List<String> getErrores()  { return errores; }
     public List<String> getWarnings() { return warnings; }
 }

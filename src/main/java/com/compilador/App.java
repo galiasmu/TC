@@ -82,6 +82,16 @@ public class App {
             // 9) Invocar la regla inicial de tu gramática
             ParseTree tree = parser.programa();
 
+            // Si hubo errores sintácticos, NO seguimos con AST / semántico / TAC
+            if (parser.getNumberOfSyntaxErrors() > 0) {
+                System.out.println(ANSI_RED +
+                    "\nSe encontraron errores sintácticos. " +
+                    "No se genera AST, análisis semántico ni TAC para este archivo." +
+                    ANSI_RESET);
+                return;
+            }
+
+
             // 10) Mostrar el árbol sintáctico en formato LISP-like
             System.out.println("\n===== ÁRBOL SINTÁCTICO (toStringTree) =====");
             System.out.println(tree.toStringTree(parser));

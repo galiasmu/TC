@@ -53,24 +53,44 @@ class ProgramaNodo extends NodoAST {
 /**
  * Declaración de variable: int x;  double valor; etc.
  */
-class DeclaracionVariableNodo extends NodoAST {
+    class DeclaracionVariableNodo extends NodoAST {
     public final String tipo;
     public final String nombre;
+    public final ExpresionNodo inicializacion; // puede ser null
 
+    // Constructor sin inicialización (para cosas como: int x;)
     public DeclaracionVariableNodo(int linea, int columna, String tipo, String nombre) {
+        this(linea, columna, tipo, nombre, null);
+    }
+
+    // Constructor con inicialización (para: int x = expr;)
+    public DeclaracionVariableNodo(int linea, int columna, String tipo,
+                                   String nombre, ExpresionNodo inicializacion) {
         super(linea, columna);
         this.tipo = tipo;
         this.nombre = nombre;
+        this.inicializacion = inicializacion;
     }
 
     @Override
     public String toString(String prefijo) {
-        return String.format(
-                "%sDeclaracionVar(tipo=%s, nombre=%s, linea=%d, col=%d)%n",
-                prefijo, tipo, nombre, linea, columna
-        );
+        StringBuilder sb = new StringBuilder();
+        sb.append(prefijo)
+          .append("DeclaracionVar(tipo=").append(tipo)
+          .append(", nombre=").append(nombre)
+          .append(", linea=").append(linea)
+          .append(", col=").append(columna)
+          .append(")");
+        if (inicializacion != null) {
+            sb.append("\n")
+              .append(prefijo)
+              .append("  Inicializacion:\n")
+              .append(inicializacion.toString(prefijo + "    "));
+        }
+        return sb.toString();
     }
 }
+
 
 /**
  * Parámetro de función: int a, double b, etc.

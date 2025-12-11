@@ -1,6 +1,9 @@
 /home/galiasmu/Documents/Facu/TC/Compilador2025/demo/src/main/java/com/compilador/ASTBuilder.java
+/home/galiasmu/Documents/Facu/TC/Compilador2025/demo/src/main/java/com/compilador/AccesoArrayNodo.java
 /home/galiasmu/Documents/Facu/TC/Compilador2025/demo/src/main/java/com/compilador/AnalizadorSemantico.java
 /home/galiasmu/Documents/Facu/TC/Compilador2025/demo/src/main/java/com/compilador/App.java
+/home/galiasmu/Documents/Facu/TC/Compilador2025/demo/src/main/java/com/compilador/AsignacionArrayNodo.java
+/home/galiasmu/Documents/Facu/TC/Compilador2025/demo/src/main/java/com/compilador/DeclaracionArrayNodo.java
 /home/galiasmu/Documents/Facu/TC/Compilador2025/demo/src/main/java/com/compilador/IfNodo.java
 /home/galiasmu/Documents/Facu/TC/Compilador2025/demo/src/main/java/com/compilador/InstruccionTAC.java
 /home/galiasmu/Documents/Facu/TC/Compilador2025/demo/src/main/java/com/compilador/MiniLenguajeBaseListener.java
@@ -12,5 +15,6 @@
 /home/galiasmu/Documents/Facu/TC/Compilador2025/demo/src/main/java/com/compilador/MiniLenguajeVisitor.java
 /home/galiasmu/Documents/Facu/TC/Compilador2025/demo/src/main/java/com/compilador/NodoAST.java
 /home/galiasmu/Documents/Facu/TC/Compilador2025/demo/src/main/java/com/compilador/TACGenerator.java
+/home/galiasmu/Documents/Facu/TC/Compilador2025/demo/src/main/java/com/compilador/TACOptimizer.java
 /home/galiasmu/Documents/Facu/TC/Compilador2025/demo/src/main/java/com/compilador/TablaDeSimbolos.java
 /home/galiasmu/Documents/Facu/TC/Compilador2025/demo/src/main/java/com/compilador/WhileNodo.java

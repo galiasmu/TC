@@ -61,6 +61,13 @@ public interface MiniLenguajeVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitInstrAsignacion(MiniLenguajeParser.InstrAsignacionContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code InstrReturn}
+	 * labeled alternative in {@link MiniLenguajeParser#instruccion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInstrReturn(MiniLenguajeParser.InstrReturnContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code InstrIf}
 	 * labeled alternative in {@link MiniLenguajeParser#instruccion}.
 	 * @param ctx the parse tree
@@ -75,32 +82,17 @@ public interface MiniLenguajeVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitInstrWhile(MiniLenguajeParser.InstrWhileContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code InstrReturn}
-	 * labeled alternative in {@link MiniLenguajeParser#instruccion}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitInstrReturn(MiniLenguajeParser.InstrReturnContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code InstrExpresion}
-	 * labeled alternative in {@link MiniLenguajeParser#instruccion}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitInstrExpresion(MiniLenguajeParser.InstrExpresionContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code InstrBloque}
-	 * labeled alternative in {@link MiniLenguajeParser#instruccion}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitInstrBloque(MiniLenguajeParser.InstrBloqueContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link MiniLenguajeParser#declaracion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitDeclaracion(MiniLenguajeParser.DeclaracionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MiniLenguajeParser#lvalue}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLvalue(MiniLenguajeParser.LvalueContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MiniLenguajeParser#asignacion}.
 	 * @param ctx the parse tree
@@ -108,54 +100,39 @@ public interface MiniLenguajeVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAsignacion(MiniLenguajeParser.AsignacionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ExprRelacional}
-	 * labeled alternative in {@link MiniLenguajeParser#expresion}.
+	 * Visit a parse tree produced by {@link MiniLenguajeParser#argumentos}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExprRelacional(MiniLenguajeParser.ExprRelacionalContext ctx);
+	T visitArgumentos(MiniLenguajeParser.ArgumentosContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ExprIgualdad}
+	 * Visit a parse tree produced by the {@code ExprLe}
 	 * labeled alternative in {@link MiniLenguajeParser#expresion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExprIgualdad(MiniLenguajeParser.ExprIgualdadContext ctx);
+	T visitExprLe(MiniLenguajeParser.ExprLeContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ExprCadena}
+	 * Visit a parse tree produced by the {@code ExprParen}
 	 * labeled alternative in {@link MiniLenguajeParser#expresion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExprCadena(MiniLenguajeParser.ExprCadenaContext ctx);
+	T visitExprParen(MiniLenguajeParser.ExprParenContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ExprNegativo}
+	 * Visit a parse tree produced by the {@code ExprAtom}
 	 * labeled alternative in {@link MiniLenguajeParser#expresion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExprNegativo(MiniLenguajeParser.ExprNegativoContext ctx);
+	T visitExprAtom(MiniLenguajeParser.ExprAtomContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ExprBoolean}
+	 * Visit a parse tree produced by the {@code ExprNeg}
 	 * labeled alternative in {@link MiniLenguajeParser#expresion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExprBoolean(MiniLenguajeParser.ExprBooleanContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ExprChar}
-	 * labeled alternative in {@link MiniLenguajeParser#expresion}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExprChar(MiniLenguajeParser.ExprCharContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ExprLlamada}
-	 * labeled alternative in {@link MiniLenguajeParser#expresion}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExprLlamada(MiniLenguajeParser.ExprLlamadaContext ctx);
+	T visitExprNeg(MiniLenguajeParser.ExprNegContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ExprNot}
 	 * labeled alternative in {@link MiniLenguajeParser#expresion}.
@@ -164,12 +141,26 @@ public interface MiniLenguajeVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExprNot(MiniLenguajeParser.ExprNotContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ExprSumRest}
+	 * Visit a parse tree produced by the {@code ExprGt}
 	 * labeled alternative in {@link MiniLenguajeParser#expresion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExprSumRest(MiniLenguajeParser.ExprSumRestContext ctx);
+	T visitExprGt(MiniLenguajeParser.ExprGtContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ExprDiv}
+	 * labeled alternative in {@link MiniLenguajeParser#expresion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprDiv(MiniLenguajeParser.ExprDivContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ExprEq}
+	 * labeled alternative in {@link MiniLenguajeParser#expresion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprEq(MiniLenguajeParser.ExprEqContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ExprAnd}
 	 * labeled alternative in {@link MiniLenguajeParser#expresion}.
@@ -178,33 +169,19 @@ public interface MiniLenguajeVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExprAnd(MiniLenguajeParser.ExprAndContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ExprParentesis}
+	 * Visit a parse tree produced by the {@code ExprCall}
 	 * labeled alternative in {@link MiniLenguajeParser#expresion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExprParentesis(MiniLenguajeParser.ExprParentesisContext ctx);
+	T visitExprCall(MiniLenguajeParser.ExprCallContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ExprDecimal}
+	 * Visit a parse tree produced by the {@code ExprLt}
 	 * labeled alternative in {@link MiniLenguajeParser#expresion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExprDecimal(MiniLenguajeParser.ExprDecimalContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ExprMulDiv}
-	 * labeled alternative in {@link MiniLenguajeParser#expresion}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExprMulDiv(MiniLenguajeParser.ExprMulDivContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ExprNumero}
-	 * labeled alternative in {@link MiniLenguajeParser#expresion}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExprNumero(MiniLenguajeParser.ExprNumeroContext ctx);
+	T visitExprLt(MiniLenguajeParser.ExprLtContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ExprOr}
 	 * labeled alternative in {@link MiniLenguajeParser#expresion}.
@@ -213,16 +190,51 @@ public interface MiniLenguajeVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExprOr(MiniLenguajeParser.ExprOrContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ExprID}
+	 * Visit a parse tree produced by the {@code ExprNeq}
 	 * labeled alternative in {@link MiniLenguajeParser#expresion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExprID(MiniLenguajeParser.ExprIDContext ctx);
+	T visitExprNeq(MiniLenguajeParser.ExprNeqContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MiniLenguajeParser#argumentos}.
+	 * Visit a parse tree produced by the {@code ExprSub}
+	 * labeled alternative in {@link MiniLenguajeParser#expresion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitArgumentos(MiniLenguajeParser.ArgumentosContext ctx);
+	T visitExprSub(MiniLenguajeParser.ExprSubContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ExprGe}
+	 * labeled alternative in {@link MiniLenguajeParser#expresion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprGe(MiniLenguajeParser.ExprGeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ExprMul}
+	 * labeled alternative in {@link MiniLenguajeParser#expresion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprMul(MiniLenguajeParser.ExprMulContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ExprAdd}
+	 * labeled alternative in {@link MiniLenguajeParser#expresion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprAdd(MiniLenguajeParser.ExprAddContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ExprMod}
+	 * labeled alternative in {@link MiniLenguajeParser#expresion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprMod(MiniLenguajeParser.ExprModContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MiniLenguajeParser#atomo}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAtomo(MiniLenguajeParser.AtomoContext ctx);
 }

@@ -17,38 +17,43 @@ public class MiniLenguajeParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
-		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17, 
-		T__17=18, T__18=19, T__19=20, T__20=21, T__21=22, T__22=23, T__23=24, 
-		T__24=25, T__25=26, T__26=27, T__27=28, T__28=29, TIPO=30, ID=31, NUMERO=32, 
-		DECIMAL=33, CADENA=34, CHAR=35, WS=36, COMENTARIO=37, MULTILINEA=38;
+		TIPO=1, COR_IZQ=2, COR_DER=3, IF=4, ELSE=5, WHILE=6, RETURN=7, BREAK=8, 
+		CONTINUE=9, TRUE=10, FALSE=11, ID=12, NUMERO=13, DECIMAL=14, CHAR=15, 
+		MAS=16, MENOS=17, POR=18, DIV=19, MOD=20, MAYORIGUAL=21, MENORIGUAL=22, 
+		IGUALIGUAL=23, DISTINTO=24, MAYOR=25, MENOR=26, AND=27, OR=28, NOT=29, 
+		ASIGN=30, PAREN_IZQ=31, PAREN_DER=32, LLAVE_IZQ=33, LLAVE_DER=34, COMA=35, 
+		PUNTOYCOMA=36, WS=37, LINE_COMMENT=38, BLOCK_COMMENT=39;
 	public static final int
 		RULE_programa = 0, RULE_funcion = 1, RULE_parametros = 2, RULE_param = 3, 
 		RULE_bloque = 4, RULE_instructions = 5, RULE_instruccion = 6, RULE_declaracion = 7, 
-		RULE_asignacion = 8, RULE_expresion = 9, RULE_argumentos = 10;
+		RULE_lvalue = 8, RULE_asignacion = 9, RULE_argumentos = 10, RULE_expresion = 11, 
+		RULE_atomo = 12;
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"programa", "funcion", "parametros", "param", "bloque", "instructions", 
-			"instruccion", "declaracion", "asignacion", "expresion", "argumentos"
+			"instruccion", "declaracion", "lvalue", "asignacion", "argumentos", "expresion", 
+			"atomo"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'('", "')'", "','", "'{'", "'}'", "';'", "'if'", "'else'", "'while'", 
-			"'return'", "'['", "']'", "'='", "'!'", "'-'", "'*'", "'/'", "'%'", "'+'", 
-			"'>'", "'<'", "'>='", "'<='", "'=='", "'!='", "'&&'", "'||'", "'true'", 
-			"'false'"
+			null, null, "'['", "']'", "'if'", "'else'", "'while'", "'return'", "'break'", 
+			"'continue'", "'true'", "'false'", null, null, null, null, "'+'", "'-'", 
+			"'*'", "'/'", "'%'", "'>='", "'<='", "'=='", "'!='", "'>'", "'<'", "'&&'", 
+			"'||'", "'!'", "'='", "'('", "')'", "'{'", "'}'", "','", "';'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, null, null, null, null, null, null, null, null, 
-			null, null, null, null, null, null, null, null, null, null, null, null, 
-			null, null, null, null, null, null, "TIPO", "ID", "NUMERO", "DECIMAL", 
-			"CADENA", "CHAR", "WS", "COMENTARIO", "MULTILINEA"
+			null, "TIPO", "COR_IZQ", "COR_DER", "IF", "ELSE", "WHILE", "RETURN", 
+			"BREAK", "CONTINUE", "TRUE", "FALSE", "ID", "NUMERO", "DECIMAL", "CHAR", 
+			"MAS", "MENOS", "POR", "DIV", "MOD", "MAYORIGUAL", "MENORIGUAL", "IGUALIGUAL", 
+			"DISTINTO", "MAYOR", "MENOR", "AND", "OR", "NOT", "ASIGN", "PAREN_IZQ", 
+			"PAREN_DER", "LLAVE_IZQ", "LLAVE_DER", "COMA", "PUNTOYCOMA", "WS", "LINE_COMMENT", 
+			"BLOCK_COMMENT"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -142,33 +147,33 @@ public class MiniLenguajeParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(26);
+			setState(30);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__3) | (1L << T__6) | (1L << T__8) | (1L << T__9) | (1L << T__13) | (1L << T__14) | (1L << T__27) | (1L << T__28) | (1L << TIPO) | (1L << ID) | (1L << NUMERO) | (1L << DECIMAL) | (1L << CADENA) | (1L << CHAR))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TIPO) | (1L << IF) | (1L << WHILE) | (1L << RETURN) | (1L << ID))) != 0)) {
 				{
-				setState(24);
+				setState(28);
 				_errHandler.sync(this);
 				switch ( getInterpreter().adaptivePredict(_input,0,_ctx) ) {
 				case 1:
 					{
-					setState(22);
+					setState(26);
 					instruccion();
 					}
 					break;
 				case 2:
 					{
-					setState(23);
+					setState(27);
 					funcion();
 					}
 					break;
 				}
 				}
-				setState(28);
+				setState(32);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(29);
+			setState(33);
 			match(EOF);
 			}
 		}
@@ -186,6 +191,8 @@ public class MiniLenguajeParser extends Parser {
 	public static class FuncionContext extends ParserRuleContext {
 		public TerminalNode TIPO() { return getToken(MiniLenguajeParser.TIPO, 0); }
 		public TerminalNode ID() { return getToken(MiniLenguajeParser.ID, 0); }
+		public TerminalNode PAREN_IZQ() { return getToken(MiniLenguajeParser.PAREN_IZQ, 0); }
+		public TerminalNode PAREN_DER() { return getToken(MiniLenguajeParser.PAREN_DER, 0); }
 		public BloqueContext bloque() {
 			return getRuleContext(BloqueContext.class,0);
 		}
@@ -218,25 +225,25 @@ public class MiniLenguajeParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(31);
-			match(TIPO);
-			setState(32);
-			match(ID);
-			setState(33);
-			match(T__0);
 			setState(35);
+			match(TIPO);
+			setState(36);
+			match(ID);
+			setState(37);
+			match(PAREN_IZQ);
+			setState(39);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==TIPO) {
 				{
-				setState(34);
+				setState(38);
 				parametros();
 				}
 			}
 
-			setState(37);
-			match(T__1);
-			setState(38);
+			setState(41);
+			match(PAREN_DER);
+			setState(42);
 			bloque();
 			}
 		}
@@ -257,6 +264,10 @@ public class MiniLenguajeParser extends Parser {
 		}
 		public ParamContext param(int i) {
 			return getRuleContext(ParamContext.class,i);
+		}
+		public List<TerminalNode> COMA() { return getTokens(MiniLenguajeParser.COMA); }
+		public TerminalNode COMA(int i) {
+			return getToken(MiniLenguajeParser.COMA, i);
 		}
 		public ParametrosContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -284,21 +295,21 @@ public class MiniLenguajeParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(40);
+			setState(44);
 			param();
-			setState(45);
+			setState(49);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==T__2) {
+			while (_la==COMA) {
 				{
 				{
-				setState(41);
-				match(T__2);
-				setState(42);
+				setState(45);
+				match(COMA);
+				setState(46);
 				param();
 				}
 				}
-				setState(47);
+				setState(51);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -343,9 +354,9 @@ public class MiniLenguajeParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(48);
+			setState(52);
 			match(TIPO);
-			setState(49);
+			setState(53);
 			match(ID);
 			}
 		}
@@ -361,6 +372,8 @@ public class MiniLenguajeParser extends Parser {
 	}
 
 	public static class BloqueContext extends ParserRuleContext {
+		public TerminalNode LLAVE_IZQ() { return getToken(MiniLenguajeParser.LLAVE_IZQ, 0); }
+		public TerminalNode LLAVE_DER() { return getToken(MiniLenguajeParser.LLAVE_DER, 0); }
 		public InstructionsContext instructions() {
 			return getRuleContext(InstructionsContext.class,0);
 		}
@@ -386,15 +399,24 @@ public class MiniLenguajeParser extends Parser {
 	public final BloqueContext bloque() throws RecognitionException {
 		BloqueContext _localctx = new BloqueContext(_ctx, getState());
 		enterRule(_localctx, 8, RULE_bloque);
+		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(51);
-			match(T__3);
-			setState(52);
-			instructions();
-			setState(53);
-			match(T__4);
+			setState(55);
+			match(LLAVE_IZQ);
+			setState(57);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TIPO) | (1L << IF) | (1L << WHILE) | (1L << RETURN) | (1L << ID))) != 0)) {
+				{
+				setState(56);
+				instructions();
+				}
+			}
+
+			setState(59);
+			match(LLAVE_DER);
 			}
 		}
 		catch (RecognitionException re) {
@@ -441,20 +463,20 @@ public class MiniLenguajeParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(58);
+			setState(62); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__3) | (1L << T__6) | (1L << T__8) | (1L << T__9) | (1L << T__13) | (1L << T__14) | (1L << T__27) | (1L << T__28) | (1L << TIPO) | (1L << ID) | (1L << NUMERO) | (1L << DECIMAL) | (1L << CADENA) | (1L << CHAR))) != 0)) {
+			do {
 				{
 				{
-				setState(55);
+				setState(61);
 				instruccion();
 				}
 				}
-				setState(60);
+				setState(64); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			}
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TIPO) | (1L << IF) | (1L << WHILE) | (1L << RETURN) | (1L << ID))) != 0) );
 			}
 		}
 		catch (RecognitionException re) {
@@ -479,29 +501,13 @@ public class MiniLenguajeParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	public static class InstrBloqueContext extends InstruccionContext {
-		public BloqueContext bloque() {
-			return getRuleContext(BloqueContext.class,0);
-		}
-		public InstrBloqueContext(InstruccionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterInstrBloque(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitInstrBloque(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitInstrBloque(this);
-			else return visitor.visitChildren(this);
-		}
-	}
 	public static class InstrWhileContext extends InstruccionContext {
+		public TerminalNode WHILE() { return getToken(MiniLenguajeParser.WHILE, 0); }
+		public TerminalNode PAREN_IZQ() { return getToken(MiniLenguajeParser.PAREN_IZQ, 0); }
 		public ExpresionContext expresion() {
 			return getRuleContext(ExpresionContext.class,0);
 		}
+		public TerminalNode PAREN_DER() { return getToken(MiniLenguajeParser.PAREN_DER, 0); }
 		public BloqueContext bloque() {
 			return getRuleContext(BloqueContext.class,0);
 		}
@@ -521,6 +527,8 @@ public class MiniLenguajeParser extends Parser {
 		}
 	}
 	public static class InstrReturnContext extends InstruccionContext {
+		public TerminalNode RETURN() { return getToken(MiniLenguajeParser.RETURN, 0); }
+		public TerminalNode PUNTOYCOMA() { return getToken(MiniLenguajeParser.PUNTOYCOMA, 0); }
 		public ExpresionContext expresion() {
 			return getRuleContext(ExpresionContext.class,0);
 		}
@@ -558,25 +566,6 @@ public class MiniLenguajeParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
-	public static class InstrExpresionContext extends InstruccionContext {
-		public ExpresionContext expresion() {
-			return getRuleContext(ExpresionContext.class,0);
-		}
-		public InstrExpresionContext(InstruccionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterInstrExpresion(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitInstrExpresion(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitInstrExpresion(this);
-			else return visitor.visitChildren(this);
-		}
-	}
 	public static class InstrAsignacionContext extends InstruccionContext {
 		public AsignacionContext asignacion() {
 			return getRuleContext(AsignacionContext.class,0);
@@ -597,15 +586,19 @@ public class MiniLenguajeParser extends Parser {
 		}
 	}
 	public static class InstrIfContext extends InstruccionContext {
+		public TerminalNode IF() { return getToken(MiniLenguajeParser.IF, 0); }
+		public TerminalNode PAREN_IZQ() { return getToken(MiniLenguajeParser.PAREN_IZQ, 0); }
 		public ExpresionContext expresion() {
 			return getRuleContext(ExpresionContext.class,0);
 		}
+		public TerminalNode PAREN_DER() { return getToken(MiniLenguajeParser.PAREN_DER, 0); }
 		public List<BloqueContext> bloque() {
 			return getRuleContexts(BloqueContext.class);
 		}
 		public BloqueContext bloque(int i) {
 			return getRuleContext(BloqueContext.class,i);
 		}
+		public TerminalNode ELSE() { return getToken(MiniLenguajeParser.ELSE, 0); }
 		public InstrIfContext(InstruccionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -627,109 +620,91 @@ public class MiniLenguajeParser extends Parser {
 		enterRule(_localctx, 12, RULE_instruccion);
 		int _la;
 		try {
-			setState(89);
+			setState(88);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,7,_ctx) ) {
-			case 1:
+			switch (_input.LA(1)) {
+			case TIPO:
 				_localctx = new InstrDeclaracionContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(61);
+				setState(66);
 				declaracion();
 				}
 				break;
-			case 2:
+			case ID:
 				_localctx = new InstrAsignacionContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(62);
+				setState(67);
 				asignacion();
-				setState(63);
-				match(T__5);
 				}
 				break;
-			case 3:
-				_localctx = new InstrIfContext(_localctx);
+			case RETURN:
+				_localctx = new InstrReturnContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(65);
-				match(T__6);
-				setState(66);
-				match(T__0);
-				setState(67);
-				expresion(0);
 				setState(68);
-				match(T__1);
-				setState(69);
-				bloque();
-				setState(72);
+				match(RETURN);
+				setState(70);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (_la==T__7) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TRUE) | (1L << FALSE) | (1L << ID) | (1L << NUMERO) | (1L << DECIMAL) | (1L << CHAR) | (1L << MENOS) | (1L << NOT) | (1L << PAREN_IZQ))) != 0)) {
 					{
-					setState(70);
-					match(T__7);
-					setState(71);
+					setState(69);
+					expresion(0);
+					}
+				}
+
+				setState(72);
+				match(PUNTOYCOMA);
+				}
+				break;
+			case IF:
+				_localctx = new InstrIfContext(_localctx);
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(73);
+				match(IF);
+				setState(74);
+				match(PAREN_IZQ);
+				setState(75);
+				expresion(0);
+				setState(76);
+				match(PAREN_DER);
+				setState(77);
+				bloque();
+				setState(80);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				if (_la==ELSE) {
+					{
+					setState(78);
+					match(ELSE);
+					setState(79);
 					bloque();
 					}
 				}
 
 				}
 				break;
-			case 4:
+			case WHILE:
 				_localctx = new InstrWhileContext(_localctx);
-				enterOuterAlt(_localctx, 4);
-				{
-				setState(74);
-				match(T__8);
-				setState(75);
-				match(T__0);
-				setState(76);
-				expresion(0);
-				setState(77);
-				match(T__1);
-				setState(78);
-				bloque();
-				}
-				break;
-			case 5:
-				_localctx = new InstrReturnContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(80);
-				match(T__9);
 				setState(82);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__13) | (1L << T__14) | (1L << T__27) | (1L << T__28) | (1L << ID) | (1L << NUMERO) | (1L << DECIMAL) | (1L << CADENA) | (1L << CHAR))) != 0)) {
-					{
-					setState(81);
-					expresion(0);
-					}
-				}
-
+				match(WHILE);
+				setState(83);
+				match(PAREN_IZQ);
 				setState(84);
-				match(T__5);
-				}
-				break;
-			case 6:
-				_localctx = new InstrExpresionContext(_localctx);
-				enterOuterAlt(_localctx, 6);
-				{
-				setState(85);
 				expresion(0);
+				setState(85);
+				match(PAREN_DER);
 				setState(86);
-				match(T__5);
-				}
-				break;
-			case 7:
-				_localctx = new InstrBloqueContext(_localctx);
-				enterOuterAlt(_localctx, 7);
-				{
-				setState(88);
 				bloque();
 				}
 				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -745,19 +720,14 @@ public class MiniLenguajeParser extends Parser {
 
 	public static class DeclaracionContext extends ParserRuleContext {
 		public TerminalNode TIPO() { return getToken(MiniLenguajeParser.TIPO, 0); }
-		public List<TerminalNode> ID() { return getTokens(MiniLenguajeParser.ID); }
-		public TerminalNode ID(int i) {
-			return getToken(MiniLenguajeParser.ID, i);
-		}
-		public List<TerminalNode> NUMERO() { return getTokens(MiniLenguajeParser.NUMERO); }
-		public TerminalNode NUMERO(int i) {
-			return getToken(MiniLenguajeParser.NUMERO, i);
-		}
-		public List<ExpresionContext> expresion() {
-			return getRuleContexts(ExpresionContext.class);
-		}
-		public ExpresionContext expresion(int i) {
-			return getRuleContext(ExpresionContext.class,i);
+		public TerminalNode ID() { return getToken(MiniLenguajeParser.ID, 0); }
+		public TerminalNode PUNTOYCOMA() { return getToken(MiniLenguajeParser.PUNTOYCOMA, 0); }
+		public TerminalNode COR_IZQ() { return getToken(MiniLenguajeParser.COR_IZQ, 0); }
+		public TerminalNode NUMERO() { return getToken(MiniLenguajeParser.NUMERO, 0); }
+		public TerminalNode COR_DER() { return getToken(MiniLenguajeParser.COR_DER, 0); }
+		public TerminalNode ASIGN() { return getToken(MiniLenguajeParser.ASIGN, 0); }
+		public ExpresionContext expresion() {
+			return getRuleContext(ExpresionContext.class,0);
 		}
 		public DeclaracionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -785,80 +755,100 @@ public class MiniLenguajeParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(91);
+			setState(90);
 			match(TIPO);
-			setState(92);
+			setState(91);
 			match(ID);
-			setState(96);
+			setState(95);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (_la==T__10) {
+			if (_la==COR_IZQ) {
 				{
+				setState(92);
+				match(COR_IZQ);
 				setState(93);
-				match(T__10);
-				setState(94);
 				match(NUMERO);
-				setState(95);
-				match(T__11);
+				setState(94);
+				match(COR_DER);
 				}
 			}
 
-			setState(100);
+			setState(99);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (_la==T__12) {
+			if (_la==ASIGN) {
 				{
+				setState(97);
+				match(ASIGN);
 				setState(98);
-				match(T__12);
-				setState(99);
 				expresion(0);
 				}
 			}
 
-			setState(115);
+			setState(101);
+			match(PUNTOYCOMA);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class LvalueContext extends ParserRuleContext {
+		public TerminalNode ID() { return getToken(MiniLenguajeParser.ID, 0); }
+		public TerminalNode COR_IZQ() { return getToken(MiniLenguajeParser.COR_IZQ, 0); }
+		public ExpresionContext expresion() {
+			return getRuleContext(ExpresionContext.class,0);
+		}
+		public TerminalNode COR_DER() { return getToken(MiniLenguajeParser.COR_DER, 0); }
+		public LvalueContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_lvalue; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterLvalue(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitLvalue(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitLvalue(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final LvalueContext lvalue() throws RecognitionException {
+		LvalueContext _localctx = new LvalueContext(_ctx, getState());
+		enterRule(_localctx, 16, RULE_lvalue);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(103);
+			match(ID);
+			setState(108);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==T__2) {
+			if (_la==COR_IZQ) {
 				{
-				{
-				setState(102);
-				match(T__2);
-				setState(103);
-				match(ID);
-				setState(107);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-				if (_la==T__10) {
-					{
-					setState(104);
-					match(T__10);
-					setState(105);
-					match(NUMERO);
-					setState(106);
-					match(T__11);
-					}
+				setState(104);
+				match(COR_IZQ);
+				setState(105);
+				expresion(0);
+				setState(106);
+				match(COR_DER);
 				}
-
-				setState(111);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-				if (_la==T__12) {
-					{
-					setState(109);
-					match(T__12);
-					setState(110);
-					expresion(0);
-					}
-				}
-
-				}
-				}
-				setState(117);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
 			}
-			setState(118);
-			match(T__5);
+
 			}
 		}
 		catch (RecognitionException re) {
@@ -873,13 +863,14 @@ public class MiniLenguajeParser extends Parser {
 	}
 
 	public static class AsignacionContext extends ParserRuleContext {
-		public TerminalNode ID() { return getToken(MiniLenguajeParser.ID, 0); }
-		public List<ExpresionContext> expresion() {
-			return getRuleContexts(ExpresionContext.class);
+		public LvalueContext lvalue() {
+			return getRuleContext(LvalueContext.class,0);
 		}
-		public ExpresionContext expresion(int i) {
-			return getRuleContext(ExpresionContext.class,i);
+		public TerminalNode ASIGN() { return getToken(MiniLenguajeParser.ASIGN, 0); }
+		public ExpresionContext expresion() {
+			return getRuleContext(ExpresionContext.class,0);
 		}
+		public TerminalNode PUNTOYCOMA() { return getToken(MiniLenguajeParser.PUNTOYCOMA, 0); }
 		public AsignacionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -901,31 +892,18 @@ public class MiniLenguajeParser extends Parser {
 
 	public final AsignacionContext asignacion() throws RecognitionException {
 		AsignacionContext _localctx = new AsignacionContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_asignacion);
-		int _la;
+		enterRule(_localctx, 18, RULE_asignacion);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(120);
-			match(ID);
-			setState(125);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			if (_la==T__10) {
-				{
-				setState(121);
-				match(T__10);
-				setState(122);
-				expresion(0);
-				setState(123);
-				match(T__11);
-				}
-			}
-
-			setState(127);
-			match(T__12);
-			setState(128);
+			setState(110);
+			lvalue();
+			setState(111);
+			match(ASIGN);
+			setState(112);
 			expresion(0);
+			setState(113);
+			match(PUNTOYCOMA);
 			}
 		}
 		catch (RecognitionException re) {
@@ -939,628 +917,16 @@ public class MiniLenguajeParser extends Parser {
 		return _localctx;
 	}
 
-	public static class ExpresionContext extends ParserRuleContext {
-		public ExpresionContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_expresion; }
-	 
-		public ExpresionContext() { }
-		public void copyFrom(ExpresionContext ctx) {
-			super.copyFrom(ctx);
-		}
-	}
-	public static class ExprRelacionalContext extends ExpresionContext {
-		public List<ExpresionContext> expresion() {
-			return getRuleContexts(ExpresionContext.class);
-		}
-		public ExpresionContext expresion(int i) {
-			return getRuleContext(ExpresionContext.class,i);
-		}
-		public ExprRelacionalContext(ExpresionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprRelacional(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprRelacional(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprRelacional(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class ExprIgualdadContext extends ExpresionContext {
-		public List<ExpresionContext> expresion() {
-			return getRuleContexts(ExpresionContext.class);
-		}
-		public ExpresionContext expresion(int i) {
-			return getRuleContext(ExpresionContext.class,i);
-		}
-		public ExprIgualdadContext(ExpresionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprIgualdad(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprIgualdad(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprIgualdad(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class ExprCadenaContext extends ExpresionContext {
-		public TerminalNode CADENA() { return getToken(MiniLenguajeParser.CADENA, 0); }
-		public ExprCadenaContext(ExpresionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprCadena(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprCadena(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprCadena(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class ExprNegativoContext extends ExpresionContext {
-		public ExpresionContext expresion() {
-			return getRuleContext(ExpresionContext.class,0);
-		}
-		public ExprNegativoContext(ExpresionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprNegativo(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprNegativo(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprNegativo(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class ExprBooleanContext extends ExpresionContext {
-		public ExprBooleanContext(ExpresionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprBoolean(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprBoolean(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprBoolean(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class ExprCharContext extends ExpresionContext {
-		public TerminalNode CHAR() { return getToken(MiniLenguajeParser.CHAR, 0); }
-		public ExprCharContext(ExpresionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprChar(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprChar(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprChar(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class ExprLlamadaContext extends ExpresionContext {
-		public TerminalNode ID() { return getToken(MiniLenguajeParser.ID, 0); }
-		public ArgumentosContext argumentos() {
-			return getRuleContext(ArgumentosContext.class,0);
-		}
-		public ExprLlamadaContext(ExpresionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprLlamada(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprLlamada(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprLlamada(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class ExprNotContext extends ExpresionContext {
-		public ExpresionContext expresion() {
-			return getRuleContext(ExpresionContext.class,0);
-		}
-		public ExprNotContext(ExpresionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprNot(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprNot(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprNot(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class ExprSumRestContext extends ExpresionContext {
-		public List<ExpresionContext> expresion() {
-			return getRuleContexts(ExpresionContext.class);
-		}
-		public ExpresionContext expresion(int i) {
-			return getRuleContext(ExpresionContext.class,i);
-		}
-		public ExprSumRestContext(ExpresionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprSumRest(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprSumRest(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprSumRest(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class ExprAndContext extends ExpresionContext {
-		public List<ExpresionContext> expresion() {
-			return getRuleContexts(ExpresionContext.class);
-		}
-		public ExpresionContext expresion(int i) {
-			return getRuleContext(ExpresionContext.class,i);
-		}
-		public ExprAndContext(ExpresionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprAnd(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprAnd(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprAnd(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class ExprParentesisContext extends ExpresionContext {
-		public ExpresionContext expresion() {
-			return getRuleContext(ExpresionContext.class,0);
-		}
-		public ExprParentesisContext(ExpresionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprParentesis(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprParentesis(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprParentesis(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class ExprDecimalContext extends ExpresionContext {
-		public TerminalNode DECIMAL() { return getToken(MiniLenguajeParser.DECIMAL, 0); }
-		public ExprDecimalContext(ExpresionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprDecimal(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprDecimal(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprDecimal(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class ExprMulDivContext extends ExpresionContext {
-		public List<ExpresionContext> expresion() {
-			return getRuleContexts(ExpresionContext.class);
-		}
-		public ExpresionContext expresion(int i) {
-			return getRuleContext(ExpresionContext.class,i);
-		}
-		public ExprMulDivContext(ExpresionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprMulDiv(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprMulDiv(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprMulDiv(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class ExprNumeroContext extends ExpresionContext {
-		public TerminalNode NUMERO() { return getToken(MiniLenguajeParser.NUMERO, 0); }
-		public ExprNumeroContext(ExpresionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprNumero(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprNumero(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprNumero(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class ExprOrContext extends ExpresionContext {
-		public List<ExpresionContext> expresion() {
-			return getRuleContexts(ExpresionContext.class);
-		}
-		public ExpresionContext expresion(int i) {
-			return getRuleContext(ExpresionContext.class,i);
-		}
-		public ExprOrContext(ExpresionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprOr(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprOr(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprOr(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class ExprIDContext extends ExpresionContext {
-		public TerminalNode ID() { return getToken(MiniLenguajeParser.ID, 0); }
-		public ExpresionContext expresion() {
-			return getRuleContext(ExpresionContext.class,0);
-		}
-		public ExprIDContext(ExpresionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprID(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprID(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprID(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final ExpresionContext expresion() throws RecognitionException {
-		return expresion(0);
-	}
-
-	private ExpresionContext expresion(int _p) throws RecognitionException {
-		ParserRuleContext _parentctx = _ctx;
-		int _parentState = getState();
-		ExpresionContext _localctx = new ExpresionContext(_ctx, _parentState);
-		ExpresionContext _prevctx = _localctx;
-		int _startState = 18;
-		enterRecursionRule(_localctx, 18, RULE_expresion, _p);
-		int _la;
-		try {
-			int _alt;
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(157);
-			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,16,_ctx) ) {
-			case 1:
-				{
-				_localctx = new ExprParentesisContext(_localctx);
-				_ctx = _localctx;
-				_prevctx = _localctx;
-
-				setState(131);
-				match(T__0);
-				setState(132);
-				expresion(0);
-				setState(133);
-				match(T__1);
-				}
-				break;
-			case 2:
-				{
-				_localctx = new ExprNotContext(_localctx);
-				_ctx = _localctx;
-				_prevctx = _localctx;
-				setState(135);
-				match(T__13);
-				setState(136);
-				expresion(15);
-				}
-				break;
-			case 3:
-				{
-				_localctx = new ExprNegativoContext(_localctx);
-				_ctx = _localctx;
-				_prevctx = _localctx;
-				setState(137);
-				match(T__14);
-				setState(138);
-				expresion(14);
-				}
-				break;
-			case 4:
-				{
-				_localctx = new ExprIDContext(_localctx);
-				_ctx = _localctx;
-				_prevctx = _localctx;
-				setState(139);
-				match(ID);
-				setState(144);
-				_errHandler.sync(this);
-				switch ( getInterpreter().adaptivePredict(_input,14,_ctx) ) {
-				case 1:
-					{
-					setState(140);
-					match(T__10);
-					setState(141);
-					expresion(0);
-					setState(142);
-					match(T__11);
-					}
-					break;
-				}
-				}
-				break;
-			case 5:
-				{
-				_localctx = new ExprLlamadaContext(_localctx);
-				_ctx = _localctx;
-				_prevctx = _localctx;
-				setState(146);
-				match(ID);
-				setState(147);
-				match(T__0);
-				setState(149);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__13) | (1L << T__14) | (1L << T__27) | (1L << T__28) | (1L << ID) | (1L << NUMERO) | (1L << DECIMAL) | (1L << CADENA) | (1L << CHAR))) != 0)) {
-					{
-					setState(148);
-					argumentos();
-					}
-				}
-
-				setState(151);
-				match(T__1);
-				}
-				break;
-			case 6:
-				{
-				_localctx = new ExprNumeroContext(_localctx);
-				_ctx = _localctx;
-				_prevctx = _localctx;
-				setState(152);
-				match(NUMERO);
-				}
-				break;
-			case 7:
-				{
-				_localctx = new ExprDecimalContext(_localctx);
-				_ctx = _localctx;
-				_prevctx = _localctx;
-				setState(153);
-				match(DECIMAL);
-				}
-				break;
-			case 8:
-				{
-				_localctx = new ExprCadenaContext(_localctx);
-				_ctx = _localctx;
-				_prevctx = _localctx;
-				setState(154);
-				match(CADENA);
-				}
-				break;
-			case 9:
-				{
-				_localctx = new ExprCharContext(_localctx);
-				_ctx = _localctx;
-				_prevctx = _localctx;
-				setState(155);
-				match(CHAR);
-				}
-				break;
-			case 10:
-				{
-				_localctx = new ExprBooleanContext(_localctx);
-				_ctx = _localctx;
-				_prevctx = _localctx;
-				setState(156);
-				_la = _input.LA(1);
-				if ( !(_la==T__27 || _la==T__28) ) {
-				_errHandler.recoverInline(this);
-				}
-				else {
-					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-					_errHandler.reportMatch(this);
-					consume();
-				}
-				}
-				break;
-			}
-			_ctx.stop = _input.LT(-1);
-			setState(179);
-			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,18,_ctx);
-			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-				if ( _alt==1 ) {
-					if ( _parseListeners!=null ) triggerExitRuleEvent();
-					_prevctx = _localctx;
-					{
-					setState(177);
-					_errHandler.sync(this);
-					switch ( getInterpreter().adaptivePredict(_input,17,_ctx) ) {
-					case 1:
-						{
-						_localctx = new ExprMulDivContext(new ExpresionContext(_parentctx, _parentState));
-						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
-						setState(159);
-						if (!(precpred(_ctx, 13))) throw new FailedPredicateException(this, "precpred(_ctx, 13)");
-						setState(160);
-						_la = _input.LA(1);
-						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__15) | (1L << T__16) | (1L << T__17))) != 0)) ) {
-						_errHandler.recoverInline(this);
-						}
-						else {
-							if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-							_errHandler.reportMatch(this);
-							consume();
-						}
-						setState(161);
-						expresion(14);
-						}
-						break;
-					case 2:
-						{
-						_localctx = new ExprSumRestContext(new ExpresionContext(_parentctx, _parentState));
-						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
-						setState(162);
-						if (!(precpred(_ctx, 12))) throw new FailedPredicateException(this, "precpred(_ctx, 12)");
-						setState(163);
-						_la = _input.LA(1);
-						if ( !(_la==T__14 || _la==T__18) ) {
-						_errHandler.recoverInline(this);
-						}
-						else {
-							if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-							_errHandler.reportMatch(this);
-							consume();
-						}
-						setState(164);
-						expresion(13);
-						}
-						break;
-					case 3:
-						{
-						_localctx = new ExprRelacionalContext(new ExpresionContext(_parentctx, _parentState));
-						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
-						setState(165);
-						if (!(precpred(_ctx, 11))) throw new FailedPredicateException(this, "precpred(_ctx, 11)");
-						setState(166);
-						_la = _input.LA(1);
-						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__19) | (1L << T__20) | (1L << T__21) | (1L << T__22))) != 0)) ) {
-						_errHandler.recoverInline(this);
-						}
-						else {
-							if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-							_errHandler.reportMatch(this);
-							consume();
-						}
-						setState(167);
-						expresion(12);
-						}
-						break;
-					case 4:
-						{
-						_localctx = new ExprIgualdadContext(new ExpresionContext(_parentctx, _parentState));
-						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
-						setState(168);
-						if (!(precpred(_ctx, 10))) throw new FailedPredicateException(this, "precpred(_ctx, 10)");
-						setState(169);
-						_la = _input.LA(1);
-						if ( !(_la==T__23 || _la==T__24) ) {
-						_errHandler.recoverInline(this);
-						}
-						else {
-							if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-							_errHandler.reportMatch(this);
-							consume();
-						}
-						setState(170);
-						expresion(11);
-						}
-						break;
-					case 5:
-						{
-						_localctx = new ExprAndContext(new ExpresionContext(_parentctx, _parentState));
-						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
-						setState(171);
-						if (!(precpred(_ctx, 9))) throw new FailedPredicateException(this, "precpred(_ctx, 9)");
-						setState(172);
-						match(T__25);
-						setState(173);
-						expresion(10);
-						}
-						break;
-					case 6:
-						{
-						_localctx = new ExprOrContext(new ExpresionContext(_parentctx, _parentState));
-						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
-						setState(174);
-						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
-						setState(175);
-						match(T__26);
-						setState(176);
-						expresion(9);
-						}
-						break;
-					}
-					} 
-				}
-				setState(181);
-				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,18,_ctx);
-			}
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			unrollRecursionContexts(_parentctx);
-		}
-		return _localctx;
-	}
-
 	public static class ArgumentosContext extends ParserRuleContext {
 		public List<ExpresionContext> expresion() {
 			return getRuleContexts(ExpresionContext.class);
 		}
 		public ExpresionContext expresion(int i) {
 			return getRuleContext(ExpresionContext.class,i);
+		}
+		public List<TerminalNode> COMA() { return getTokens(MiniLenguajeParser.COMA); }
+		public TerminalNode COMA(int i) {
+			return getToken(MiniLenguajeParser.COMA, i);
 		}
 		public ArgumentosContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1588,21 +954,21 @@ public class MiniLenguajeParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(182);
+			setState(115);
 			expresion(0);
-			setState(187);
+			setState(120);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==T__2) {
+			while (_la==COMA) {
 				{
 				{
-				setState(183);
-				match(T__2);
-				setState(184);
+				setState(116);
+				match(COMA);
+				setState(117);
 				expresion(0);
 				}
 				}
-				setState(189);
+				setState(122);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -1619,9 +985,807 @@ public class MiniLenguajeParser extends Parser {
 		return _localctx;
 	}
 
+	public static class ExpresionContext extends ParserRuleContext {
+		public ExpresionContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_expresion; }
+	 
+		public ExpresionContext() { }
+		public void copyFrom(ExpresionContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class ExprLeContext extends ExpresionContext {
+		public List<ExpresionContext> expresion() {
+			return getRuleContexts(ExpresionContext.class);
+		}
+		public ExpresionContext expresion(int i) {
+			return getRuleContext(ExpresionContext.class,i);
+		}
+		public TerminalNode MENORIGUAL() { return getToken(MiniLenguajeParser.MENORIGUAL, 0); }
+		public ExprLeContext(ExpresionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprLe(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprLe(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprLe(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ExprParenContext extends ExpresionContext {
+		public TerminalNode PAREN_IZQ() { return getToken(MiniLenguajeParser.PAREN_IZQ, 0); }
+		public ExpresionContext expresion() {
+			return getRuleContext(ExpresionContext.class,0);
+		}
+		public TerminalNode PAREN_DER() { return getToken(MiniLenguajeParser.PAREN_DER, 0); }
+		public ExprParenContext(ExpresionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprParen(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprParen(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprParen(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ExprAtomContext extends ExpresionContext {
+		public AtomoContext atomo() {
+			return getRuleContext(AtomoContext.class,0);
+		}
+		public ExprAtomContext(ExpresionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprAtom(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprAtom(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprAtom(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ExprNegContext extends ExpresionContext {
+		public TerminalNode MENOS() { return getToken(MiniLenguajeParser.MENOS, 0); }
+		public ExpresionContext expresion() {
+			return getRuleContext(ExpresionContext.class,0);
+		}
+		public ExprNegContext(ExpresionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprNeg(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprNeg(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprNeg(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ExprNotContext extends ExpresionContext {
+		public TerminalNode NOT() { return getToken(MiniLenguajeParser.NOT, 0); }
+		public ExpresionContext expresion() {
+			return getRuleContext(ExpresionContext.class,0);
+		}
+		public ExprNotContext(ExpresionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprNot(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprNot(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprNot(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ExprGtContext extends ExpresionContext {
+		public List<ExpresionContext> expresion() {
+			return getRuleContexts(ExpresionContext.class);
+		}
+		public ExpresionContext expresion(int i) {
+			return getRuleContext(ExpresionContext.class,i);
+		}
+		public TerminalNode MAYOR() { return getToken(MiniLenguajeParser.MAYOR, 0); }
+		public ExprGtContext(ExpresionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprGt(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprGt(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprGt(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ExprDivContext extends ExpresionContext {
+		public List<ExpresionContext> expresion() {
+			return getRuleContexts(ExpresionContext.class);
+		}
+		public ExpresionContext expresion(int i) {
+			return getRuleContext(ExpresionContext.class,i);
+		}
+		public TerminalNode DIV() { return getToken(MiniLenguajeParser.DIV, 0); }
+		public ExprDivContext(ExpresionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprDiv(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprDiv(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprDiv(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ExprEqContext extends ExpresionContext {
+		public List<ExpresionContext> expresion() {
+			return getRuleContexts(ExpresionContext.class);
+		}
+		public ExpresionContext expresion(int i) {
+			return getRuleContext(ExpresionContext.class,i);
+		}
+		public TerminalNode IGUALIGUAL() { return getToken(MiniLenguajeParser.IGUALIGUAL, 0); }
+		public ExprEqContext(ExpresionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprEq(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprEq(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprEq(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ExprAndContext extends ExpresionContext {
+		public List<ExpresionContext> expresion() {
+			return getRuleContexts(ExpresionContext.class);
+		}
+		public ExpresionContext expresion(int i) {
+			return getRuleContext(ExpresionContext.class,i);
+		}
+		public TerminalNode AND() { return getToken(MiniLenguajeParser.AND, 0); }
+		public ExprAndContext(ExpresionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprAnd(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprAnd(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprAnd(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ExprCallContext extends ExpresionContext {
+		public TerminalNode ID() { return getToken(MiniLenguajeParser.ID, 0); }
+		public TerminalNode PAREN_IZQ() { return getToken(MiniLenguajeParser.PAREN_IZQ, 0); }
+		public TerminalNode PAREN_DER() { return getToken(MiniLenguajeParser.PAREN_DER, 0); }
+		public ArgumentosContext argumentos() {
+			return getRuleContext(ArgumentosContext.class,0);
+		}
+		public ExprCallContext(ExpresionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprCall(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprCall(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprCall(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ExprLtContext extends ExpresionContext {
+		public List<ExpresionContext> expresion() {
+			return getRuleContexts(ExpresionContext.class);
+		}
+		public ExpresionContext expresion(int i) {
+			return getRuleContext(ExpresionContext.class,i);
+		}
+		public TerminalNode MENOR() { return getToken(MiniLenguajeParser.MENOR, 0); }
+		public ExprLtContext(ExpresionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprLt(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprLt(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprLt(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ExprOrContext extends ExpresionContext {
+		public List<ExpresionContext> expresion() {
+			return getRuleContexts(ExpresionContext.class);
+		}
+		public ExpresionContext expresion(int i) {
+			return getRuleContext(ExpresionContext.class,i);
+		}
+		public TerminalNode OR() { return getToken(MiniLenguajeParser.OR, 0); }
+		public ExprOrContext(ExpresionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprOr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprOr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprOr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ExprNeqContext extends ExpresionContext {
+		public List<ExpresionContext> expresion() {
+			return getRuleContexts(ExpresionContext.class);
+		}
+		public ExpresionContext expresion(int i) {
+			return getRuleContext(ExpresionContext.class,i);
+		}
+		public TerminalNode DISTINTO() { return getToken(MiniLenguajeParser.DISTINTO, 0); }
+		public ExprNeqContext(ExpresionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprNeq(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprNeq(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprNeq(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ExprSubContext extends ExpresionContext {
+		public List<ExpresionContext> expresion() {
+			return getRuleContexts(ExpresionContext.class);
+		}
+		public ExpresionContext expresion(int i) {
+			return getRuleContext(ExpresionContext.class,i);
+		}
+		public TerminalNode MENOS() { return getToken(MiniLenguajeParser.MENOS, 0); }
+		public ExprSubContext(ExpresionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprSub(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprSub(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprSub(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ExprGeContext extends ExpresionContext {
+		public List<ExpresionContext> expresion() {
+			return getRuleContexts(ExpresionContext.class);
+		}
+		public ExpresionContext expresion(int i) {
+			return getRuleContext(ExpresionContext.class,i);
+		}
+		public TerminalNode MAYORIGUAL() { return getToken(MiniLenguajeParser.MAYORIGUAL, 0); }
+		public ExprGeContext(ExpresionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprGe(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprGe(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprGe(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ExprMulContext extends ExpresionContext {
+		public List<ExpresionContext> expresion() {
+			return getRuleContexts(ExpresionContext.class);
+		}
+		public ExpresionContext expresion(int i) {
+			return getRuleContext(ExpresionContext.class,i);
+		}
+		public TerminalNode POR() { return getToken(MiniLenguajeParser.POR, 0); }
+		public ExprMulContext(ExpresionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprMul(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprMul(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprMul(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ExprAddContext extends ExpresionContext {
+		public List<ExpresionContext> expresion() {
+			return getRuleContexts(ExpresionContext.class);
+		}
+		public ExpresionContext expresion(int i) {
+			return getRuleContext(ExpresionContext.class,i);
+		}
+		public TerminalNode MAS() { return getToken(MiniLenguajeParser.MAS, 0); }
+		public ExprAddContext(ExpresionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprAdd(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprAdd(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprAdd(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ExprModContext extends ExpresionContext {
+		public List<ExpresionContext> expresion() {
+			return getRuleContexts(ExpresionContext.class);
+		}
+		public ExpresionContext expresion(int i) {
+			return getRuleContext(ExpresionContext.class,i);
+		}
+		public TerminalNode MOD() { return getToken(MiniLenguajeParser.MOD, 0); }
+		public ExprModContext(ExpresionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterExprMod(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitExprMod(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitExprMod(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final ExpresionContext expresion() throws RecognitionException {
+		return expresion(0);
+	}
+
+	private ExpresionContext expresion(int _p) throws RecognitionException {
+		ParserRuleContext _parentctx = _ctx;
+		int _parentState = getState();
+		ExpresionContext _localctx = new ExpresionContext(_ctx, _parentState);
+		ExpresionContext _prevctx = _localctx;
+		int _startState = 22;
+		enterRecursionRule(_localctx, 22, RULE_expresion, _p);
+		int _la;
+		try {
+			int _alt;
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(139);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,14,_ctx) ) {
+			case 1:
+				{
+				_localctx = new ExprNotContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+
+				setState(124);
+				match(NOT);
+				setState(125);
+				expresion(5);
+				}
+				break;
+			case 2:
+				{
+				_localctx = new ExprNegContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(126);
+				match(MENOS);
+				setState(127);
+				expresion(4);
+				}
+				break;
+			case 3:
+				{
+				_localctx = new ExprParenContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(128);
+				match(PAREN_IZQ);
+				setState(129);
+				expresion(0);
+				setState(130);
+				match(PAREN_DER);
+				}
+				break;
+			case 4:
+				{
+				_localctx = new ExprCallContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(132);
+				match(ID);
+				setState(133);
+				match(PAREN_IZQ);
+				setState(135);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TRUE) | (1L << FALSE) | (1L << ID) | (1L << NUMERO) | (1L << DECIMAL) | (1L << CHAR) | (1L << MENOS) | (1L << NOT) | (1L << PAREN_IZQ))) != 0)) {
+					{
+					setState(134);
+					argumentos();
+					}
+				}
+
+				setState(137);
+				match(PAREN_DER);
+				}
+				break;
+			case 5:
+				{
+				_localctx = new ExprAtomContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(138);
+				atomo();
+				}
+				break;
+			}
+			_ctx.stop = _input.LT(-1);
+			setState(182);
+			_errHandler.sync(this);
+			_alt = getInterpreter().adaptivePredict(_input,16,_ctx);
+			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
+				if ( _alt==1 ) {
+					if ( _parseListeners!=null ) triggerExitRuleEvent();
+					_prevctx = _localctx;
+					{
+					setState(180);
+					_errHandler.sync(this);
+					switch ( getInterpreter().adaptivePredict(_input,15,_ctx) ) {
+					case 1:
+						{
+						_localctx = new ExprOrContext(new ExpresionContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
+						setState(141);
+						if (!(precpred(_ctx, 18))) throw new FailedPredicateException(this, "precpred(_ctx, 18)");
+						setState(142);
+						match(OR);
+						setState(143);
+						expresion(19);
+						}
+						break;
+					case 2:
+						{
+						_localctx = new ExprAndContext(new ExpresionContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
+						setState(144);
+						if (!(precpred(_ctx, 17))) throw new FailedPredicateException(this, "precpred(_ctx, 17)");
+						setState(145);
+						match(AND);
+						setState(146);
+						expresion(18);
+						}
+						break;
+					case 3:
+						{
+						_localctx = new ExprEqContext(new ExpresionContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
+						setState(147);
+						if (!(precpred(_ctx, 16))) throw new FailedPredicateException(this, "precpred(_ctx, 16)");
+						setState(148);
+						match(IGUALIGUAL);
+						setState(149);
+						expresion(17);
+						}
+						break;
+					case 4:
+						{
+						_localctx = new ExprNeqContext(new ExpresionContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
+						setState(150);
+						if (!(precpred(_ctx, 15))) throw new FailedPredicateException(this, "precpred(_ctx, 15)");
+						setState(151);
+						match(DISTINTO);
+						setState(152);
+						expresion(16);
+						}
+						break;
+					case 5:
+						{
+						_localctx = new ExprGtContext(new ExpresionContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
+						setState(153);
+						if (!(precpred(_ctx, 14))) throw new FailedPredicateException(this, "precpred(_ctx, 14)");
+						setState(154);
+						match(MAYOR);
+						setState(155);
+						expresion(15);
+						}
+						break;
+					case 6:
+						{
+						_localctx = new ExprLtContext(new ExpresionContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
+						setState(156);
+						if (!(precpred(_ctx, 13))) throw new FailedPredicateException(this, "precpred(_ctx, 13)");
+						setState(157);
+						match(MENOR);
+						setState(158);
+						expresion(14);
+						}
+						break;
+					case 7:
+						{
+						_localctx = new ExprGeContext(new ExpresionContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
+						setState(159);
+						if (!(precpred(_ctx, 12))) throw new FailedPredicateException(this, "precpred(_ctx, 12)");
+						setState(160);
+						match(MAYORIGUAL);
+						setState(161);
+						expresion(13);
+						}
+						break;
+					case 8:
+						{
+						_localctx = new ExprLeContext(new ExpresionContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
+						setState(162);
+						if (!(precpred(_ctx, 11))) throw new FailedPredicateException(this, "precpred(_ctx, 11)");
+						setState(163);
+						match(MENORIGUAL);
+						setState(164);
+						expresion(12);
+						}
+						break;
+					case 9:
+						{
+						_localctx = new ExprAddContext(new ExpresionContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
+						setState(165);
+						if (!(precpred(_ctx, 10))) throw new FailedPredicateException(this, "precpred(_ctx, 10)");
+						setState(166);
+						match(MAS);
+						setState(167);
+						expresion(11);
+						}
+						break;
+					case 10:
+						{
+						_localctx = new ExprSubContext(new ExpresionContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
+						setState(168);
+						if (!(precpred(_ctx, 9))) throw new FailedPredicateException(this, "precpred(_ctx, 9)");
+						setState(169);
+						match(MENOS);
+						setState(170);
+						expresion(10);
+						}
+						break;
+					case 11:
+						{
+						_localctx = new ExprMulContext(new ExpresionContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
+						setState(171);
+						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
+						setState(172);
+						match(POR);
+						setState(173);
+						expresion(9);
+						}
+						break;
+					case 12:
+						{
+						_localctx = new ExprDivContext(new ExpresionContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
+						setState(174);
+						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
+						setState(175);
+						match(DIV);
+						setState(176);
+						expresion(8);
+						}
+						break;
+					case 13:
+						{
+						_localctx = new ExprModContext(new ExpresionContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
+						setState(177);
+						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
+						setState(178);
+						match(MOD);
+						setState(179);
+						expresion(7);
+						}
+						break;
+					}
+					} 
+				}
+				setState(184);
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,16,_ctx);
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			unrollRecursionContexts(_parentctx);
+		}
+		return _localctx;
+	}
+
+	public static class AtomoContext extends ParserRuleContext {
+		public TerminalNode ID() { return getToken(MiniLenguajeParser.ID, 0); }
+		public TerminalNode COR_IZQ() { return getToken(MiniLenguajeParser.COR_IZQ, 0); }
+		public ExpresionContext expresion() {
+			return getRuleContext(ExpresionContext.class,0);
+		}
+		public TerminalNode COR_DER() { return getToken(MiniLenguajeParser.COR_DER, 0); }
+		public TerminalNode NUMERO() { return getToken(MiniLenguajeParser.NUMERO, 0); }
+		public TerminalNode DECIMAL() { return getToken(MiniLenguajeParser.DECIMAL, 0); }
+		public TerminalNode CHAR() { return getToken(MiniLenguajeParser.CHAR, 0); }
+		public TerminalNode TRUE() { return getToken(MiniLenguajeParser.TRUE, 0); }
+		public TerminalNode FALSE() { return getToken(MiniLenguajeParser.FALSE, 0); }
+		public AtomoContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_atomo; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).enterAtomo(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MiniLenguajeListener ) ((MiniLenguajeListener)listener).exitAtomo(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MiniLenguajeVisitor ) return ((MiniLenguajeVisitor<? extends T>)visitor).visitAtomo(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final AtomoContext atomo() throws RecognitionException {
+		AtomoContext _localctx = new AtomoContext(_ctx, getState());
+		enterRule(_localctx, 24, RULE_atomo);
+		try {
+			setState(197);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case ID:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(185);
+				match(ID);
+				setState(190);
+				_errHandler.sync(this);
+				switch ( getInterpreter().adaptivePredict(_input,17,_ctx) ) {
+				case 1:
+					{
+					setState(186);
+					match(COR_IZQ);
+					setState(187);
+					expresion(0);
+					setState(188);
+					match(COR_DER);
+					}
+					break;
+				}
+				}
+				break;
+			case NUMERO:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(192);
+				match(NUMERO);
+				}
+				break;
+			case DECIMAL:
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(193);
+				match(DECIMAL);
+				}
+				break;
+			case CHAR:
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(194);
+				match(CHAR);
+				}
+				break;
+			case TRUE:
+				enterOuterAlt(_localctx, 5);
+				{
+				setState(195);
+				match(TRUE);
+				}
+				break;
+			case FALSE:
+				enterOuterAlt(_localctx, 6);
+				{
+				setState(196);
+				match(FALSE);
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
 	public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
 		switch (ruleIndex) {
-		case 9:
+		case 11:
 			return expresion_sempred((ExpresionContext)_localctx, predIndex);
 		}
 		return true;
@@ -1629,84 +1793,100 @@ public class MiniLenguajeParser extends Parser {
 	private boolean expresion_sempred(ExpresionContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0:
-			return precpred(_ctx, 13);
+			return precpred(_ctx, 18);
 		case 1:
-			return precpred(_ctx, 12);
+			return precpred(_ctx, 17);
 		case 2:
-			return precpred(_ctx, 11);
+			return precpred(_ctx, 16);
 		case 3:
-			return precpred(_ctx, 10);
+			return precpred(_ctx, 15);
 		case 4:
-			return precpred(_ctx, 9);
+			return precpred(_ctx, 14);
 		case 5:
+			return precpred(_ctx, 13);
+		case 6:
+			return precpred(_ctx, 12);
+		case 7:
+			return precpred(_ctx, 11);
+		case 8:
+			return precpred(_ctx, 10);
+		case 9:
+			return precpred(_ctx, 9);
+		case 10:
 			return precpred(_ctx, 8);
+		case 11:
+			return precpred(_ctx, 7);
+		case 12:
+			return precpred(_ctx, 6);
 		}
 		return true;
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3(\u00c1\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3)\u00ca\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
-		"\13\4\f\t\f\3\2\3\2\7\2\33\n\2\f\2\16\2\36\13\2\3\2\3\2\3\3\3\3\3\3\3"+
-		"\3\5\3&\n\3\3\3\3\3\3\3\3\4\3\4\3\4\7\4.\n\4\f\4\16\4\61\13\4\3\5\3\5"+
-		"\3\5\3\6\3\6\3\6\3\6\3\7\7\7;\n\7\f\7\16\7>\13\7\3\b\3\b\3\b\3\b\3\b\3"+
-		"\b\3\b\3\b\3\b\3\b\3\b\5\bK\n\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\5\bU\n"+
-		"\b\3\b\3\b\3\b\3\b\3\b\5\b\\\n\b\3\t\3\t\3\t\3\t\3\t\5\tc\n\t\3\t\3\t"+
-		"\5\tg\n\t\3\t\3\t\3\t\3\t\3\t\5\tn\n\t\3\t\3\t\5\tr\n\t\7\tt\n\t\f\t\16"+
-		"\tw\13\t\3\t\3\t\3\n\3\n\3\n\3\n\3\n\5\n\u0080\n\n\3\n\3\n\3\n\3\13\3"+
-		"\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\5\13\u0093"+
-		"\n\13\3\13\3\13\3\13\5\13\u0098\n\13\3\13\3\13\3\13\3\13\3\13\3\13\5\13"+
-		"\u00a0\n\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13"+
-		"\3\13\3\13\3\13\3\13\3\13\3\13\7\13\u00b4\n\13\f\13\16\13\u00b7\13\13"+
-		"\3\f\3\f\3\f\7\f\u00bc\n\f\f\f\16\f\u00bf\13\f\3\f\2\3\24\r\2\4\6\b\n"+
-		"\f\16\20\22\24\26\2\7\3\2\36\37\3\2\22\24\4\2\21\21\25\25\3\2\26\31\3"+
-		"\2\32\33\2\u00da\2\34\3\2\2\2\4!\3\2\2\2\6*\3\2\2\2\b\62\3\2\2\2\n\65"+
-		"\3\2\2\2\f<\3\2\2\2\16[\3\2\2\2\20]\3\2\2\2\22z\3\2\2\2\24\u009f\3\2\2"+
-		"\2\26\u00b8\3\2\2\2\30\33\5\16\b\2\31\33\5\4\3\2\32\30\3\2\2\2\32\31\3"+
-		"\2\2\2\33\36\3\2\2\2\34\32\3\2\2\2\34\35\3\2\2\2\35\37\3\2\2\2\36\34\3"+
-		"\2\2\2\37 \7\2\2\3 \3\3\2\2\2!\"\7 \2\2\"#\7!\2\2#%\7\3\2\2$&\5\6\4\2"+
-		"%$\3\2\2\2%&\3\2\2\2&\'\3\2\2\2\'(\7\4\2\2()\5\n\6\2)\5\3\2\2\2*/\5\b"+
-		"\5\2+,\7\5\2\2,.\5\b\5\2-+\3\2\2\2.\61\3\2\2\2/-\3\2\2\2/\60\3\2\2\2\60"+
-		"\7\3\2\2\2\61/\3\2\2\2\62\63\7 \2\2\63\64\7!\2\2\64\t\3\2\2\2\65\66\7"+
-		"\6\2\2\66\67\5\f\7\2\678\7\7\2\28\13\3\2\2\29;\5\16\b\2:9\3\2\2\2;>\3"+
-		"\2\2\2<:\3\2\2\2<=\3\2\2\2=\r\3\2\2\2><\3\2\2\2?\\\5\20\t\2@A\5\22\n\2"+
-		"AB\7\b\2\2B\\\3\2\2\2CD\7\t\2\2DE\7\3\2\2EF\5\24\13\2FG\7\4\2\2GJ\5\n"+
-		"\6\2HI\7\n\2\2IK\5\n\6\2JH\3\2\2\2JK\3\2\2\2K\\\3\2\2\2LM\7\13\2\2MN\7"+
-		"\3\2\2NO\5\24\13\2OP\7\4\2\2PQ\5\n\6\2Q\\\3\2\2\2RT\7\f\2\2SU\5\24\13"+
-		"\2TS\3\2\2\2TU\3\2\2\2UV\3\2\2\2V\\\7\b\2\2WX\5\24\13\2XY\7\b\2\2Y\\\3"+
-		"\2\2\2Z\\\5\n\6\2[?\3\2\2\2[@\3\2\2\2[C\3\2\2\2[L\3\2\2\2[R\3\2\2\2[W"+
-		"\3\2\2\2[Z\3\2\2\2\\\17\3\2\2\2]^\7 \2\2^b\7!\2\2_`\7\r\2\2`a\7\"\2\2"+
-		"ac\7\16\2\2b_\3\2\2\2bc\3\2\2\2cf\3\2\2\2de\7\17\2\2eg\5\24\13\2fd\3\2"+
-		"\2\2fg\3\2\2\2gu\3\2\2\2hi\7\5\2\2im\7!\2\2jk\7\r\2\2kl\7\"\2\2ln\7\16"+
-		"\2\2mj\3\2\2\2mn\3\2\2\2nq\3\2\2\2op\7\17\2\2pr\5\24\13\2qo\3\2\2\2qr"+
-		"\3\2\2\2rt\3\2\2\2sh\3\2\2\2tw\3\2\2\2us\3\2\2\2uv\3\2\2\2vx\3\2\2\2w"+
-		"u\3\2\2\2xy\7\b\2\2y\21\3\2\2\2z\177\7!\2\2{|\7\r\2\2|}\5\24\13\2}~\7"+
-		"\16\2\2~\u0080\3\2\2\2\177{\3\2\2\2\177\u0080\3\2\2\2\u0080\u0081\3\2"+
-		"\2\2\u0081\u0082\7\17\2\2\u0082\u0083\5\24\13\2\u0083\23\3\2\2\2\u0084"+
-		"\u0085\b\13\1\2\u0085\u0086\7\3\2\2\u0086\u0087\5\24\13\2\u0087\u0088"+
-		"\7\4\2\2\u0088\u00a0\3\2\2\2\u0089\u008a\7\20\2\2\u008a\u00a0\5\24\13"+
-		"\21\u008b\u008c\7\21\2\2\u008c\u00a0\5\24\13\20\u008d\u0092\7!\2\2\u008e"+
-		"\u008f\7\r\2\2\u008f\u0090\5\24\13\2\u0090\u0091\7\16\2\2\u0091\u0093"+
-		"\3\2\2\2\u0092\u008e\3\2\2\2\u0092\u0093\3\2\2\2\u0093\u00a0\3\2\2\2\u0094"+
-		"\u0095\7!\2\2\u0095\u0097\7\3\2\2\u0096\u0098\5\26\f\2\u0097\u0096\3\2"+
-		"\2\2\u0097\u0098\3\2\2\2\u0098\u0099\3\2\2\2\u0099\u00a0\7\4\2\2\u009a"+
-		"\u00a0\7\"\2\2\u009b\u00a0\7#\2\2\u009c\u00a0\7$\2\2\u009d\u00a0\7%\2"+
-		"\2\u009e\u00a0\t\2\2\2\u009f\u0084\3\2\2\2\u009f\u0089\3\2\2\2\u009f\u008b"+
-		"\3\2\2\2\u009f\u008d\3\2\2\2\u009f\u0094\3\2\2\2\u009f\u009a\3\2\2\2\u009f"+
-		"\u009b\3\2\2\2\u009f\u009c\3\2\2\2\u009f\u009d\3\2\2\2\u009f\u009e\3\2"+
-		"\2\2\u00a0\u00b5\3\2\2\2\u00a1\u00a2\f\17\2\2\u00a2\u00a3\t\3\2\2\u00a3"+
-		"\u00b4\5\24\13\20\u00a4\u00a5\f\16\2\2\u00a5\u00a6\t\4\2\2\u00a6\u00b4"+
-		"\5\24\13\17\u00a7\u00a8\f\r\2\2\u00a8\u00a9\t\5\2\2\u00a9\u00b4\5\24\13"+
-		"\16\u00aa\u00ab\f\f\2\2\u00ab\u00ac\t\6\2\2\u00ac\u00b4\5\24\13\r\u00ad"+
-		"\u00ae\f\13\2\2\u00ae\u00af\7\34\2\2\u00af\u00b4\5\24\13\f\u00b0\u00b1"+
-		"\f\n\2\2\u00b1\u00b2\7\35\2\2\u00b2\u00b4\5\24\13\13\u00b3\u00a1\3\2\2"+
-		"\2\u00b3\u00a4\3\2\2\2\u00b3\u00a7\3\2\2\2\u00b3\u00aa\3\2\2\2\u00b3\u00ad"+
-		"\3\2\2\2\u00b3\u00b0\3\2\2\2\u00b4\u00b7\3\2\2\2\u00b5\u00b3\3\2\2\2\u00b5"+
-		"\u00b6\3\2\2\2\u00b6\25\3\2\2\2\u00b7\u00b5\3\2\2\2\u00b8\u00bd\5\24\13"+
-		"\2\u00b9\u00ba\7\5\2\2\u00ba\u00bc\5\24\13\2\u00bb\u00b9\3\2\2\2\u00bc"+
-		"\u00bf\3\2\2\2\u00bd\u00bb\3\2\2\2\u00bd\u00be\3\2\2\2\u00be\27\3\2\2"+
-		"\2\u00bf\u00bd\3\2\2\2\26\32\34%/<JT[bfmqu\177\u0092\u0097\u009f\u00b3"+
-		"\u00b5\u00bd";
+		"\13\4\f\t\f\4\r\t\r\4\16\t\16\3\2\3\2\7\2\37\n\2\f\2\16\2\"\13\2\3\2\3"+
+		"\2\3\3\3\3\3\3\3\3\5\3*\n\3\3\3\3\3\3\3\3\4\3\4\3\4\7\4\62\n\4\f\4\16"+
+		"\4\65\13\4\3\5\3\5\3\5\3\6\3\6\5\6<\n\6\3\6\3\6\3\7\6\7A\n\7\r\7\16\7"+
+		"B\3\b\3\b\3\b\3\b\5\bI\n\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\5\bS\n\b\3"+
+		"\b\3\b\3\b\3\b\3\b\3\b\5\b[\n\b\3\t\3\t\3\t\3\t\3\t\5\tb\n\t\3\t\3\t\5"+
+		"\tf\n\t\3\t\3\t\3\n\3\n\3\n\3\n\3\n\5\no\n\n\3\13\3\13\3\13\3\13\3\13"+
+		"\3\f\3\f\3\f\7\fy\n\f\f\f\16\f|\13\f\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3"+
+		"\r\3\r\3\r\3\r\5\r\u008a\n\r\3\r\3\r\5\r\u008e\n\r\3\r\3\r\3\r\3\r\3\r"+
+		"\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3"+
+		"\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\7\r"+
+		"\u00b7\n\r\f\r\16\r\u00ba\13\r\3\16\3\16\3\16\3\16\3\16\5\16\u00c1\n\16"+
+		"\3\16\3\16\3\16\3\16\3\16\5\16\u00c8\n\16\3\16\2\3\30\17\2\4\6\b\n\f\16"+
+		"\20\22\24\26\30\32\2\2\2\u00e4\2 \3\2\2\2\4%\3\2\2\2\6.\3\2\2\2\b\66\3"+
+		"\2\2\2\n9\3\2\2\2\f@\3\2\2\2\16Z\3\2\2\2\20\\\3\2\2\2\22i\3\2\2\2\24p"+
+		"\3\2\2\2\26u\3\2\2\2\30\u008d\3\2\2\2\32\u00c7\3\2\2\2\34\37\5\16\b\2"+
+		"\35\37\5\4\3\2\36\34\3\2\2\2\36\35\3\2\2\2\37\"\3\2\2\2 \36\3\2\2\2 !"+
+		"\3\2\2\2!#\3\2\2\2\" \3\2\2\2#$\7\2\2\3$\3\3\2\2\2%&\7\3\2\2&\'\7\16\2"+
+		"\2\')\7!\2\2(*\5\6\4\2)(\3\2\2\2)*\3\2\2\2*+\3\2\2\2+,\7\"\2\2,-\5\n\6"+
+		"\2-\5\3\2\2\2.\63\5\b\5\2/\60\7%\2\2\60\62\5\b\5\2\61/\3\2\2\2\62\65\3"+
+		"\2\2\2\63\61\3\2\2\2\63\64\3\2\2\2\64\7\3\2\2\2\65\63\3\2\2\2\66\67\7"+
+		"\3\2\2\678\7\16\2\28\t\3\2\2\29;\7#\2\2:<\5\f\7\2;:\3\2\2\2;<\3\2\2\2"+
+		"<=\3\2\2\2=>\7$\2\2>\13\3\2\2\2?A\5\16\b\2@?\3\2\2\2AB\3\2\2\2B@\3\2\2"+
+		"\2BC\3\2\2\2C\r\3\2\2\2D[\5\20\t\2E[\5\24\13\2FH\7\t\2\2GI\5\30\r\2HG"+
+		"\3\2\2\2HI\3\2\2\2IJ\3\2\2\2J[\7&\2\2KL\7\6\2\2LM\7!\2\2MN\5\30\r\2NO"+
+		"\7\"\2\2OR\5\n\6\2PQ\7\7\2\2QS\5\n\6\2RP\3\2\2\2RS\3\2\2\2S[\3\2\2\2T"+
+		"U\7\b\2\2UV\7!\2\2VW\5\30\r\2WX\7\"\2\2XY\5\n\6\2Y[\3\2\2\2ZD\3\2\2\2"+
+		"ZE\3\2\2\2ZF\3\2\2\2ZK\3\2\2\2ZT\3\2\2\2[\17\3\2\2\2\\]\7\3\2\2]a\7\16"+
+		"\2\2^_\7\4\2\2_`\7\17\2\2`b\7\5\2\2a^\3\2\2\2ab\3\2\2\2be\3\2\2\2cd\7"+
+		" \2\2df\5\30\r\2ec\3\2\2\2ef\3\2\2\2fg\3\2\2\2gh\7&\2\2h\21\3\2\2\2in"+
+		"\7\16\2\2jk\7\4\2\2kl\5\30\r\2lm\7\5\2\2mo\3\2\2\2nj\3\2\2\2no\3\2\2\2"+
+		"o\23\3\2\2\2pq\5\22\n\2qr\7 \2\2rs\5\30\r\2st\7&\2\2t\25\3\2\2\2uz\5\30"+
+		"\r\2vw\7%\2\2wy\5\30\r\2xv\3\2\2\2y|\3\2\2\2zx\3\2\2\2z{\3\2\2\2{\27\3"+
+		"\2\2\2|z\3\2\2\2}~\b\r\1\2~\177\7\37\2\2\177\u008e\5\30\r\7\u0080\u0081"+
+		"\7\23\2\2\u0081\u008e\5\30\r\6\u0082\u0083\7!\2\2\u0083\u0084\5\30\r\2"+
+		"\u0084\u0085\7\"\2\2\u0085\u008e\3\2\2\2\u0086\u0087\7\16\2\2\u0087\u0089"+
+		"\7!\2\2\u0088\u008a\5\26\f\2\u0089\u0088\3\2\2\2\u0089\u008a\3\2\2\2\u008a"+
+		"\u008b\3\2\2\2\u008b\u008e\7\"\2\2\u008c\u008e\5\32\16\2\u008d}\3\2\2"+
+		"\2\u008d\u0080\3\2\2\2\u008d\u0082\3\2\2\2\u008d\u0086\3\2\2\2\u008d\u008c"+
+		"\3\2\2\2\u008e\u00b8\3\2\2\2\u008f\u0090\f\24\2\2\u0090\u0091\7\36\2\2"+
+		"\u0091\u00b7\5\30\r\25\u0092\u0093\f\23\2\2\u0093\u0094\7\35\2\2\u0094"+
+		"\u00b7\5\30\r\24\u0095\u0096\f\22\2\2\u0096\u0097\7\31\2\2\u0097\u00b7"+
+		"\5\30\r\23\u0098\u0099\f\21\2\2\u0099\u009a\7\32\2\2\u009a\u00b7\5\30"+
+		"\r\22\u009b\u009c\f\20\2\2\u009c\u009d\7\33\2\2\u009d\u00b7\5\30\r\21"+
+		"\u009e\u009f\f\17\2\2\u009f\u00a0\7\34\2\2\u00a0\u00b7\5\30\r\20\u00a1"+
+		"\u00a2\f\16\2\2\u00a2\u00a3\7\27\2\2\u00a3\u00b7\5\30\r\17\u00a4\u00a5"+
+		"\f\r\2\2\u00a5\u00a6\7\30\2\2\u00a6\u00b7\5\30\r\16\u00a7\u00a8\f\f\2"+
+		"\2\u00a8\u00a9\7\22\2\2\u00a9\u00b7\5\30\r\r\u00aa\u00ab\f\13\2\2\u00ab"+
+		"\u00ac\7\23\2\2\u00ac\u00b7\5\30\r\f\u00ad\u00ae\f\n\2\2\u00ae\u00af\7"+
+		"\24\2\2\u00af\u00b7\5\30\r\13\u00b0\u00b1\f\t\2\2\u00b1\u00b2\7\25\2\2"+
+		"\u00b2\u00b7\5\30\r\n\u00b3\u00b4\f\b\2\2\u00b4\u00b5\7\26\2\2\u00b5\u00b7"+
+		"\5\30\r\t\u00b6\u008f\3\2\2\2\u00b6\u0092\3\2\2\2\u00b6\u0095\3\2\2\2"+
+		"\u00b6\u0098\3\2\2\2\u00b6\u009b\3\2\2\2\u00b6\u009e\3\2\2\2\u00b6\u00a1"+
+		"\3\2\2\2\u00b6\u00a4\3\2\2\2\u00b6\u00a7\3\2\2\2\u00b6\u00aa\3\2\2\2\u00b6"+
+		"\u00ad\3\2\2\2\u00b6\u00b0\3\2\2\2\u00b6\u00b3\3\2\2\2\u00b7\u00ba\3\2"+
+		"\2\2\u00b8\u00b6\3\2\2\2\u00b8\u00b9\3\2\2\2\u00b9\31\3\2\2\2\u00ba\u00b8"+
+		"\3\2\2\2\u00bb\u00c0\7\16\2\2\u00bc\u00bd\7\4\2\2\u00bd\u00be\5\30\r\2"+
+		"\u00be\u00bf\7\5\2\2\u00bf\u00c1\3\2\2\2\u00c0\u00bc\3\2\2\2\u00c0\u00c1"+
+		"\3\2\2\2\u00c1\u00c8\3\2\2\2\u00c2\u00c8\7\17\2\2\u00c3\u00c8\7\20\2\2"+
+		"\u00c4\u00c8\7\21\2\2\u00c5\u00c8\7\f\2\2\u00c6\u00c8\7\r\2\2\u00c7\u00bb"+
+		"\3\2\2\2\u00c7\u00c2\3\2\2\2\u00c7\u00c3\3\2\2\2\u00c7\u00c4\3\2\2\2\u00c7"+
+		"\u00c5\3\2\2\2\u00c7\u00c6\3\2\2\2\u00c8\33\3\2\2\2\25\36 )\63;BHRZae"+
+		"nz\u0089\u008d\u00b6\u00b8\u00c0\u00c7";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

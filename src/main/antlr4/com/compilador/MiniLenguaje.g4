@@ -1,68 +1,188 @@
 grammar MiniLenguaje;
 
+// =========================
+//   REGLAS DEL PARSER
+// =========================
 
-
-// --- SINTAXIS (PARSER) ---
-
-programa : (instruccion | funcion)* EOF ;
-
-funcion : TIPO ID '(' parametros? ')' bloque ;
-
-parametros : param (',' param)* ;
-param : TIPO ID ;
-
-bloque : '{' instructions '}' ;
-instructions : instruccion* ;
-
-instruccion 
-    : declaracion                       # InstrDeclaracion
-    | asignacion ';'                    # InstrAsignacion
-    | 'if' '(' expresion ')' bloque ('else' bloque)?  # InstrIf
-    | 'while' '(' expresion ')' bloque  # InstrWhile
-    | 'return' expresion? ';'           # InstrReturn
-    | expresion ';'                     # InstrExpresion
-    | bloque                            # InstrBloque
+programa
+    : (instruccion | funcion)* EOF
     ;
 
-// Declaración de variables y Arrays (ej: int x; o int lista[10];)
-declaracion : TIPO ID ('[' NUMERO ']')? ('=' expresion)? (',' ID ('[' NUMERO ']')? ('=' expresion)?)* ';' ;
+// --------- FUNCIONES ---------
 
-// Asignación (ej: x = 5; o lista[0] = 10;)
-asignacion : ID ('[' expresion ']')? '=' expresion ;
+funcion
+    : TIPO ID PAREN_IZQ parametros? PAREN_DER bloque
+    ;
 
-// Expresiones matemáticas y lógicas
+parametros
+    : param (COMA param)*
+    ;
+
+param
+    : TIPO ID
+    ;
+
+// --------- BLOQUES ---------
+
+bloque
+    : LLAVE_IZQ instructions? LLAVE_DER
+    ;
+
+instructions
+    : instruccion+
+    ;
+
+// --------- INSTRUCCIONES ---------
+
+instruccion
+    : declaracion                        #InstrDeclaracion
+    | asignacion                         #InstrAsignacion
+    | RETURN expresion? PUNTOYCOMA       #InstrReturn
+    | IF PAREN_IZQ expresion PAREN_DER
+      bloque (ELSE bloque)?              #InstrIf
+    | WHILE PAREN_IZQ expresion PAREN_DER
+      bloque                             #InstrWhile
+    ;
+
+// --------- DECLARACIONES Y ASIGNACIONES ---------
+
+declaracion
+    : TIPO ID (COR_IZQ NUMERO COR_DER)? (ASIGN expresion)? PUNTOYCOMA
+    ;
+
+lvalue
+    : ID (COR_IZQ expresion COR_DER)?   // variable o acceso a array
+    ;
+
+asignacion
+    : lvalue ASIGN expresion PUNTOYCOMA
+    ;
+
+
+
+// argumentos de llamada: f(a, b, c)
+argumentos
+    : expresion (COMA expresion)*
+    ;
+
+// =========================
+//   EXPRESIONES
+// =========================
+
+// Manejo de precedencia clásica:
+//  ||
+//  &&
+//  comparaciones
+//  + -
+//  * / %
+//  unarios
+//  primarias / llamadas
+
 expresion
-    : '(' expresion ')'                 # ExprParentesis
-    | '!' expresion                     # ExprNot
-    | '-' expresion                     # ExprNegativo
-    | expresion ('*'|'/'|'%') expresion # ExprMulDiv
-    | expresion ('+'|'-') expresion     # ExprSumRest
-    | expresion ('>'|'<'|'>='|'<=') expresion # ExprRelacional
-    | expresion ('=='|'!=') expresion   # ExprIgualdad
-    | expresion '&&' expresion          # ExprAnd
-    | expresion '||' expresion          # ExprOr
-    | ID ('[' expresion ']')?           # ExprID
-    | ID '(' argumentos? ')'            # ExprLlamada
-    | NUMERO                            # ExprNumero
-    | DECIMAL                           # ExprDecimal
-    | CADENA                            # ExprCadena
-    | CHAR                              # ExprChar
-    | ('true' | 'false')                # ExprBoolean
+    : expresion OR expresion             #ExprOr
+    | expresion AND expresion            #ExprAnd
+    | expresion IGUALIGUAL expresion     #ExprEq
+    | expresion DISTINTO expresion       #ExprNeq
+    | expresion MAYOR expresion          #ExprGt
+    | expresion MENOR expresion          #ExprLt
+    | expresion MAYORIGUAL expresion     #ExprGe
+    | expresion MENORIGUAL expresion     #ExprLe
+    | expresion MAS expresion            #ExprAdd
+    | expresion MENOS expresion          #ExprSub
+    | expresion POR expresion            #ExprMul
+    | expresion DIV expresion            #ExprDiv
+    | expresion MOD expresion            #ExprMod
+    | NOT expresion                      #ExprNot
+    | MENOS expresion                    #ExprNeg
+    | PAREN_IZQ expresion PAREN_DER      #ExprParen
+    | ID PAREN_IZQ argumentos? PAREN_DER #ExprCall
+    | atomo                              #ExprAtom
     ;
 
-argumentos : expresion (',' expresion)* ;
+// literales, identificadores, booleanos
+atomo
+    : ID (COR_IZQ expresion COR_DER)?  // ID o ID[exp]
+    | NUMERO
+    | DECIMAL
+    | CHAR
+    | TRUE
+    | FALSE
+    ;
 
-// --- LÉXICO (TOKENS) ---
+// =========================
+//   REGLAS DEL LEXER
+// =========================
 
-TIPO : 'int' | 'char' | 'double' | 'bool' | 'void' | 'string' ;
+// --------- TIPOS ---------
 
-ID : [a-zA-Z_][a-zA-Z0-9_]* ;
-NUMERO : [0-9]+ ;
-DECIMAL : [0-9]+ '.' [0-9]+ ;
-CADENA : '"' .*? '"' ;
-CHAR : '\'' . '\'' ;
+TIPO
+    : 'int'
+    | 'double'
+    | 'char'
+    | 'bool'
+    | 'void'
+    ;
+    
+// CORCHETES PARA ARRAYS
+COR_IZQ  : '[' ;
+COR_DER  : ']' ;
+// --------- PALABRAS RESERVADAS ---------
 
-// Ignorar espacios y comentarios
-WS : [ \t\r\n]+ -> skip ;
-COMENTARIO : '//' ~[\r\n]* -> skip ;
-MULTILINEA : '/*' .*? '*/' -> skip ;
+IF          : 'if' ;
+ELSE        : 'else' ;
+WHILE       : 'while' ;
+RETURN      : 'return' ;
+BREAK       : 'break' ;
+CONTINUE    : 'continue' ;
+TRUE        : 'true' ;
+FALSE       : 'false' ;
+
+// --------- IDENTIFICADORES Y LITERALES ---------
+
+ID          : [a-zA-Z_][a-zA-Z0-9_]* ;
+
+NUMERO      : [0-9]+ ;
+DECIMAL     : [0-9]+ '.' [0-9]+ ;
+CHAR        : '\'' (~['\\\r\n] | '\\' .) '\'' ;
+
+// --------- OPERADORES ARITMÉTICOS ---------
+
+MAS         : '+' ;
+MENOS       : '-' ;
+POR         : '*' ;
+DIV         : '/' ;
+MOD         : '%' ;
+
+// --------- OPERADORES RELACIONALES ---------
+
+MAYORIGUAL  : '>=' ;
+MENORIGUAL  : '<=' ;
+IGUALIGUAL  : '==' ;
+DISTINTO    : '!=' ;
+MAYOR       : '>' ;
+MENOR       : '<' ;
+
+// --------- OPERADORES LÓGICOS ---------
+
+AND         : '&&' ;
+OR          : '||' ;
+NOT         : '!' ;
+
+// --------- ASIGNACIÓN ---------
+
+ASIGN       : '=' ;
+
+// --------- SEPARADORES ---------
+
+PAREN_IZQ   : '(' ;
+PAREN_DER   : ')' ;
+LLAVE_IZQ   : '{' ;
+LLAVE_DER   : '}' ;
+COMA        : ',' ;
+PUNTOYCOMA  : ';' ;
+
+// --------- ESPACIOS Y COMENTARIOS ---------
+
+WS              : [ \t\r\n]+ -> skip ;
+LINE_COMMENT    : '//' ~[\r\n]* -> skip ;
+BLOCK_COMMENT   : '/*' .*? '*/' -> skip ;

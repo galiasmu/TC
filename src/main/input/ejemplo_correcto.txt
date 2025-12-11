@@ -20,6 +20,10 @@ int main() {
     int estado;
     int temp;
     int numeros[3];
+    int inicio = 10;
+    int fin = 50;
+    int medio = 25;
+    int valor =  inicio * fin / medio;
     
     // Inicializar variables globales
     contadorGlobal = 0;
