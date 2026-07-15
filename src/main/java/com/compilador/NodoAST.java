@@ -204,6 +204,34 @@ class ReturnNodo extends NodoAST {
 }
 
 /**
+ * Sentencia break.
+ */
+class BreakNodo extends NodoAST {
+    public BreakNodo(int linea, int columna) {
+        super(linea, columna);
+    }
+
+    @Override
+    public String toString(String prefijo) {
+        return prefijo + "Break\n";
+    }
+}
+
+/**
+ * Sentencia continue.
+ */
+class ContinueNodo extends NodoAST {
+    public ContinueNodo(int linea, int columna) {
+        super(linea, columna);
+    }
+
+    @Override
+    public String toString(String prefijo) {
+        return prefijo + "Continue\n";
+    }
+}
+
+/**
  * Nodo genérico para expresiones.
  * Para simplificar, solo guardamos una etiqueta (operador, literal, identificador)
  * y una lista de hijos.

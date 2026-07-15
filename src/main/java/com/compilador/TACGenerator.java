@@ -6,12 +6,18 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class TACGenerator {
 
     private final List<String> instrucciones = new ArrayList<>();
     private int tempCount = 0;
     private int labelCount = 0;
+
+    // Pila de labels [continueLabel, breakLabel] del bucle (while/for) más interno.
+    // break salta a breakLabel, continue salta a continueLabel.
+    private final Deque<String[]> loopLabels = new ArrayDeque<>();
 
     /**
      * Genera TAC "crudo" (sin optimizar).
@@ -117,6 +123,25 @@ public class TACGenerator {
     }
 
     // ==============================
+    // 4.1) break / continue: saltan al label del bucle más interno
+    // ==============================
+    if (nodo instanceof BreakNodo) {
+        String[] labels = loopLabels.peek();
+        if (labels != null) {
+            instrucciones.add("goto " + labels[1]); // label de fin del bucle
+        }
+        return;
+    }
+
+    if (nodo instanceof ContinueNodo) {
+        String[] labels = loopLabels.peek();
+        if (labels != null) {
+            instrucciones.add("goto " + labels[0]); // label de "siguiente iteración"
+        }
+        return;
+    }
+
+    // ==============================
     // 5) Return
     // ==============================
     if (nodo instanceof ReturnNodo) {
@@ -209,11 +234,14 @@ public class TACGenerator {
         instrucciones.add("goto " + labelEnd);
 
         instrucciones.add(labelBody + ":");
+        // continue en un while vuelve directo a re-chequear la condición
+        loopLabels.push(new String[]{labelStart, labelEnd});
         if (n.cuerpo != null) {
             for (NodoAST s : n.cuerpo) {
                 generarSentencia(s);
             }
         }
+        loopLabels.pop();
         instrucciones.add("goto " + labelStart);
 
         instrucciones.add(labelEnd + ":");
@@ -228,9 +256,10 @@ public class TACGenerator {
             generarSentencia(n.inicializacion);
         }
 
-        String labelStart = nuevaLabel();
-        String labelBody  = nuevaLabel();
-        String labelEnd   = nuevaLabel();
+        String labelStart  = nuevaLabel();
+        String labelBody   = nuevaLabel();
+        String labelUpdate = nuevaLabel();
+        String labelEnd    = nuevaLabel();
 
         instrucciones.add(labelStart + ":");
 
@@ -242,11 +271,17 @@ public class TACGenerator {
         // si no hay condición (for (;;)), cae directo al cuerpo: loop infinito salvo break
 
         instrucciones.add(labelBody + ":");
+        // continue en un for salta a la actualización (no directo a la condición),
+        // para no saltearse el i = i + 1
+        loopLabels.push(new String[]{labelUpdate, labelEnd});
         if (n.cuerpo != null) {
             for (NodoAST s : n.cuerpo) {
                 generarSentencia(s);
             }
         }
+        loopLabels.pop();
+
+        instrucciones.add(labelUpdate + ":");
         if (n.actualizacion != null) {
             generarSentencia(n.actualizacion);
         }

@@ -1,0 +1,29 @@
+// Prueba de break/continue en for y while
+int main() {
+    int suma;
+    suma = 0;
+
+    for (int i = 0; i < 10; i = i + 1) {
+        if (i == 5) {
+            break;
+        }
+        if (i == 2) {
+            continue;
+        }
+        suma = suma + i;
+    }
+
+    int j;
+    j = 0;
+    while (j < 10) {
+        j = j + 1;
+        if (j == 3) {
+            continue;
+        }
+        if (j == 7) {
+            break;
+        }
+    }
+
+    return suma;
+}

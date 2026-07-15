@@ -198,6 +198,16 @@ public class ASTBuilder extends MiniLenguajeBaseVisitor<NodoAST> {
         return new ForNodo(linea, columna, inicializacion, condicion, actualizacion, cuerpo);
     }
 
+    @Override
+    public NodoAST visitInstrBreak(MiniLenguajeParser.InstrBreakContext ctx) {
+        return new BreakNodo(linea(ctx), columna(ctx));
+    }
+
+    @Override
+    public NodoAST visitInstrContinue(MiniLenguajeParser.InstrContinueContext ctx) {
+        return new ContinueNodo(linea(ctx), columna(ctx));
+    }
+
     // ===== declaración =====
 
     @Override

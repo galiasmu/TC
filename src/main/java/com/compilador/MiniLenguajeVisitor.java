@@ -68,6 +68,20 @@ public interface MiniLenguajeVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitInstrReturn(MiniLenguajeParser.InstrReturnContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code InstrBreak}
+	 * labeled alternative in {@link MiniLenguajeParser#instruccion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInstrBreak(MiniLenguajeParser.InstrBreakContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code InstrContinue}
+	 * labeled alternative in {@link MiniLenguajeParser#instruccion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInstrContinue(MiniLenguajeParser.InstrContinueContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code InstrIf}
 	 * labeled alternative in {@link MiniLenguajeParser#instruccion}.
 	 * @param ctx the parse tree

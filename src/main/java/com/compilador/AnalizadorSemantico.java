@@ -17,6 +17,10 @@ public class AnalizadorSemantico {
     private final List<String> errores = new ArrayList<>();
     private final List<String> warnings = new ArrayList<>();
 
+    // Cuenta en cuántos bucles (while/for) estamos anidados en este momento.
+    // Se usa para validar que break/continue estén dentro de un bucle.
+    private int profundidadLoop = 0;
+
     public void analizar(NodoAST raiz) {
         if (raiz instanceof ProgramaNodo) {
             analizarPrograma((ProgramaNodo) raiz);
@@ -122,6 +126,25 @@ public class AnalizadorSemantico {
         }
 
         /* ================================
+         *       BREAK / CONTINUE
+         * ================================ */
+        else if (nodo instanceof BreakNodo) {
+            if (profundidadLoop == 0) {
+                errores.add(String.format(
+                    "ERROR semántico: 'break' usado fuera de un bucle (línea %d)",
+                    nodo.linea));
+            }
+        }
+
+        else if (nodo instanceof ContinueNodo) {
+            if (profundidadLoop == 0) {
+                errores.add(String.format(
+                    "ERROR semántico: 'continue' usado fuera de un bucle (línea %d)",
+                    nodo.linea));
+            }
+        }
+
+        /* ================================
          *       IF
          * ================================ */
         else if (nodo instanceof IfNodo) {
@@ -165,9 +188,11 @@ public class AnalizadorSemantico {
             }
 
             tabla.entrarAmbito();
+            profundidadLoop++;
             for (NodoAST s : n.cuerpo) {
                 analizarSentenciaEnFuncion(fun, s);
             }
+            profundidadLoop--;
             tabla.salirAmbito();
         }
 
@@ -196,9 +221,11 @@ public class AnalizadorSemantico {
             }
 
             // cuerpo
+            profundidadLoop++;
             for (NodoAST s : n.cuerpo) {
                 analizarSentenciaEnFuncion(fun, s);
             }
+            profundidadLoop--;
 
             // actualización
             if (n.actualizacion != null) {

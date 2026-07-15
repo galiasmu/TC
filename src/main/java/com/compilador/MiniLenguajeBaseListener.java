@@ -124,6 +124,30 @@ public class MiniLenguajeBaseListener implements MiniLenguajeListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterInstrBreak(MiniLenguajeParser.InstrBreakContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInstrBreak(MiniLenguajeParser.InstrBreakContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterInstrContinue(MiniLenguajeParser.InstrContinueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInstrContinue(MiniLenguajeParser.InstrContinueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterInstrIf(MiniLenguajeParser.InstrIfContext ctx) { }
 	/**
 	 * {@inheritDoc}

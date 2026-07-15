@@ -38,6 +38,8 @@ instruccion
     : declaracion                        #InstrDeclaracion
     | asignacion                         #InstrAsignacion
     | RETURN expresion? PUNTOYCOMA       #InstrReturn
+    | BREAK PUNTOYCOMA                   #InstrBreak
+    | CONTINUE PUNTOYCOMA                #InstrContinue
     | IF PAREN_IZQ expresion PAREN_DER
       bloque (ELSE bloque)?              #InstrIf
     | WHILE PAREN_IZQ expresion PAREN_DER
