@@ -5,7 +5,7 @@
             "name": "🌳 Debug ANTLR4 (Visual)",
             "type": "antlr-debug",
             "request": "launch",
-            "grammar": "/home/galiasmu/Documents/Facu/TC/Compilador2025/demo/src/main/antlr4/com/MiniLenguaje.g4",
+            "grammar": "${workspaceFolder}/src/main/antlr4/com/compilador/MiniLenguaje.g4",
             // CORRECCIÓN: Ruta exacta a tu archivo .txt nuevo
             "input": "${workspaceFolder}/src/main/input/input.txt",
             "startRule": "programa",
