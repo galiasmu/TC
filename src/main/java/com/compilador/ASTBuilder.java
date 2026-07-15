@@ -145,6 +145,59 @@ public class ASTBuilder extends MiniLenguajeBaseVisitor<NodoAST> {
         return new WhileNodo(linea, columna, condicion, cuerpo);
     }
 
+    @Override
+    public NodoAST visitInstrFor(MiniLenguajeParser.InstrForContext ctx) {
+        int linea = ctx.start.getLine();
+        int columna = ctx.start.getCharPositionInLine();
+
+        // ----- inicialización: declaración, asignación o vacío -----
+        NodoAST inicializacion = null;
+        MiniLenguajeParser.ForInitContext initCtx = ctx.forInit();
+        if (initCtx.TIPO() != null) {
+            String tipo = initCtx.TIPO().getText();
+            String nombre = initCtx.ID().getText();
+            ExpresionNodo init = null;
+            if (initCtx.ASIGN() != null && initCtx.expresion() != null) {
+                init = construirExpresion(initCtx.expresion());
+            }
+            inicializacion = new DeclaracionVariableNodo(
+                    linea(initCtx), columna(initCtx), tipo, nombre, init);
+        } else if (initCtx.lvalue() != null) {
+            String nombre = initCtx.lvalue().ID().getText();
+            ExpresionNodo expr = construirExpresion(initCtx.expresion());
+            inicializacion = new AsignacionNodo(
+                    linea(initCtx), columna(initCtx), nombre, expr);
+        }
+
+        // ----- condición (opcional) -----
+        ExpresionNodo condicion = null;
+        if (ctx.expresion() != null) {
+            condicion = construirExpresion(ctx.expresion());
+        }
+
+        // ----- actualización (opcional) -----
+        AsignacionNodo actualizacion = null;
+        MiniLenguajeParser.ForUpdateContext updCtx = ctx.forUpdate();
+        if (updCtx.lvalue() != null) {
+            String nombre = updCtx.lvalue().ID().getText();
+            ExpresionNodo expr = construirExpresion(updCtx.expresion());
+            actualizacion = new AsignacionNodo(
+                    linea(updCtx), columna(updCtx), nombre, expr);
+        }
+
+        // ----- cuerpo -----
+        List<NodoAST> cuerpo = new ArrayList<>();
+        MiniLenguajeParser.BloqueContext bctx = ctx.bloque();
+        if (bctx.instructions() != null) {
+            for (MiniLenguajeParser.InstruccionContext insCtx
+                    : bctx.instructions().instruccion()) {
+                cuerpo.add(visit(insCtx));
+            }
+        }
+
+        return new ForNodo(linea, columna, inicializacion, condicion, actualizacion, cuerpo);
+    }
+
     // ===== declaración =====
 
     @Override

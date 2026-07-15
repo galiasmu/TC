@@ -42,6 +42,8 @@ instruccion
       bloque (ELSE bloque)?              #InstrIf
     | WHILE PAREN_IZQ expresion PAREN_DER
       bloque                             #InstrWhile
+    | FOR PAREN_IZQ forInit PUNTOYCOMA expresion? PUNTOYCOMA forUpdate PAREN_DER
+      bloque                             #InstrFor
     ;
 
 // --------- DECLARACIONES Y ASIGNACIONES ---------
@@ -58,7 +60,18 @@ asignacion
     : lvalue ASIGN expresion PUNTOYCOMA
     ;
 
+// --------- CLÁUSULAS DEL FOR (sin ';' propio: el ';' lo pone la regla instruccion) ---------
 
+forInit
+    : TIPO ID (ASIGN expresion)?   // declaración: for (int i = 0; ...)
+    | lvalue ASIGN expresion       // asignación:  for (i = 0; ...)
+    |                               // vacío:       for (; ...)
+    ;
+
+forUpdate
+    : lvalue ASIGN expresion       // actualización: i = i + 1
+    |                               // vacío
+    ;
 
 // argumentos de llamada: f(a, b, c)
 argumentos
@@ -122,7 +135,7 @@ TIPO
     | 'bool'
     | 'void'
     ;
-    
+
 // CORCHETES PARA ARRAYS
 COR_IZQ  : '[' ;
 COR_DER  : ']' ;
@@ -131,6 +144,7 @@ COR_DER  : ']' ;
 IF          : 'if' ;
 ELSE        : 'else' ;
 WHILE       : 'while' ;
+FOR         : 'for' ;
 RETURN      : 'return' ;
 BREAK       : 'break' ;
 CONTINUE    : 'continue' ;

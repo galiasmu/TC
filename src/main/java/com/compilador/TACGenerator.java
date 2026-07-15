@@ -147,7 +147,15 @@ public class TACGenerator {
     }
 
     // ==============================
-    // 8) Cualquier cosa no manejada
+    // 8) For
+    // ==============================
+    if (nodo instanceof ForNodo) {
+        generarFor((ForNodo) nodo);
+        return;
+    }
+
+    // ==============================
+    // 9) Cualquier cosa no manejada
     //    (mejor ignorar que romper)
     // ==============================
     // Nada
@@ -205,6 +213,42 @@ public class TACGenerator {
             for (NodoAST s : n.cuerpo) {
                 generarSentencia(s);
             }
+        }
+        instrucciones.add("goto " + labelStart);
+
+        instrucciones.add(labelEnd + ":");
+        instrucciones.add("");
+    }
+
+    // ================== FOR ==================
+
+    private void generarFor(ForNodo n) {
+        // inicialización: se ejecuta una sola vez, antes del loop
+        if (n.inicializacion != null) {
+            generarSentencia(n.inicializacion);
+        }
+
+        String labelStart = nuevaLabel();
+        String labelBody  = nuevaLabel();
+        String labelEnd   = nuevaLabel();
+
+        instrucciones.add(labelStart + ":");
+
+        if (n.condicion != null) {
+            String condTemp = generarExpresion(n.condicion);
+            instrucciones.add("if " + condTemp + " goto " + labelBody);
+            instrucciones.add("goto " + labelEnd);
+        }
+        // si no hay condición (for (;;)), cae directo al cuerpo: loop infinito salvo break
+
+        instrucciones.add(labelBody + ":");
+        if (n.cuerpo != null) {
+            for (NodoAST s : n.cuerpo) {
+                generarSentencia(s);
+            }
+        }
+        if (n.actualizacion != null) {
+            generarSentencia(n.actualizacion);
         }
         instrucciones.add("goto " + labelStart);
 

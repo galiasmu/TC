@@ -170,6 +170,43 @@ public class AnalizadorSemantico {
             }
             tabla.salirAmbito();
         }
+
+        /* ================================
+         *       FOR
+         * ================================ */
+        else if (nodo instanceof ForNodo) {
+            ForNodo n = (ForNodo) nodo;
+
+            tabla.entrarAmbito();
+
+            // inicialización: puede declarar una variable nueva (ej: int i = 0)
+            // o ser una asignación a una variable existente
+            if (n.inicializacion instanceof DeclaracionVariableNodo) {
+                declararVariable((DeclaracionVariableNodo) n.inicializacion, "variable");
+            } else if (n.inicializacion instanceof AsignacionNodo) {
+                analizarAsignacion((AsignacionNodo) n.inicializacion);
+            }
+
+            // condición
+            String tipoCond = inferirTipoExpresion(n.condicion);
+            if (tipoCond != null && !"bool".equals(tipoCond)) {
+                errores.add(String.format(
+                    "ERROR semántico: la condición del FOR debe ser de tipo bool (línea %d)",
+                    n.linea));
+            }
+
+            // cuerpo
+            for (NodoAST s : n.cuerpo) {
+                analizarSentenciaEnFuncion(fun, s);
+            }
+
+            // actualización
+            if (n.actualizacion != null) {
+                analizarAsignacion(n.actualizacion);
+            }
+
+            tabla.salirAmbito();
+        }
     }
 
 

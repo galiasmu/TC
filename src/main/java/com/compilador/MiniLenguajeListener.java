@@ -1,4 +1,4 @@
-// Generated from com/compilador/MiniLenguaje.g4 by ANTLR 4.9.3
+// Generated from com\compilador\MiniLenguaje.g4 by ANTLR 4.9.3
 package com.compilador;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -128,6 +128,18 @@ public interface MiniLenguajeListener extends ParseTreeListener {
 	 */
 	void exitInstrWhile(MiniLenguajeParser.InstrWhileContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code InstrFor}
+	 * labeled alternative in {@link MiniLenguajeParser#instruccion}.
+	 * @param ctx the parse tree
+	 */
+	void enterInstrFor(MiniLenguajeParser.InstrForContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code InstrFor}
+	 * labeled alternative in {@link MiniLenguajeParser#instruccion}.
+	 * @param ctx the parse tree
+	 */
+	void exitInstrFor(MiniLenguajeParser.InstrForContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MiniLenguajeParser#declaracion}.
 	 * @param ctx the parse tree
 	 */
@@ -157,6 +169,26 @@ public interface MiniLenguajeListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAsignacion(MiniLenguajeParser.AsignacionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MiniLenguajeParser#forInit}.
+	 * @param ctx the parse tree
+	 */
+	void enterForInit(MiniLenguajeParser.ForInitContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MiniLenguajeParser#forInit}.
+	 * @param ctx the parse tree
+	 */
+	void exitForInit(MiniLenguajeParser.ForInitContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MiniLenguajeParser#forUpdate}.
+	 * @param ctx the parse tree
+	 */
+	void enterForUpdate(MiniLenguajeParser.ForUpdateContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MiniLenguajeParser#forUpdate}.
+	 * @param ctx the parse tree
+	 */
+	void exitForUpdate(MiniLenguajeParser.ForUpdateContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MiniLenguajeParser#argumentos}.
 	 * @param ctx the parse tree

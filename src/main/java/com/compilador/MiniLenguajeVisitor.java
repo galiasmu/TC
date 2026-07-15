@@ -1,4 +1,4 @@
-// Generated from com/compilador/MiniLenguaje.g4 by ANTLR 4.9.3
+// Generated from com\compilador\MiniLenguaje.g4 by ANTLR 4.9.3
 package com.compilador;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -82,6 +82,13 @@ public interface MiniLenguajeVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitInstrWhile(MiniLenguajeParser.InstrWhileContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code InstrFor}
+	 * labeled alternative in {@link MiniLenguajeParser#instruccion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInstrFor(MiniLenguajeParser.InstrForContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link MiniLenguajeParser#declaracion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -99,6 +106,18 @@ public interface MiniLenguajeVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitAsignacion(MiniLenguajeParser.AsignacionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MiniLenguajeParser#forInit}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitForInit(MiniLenguajeParser.ForInitContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MiniLenguajeParser#forUpdate}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitForUpdate(MiniLenguajeParser.ForUpdateContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MiniLenguajeParser#argumentos}.
 	 * @param ctx the parse tree

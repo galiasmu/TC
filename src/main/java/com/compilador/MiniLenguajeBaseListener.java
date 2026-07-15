@@ -1,4 +1,4 @@
-// Generated from com/compilador/MiniLenguaje.g4 by ANTLR 4.9.3
+// Generated from com\compilador\MiniLenguaje.g4 by ANTLR 4.9.3
 package com.compilador;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -148,6 +148,18 @@ public class MiniLenguajeBaseListener implements MiniLenguajeListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterInstrFor(MiniLenguajeParser.InstrForContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInstrFor(MiniLenguajeParser.InstrForContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterDeclaracion(MiniLenguajeParser.DeclaracionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -179,6 +191,30 @@ public class MiniLenguajeBaseListener implements MiniLenguajeListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAsignacion(MiniLenguajeParser.AsignacionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterForInit(MiniLenguajeParser.ForInitContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitForInit(MiniLenguajeParser.ForInitContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterForUpdate(MiniLenguajeParser.ForUpdateContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitForUpdate(MiniLenguajeParser.ForUpdateContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
