@@ -82,6 +82,20 @@ public class ASTBuilder extends MiniLenguajeBaseVisitor<NodoAST> {
     }
 
     @Override
+    public NodoAST visitInstrLlamada(MiniLenguajeParser.InstrLlamadaContext ctx) {
+        String nombreFun = ctx.ID().getText();
+        LlamadaNodo llamada = new LlamadaNodo(linea(ctx), columna(ctx), nombreFun);
+
+        if (ctx.argumentos() != null) {
+            for (MiniLenguajeParser.ExpresionContext ectx : ctx.argumentos().expresion()) {
+                llamada.agregarHijo(construirExpresionRec(ectx));
+            }
+        }
+
+        return llamada;
+    }
+
+    @Override
     public NodoAST visitInstrReturn(MiniLenguajeParser.InstrReturnContext ctx) {
         ExpresionNodo expr = null;
         MiniLenguajeParser.ExpresionContext ectx = ctx.expresion(); // puede ser null
@@ -275,7 +289,7 @@ public class ASTBuilder extends MiniLenguajeBaseVisitor<NodoAST> {
                 && "(".equals(ctx.getChild(1).getText())) {
 
             String nombreFun = ctx.getChild(0).getText();
-            ExpresionNodo llamada = new ExpresionNodo(linea(ctx), columna(ctx), nombreFun);
+            LlamadaNodo llamada = new LlamadaNodo(linea(ctx), columna(ctx), nombreFun);
 
             // Buscar subárbol de argumentos (si existe)
             for (int i = 0; i < n; i++) {

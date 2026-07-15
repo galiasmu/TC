@@ -92,6 +92,18 @@ public interface MiniLenguajeListener extends ParseTreeListener {
 	 */
 	void exitInstrAsignacion(MiniLenguajeParser.InstrAsignacionContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code InstrLlamada}
+	 * labeled alternative in {@link MiniLenguajeParser#instruccion}.
+	 * @param ctx the parse tree
+	 */
+	void enterInstrLlamada(MiniLenguajeParser.InstrLlamadaContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code InstrLlamada}
+	 * labeled alternative in {@link MiniLenguajeParser#instruccion}.
+	 * @param ctx the parse tree
+	 */
+	void exitInstrLlamada(MiniLenguajeParser.InstrLlamadaContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code InstrReturn}
 	 * labeled alternative in {@link MiniLenguajeParser#instruccion}.
 	 * @param ctx the parse tree

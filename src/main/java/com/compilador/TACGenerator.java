@@ -123,7 +123,17 @@ public class TACGenerator {
     }
 
     // ==============================
-    // 4.1) break / continue: saltan al label del bucle más interno
+    // 4.1) Llamada a función usada como sentencia suelta: foo(a, b);
+    //      Generamos la llamada igual que en una expresión y
+    //      descartamos el temporal con el resultado.
+    // ==============================
+    if (nodo instanceof LlamadaNodo) {
+        generarLlamada((LlamadaNodo) nodo);
+        return;
+    }
+
+    // ==============================
+    // 4.2) break / continue: saltan al label del bucle más interno
     // ==============================
     if (nodo instanceof BreakNodo) {
         String[] labels = loopLabels.peek();
@@ -299,7 +309,12 @@ public class TACGenerator {
             return "0"; // valor dummy, no debería pasar en un AST bien formado
         }
 
-        // Hoja: literal, identificador, llamada a función representada como texto
+        // Llamada a función usada dentro de una expresión: x = suma(a, b);
+        if (expr instanceof LlamadaNodo) {
+            return generarLlamada((LlamadaNodo) expr);
+        }
+
+        // Hoja: literal o identificador
         if (expr.hijos.isEmpty()) {
             return expr.etiqueta;
         }
@@ -326,6 +341,29 @@ public class TACGenerator {
         // Caso raro: más de 2 hijos → lo colapsamos en una temp
         String t = nuevaTemp();
         instrucciones.add(t + " = " + expr.etiqueta);
+        return t;
+    }
+
+    // ================== LLAMADAS A FUNCIÓN ==================
+
+    /**
+     * Genera TAC para una llamada a función usando el esquema clásico
+     * de tres direcciones: un "param" por cada argumento (evaluado de
+     * izquierda a derecha) y un "call" final que deja el resultado en
+     * un temporal nuevo.
+     */
+    private String generarLlamada(LlamadaNodo llamada) {
+        List<String> argsGenerados = new ArrayList<>();
+        for (ExpresionNodo arg : llamada.hijos) {
+            argsGenerados.add(generarExpresion(arg));
+        }
+
+        for (String argTemp : argsGenerados) {
+            instrucciones.add("param " + argTemp);
+        }
+
+        String t = nuevaTemp();
+        instrucciones.add(t + " = call " + llamada.nombreFuncion + ", " + argsGenerados.size());
         return t;
     }
 

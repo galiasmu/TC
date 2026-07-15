@@ -37,6 +37,8 @@ instructions
 instruccion
     : declaracion                        #InstrDeclaracion
     | asignacion                         #InstrAsignacion
+    | ID PAREN_IZQ argumentos? PAREN_DER
+      PUNTOYCOMA                         #InstrLlamada
     | RETURN expresion? PUNTOYCOMA       #InstrReturn
     | BREAK PUNTOYCOMA                   #InstrBreak
     | CONTINUE PUNTOYCOMA                #InstrContinue

@@ -1,0 +1,27 @@
+int sumar(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    int r;
+
+    // ERROR: break fuera de un bucle
+    break;
+
+    // ERROR: continue fuera de un bucle
+    continue;
+
+    // ERROR: cantidad de argumentos incorrecta (sumar espera 2, se le pasa 1)
+    r = sumar(5);
+
+    // ERROR: tipo de argumento incompatible (b es int, se le pasa un char)
+    r = sumar(1, 'x');
+
+    // ERROR: función no declarada
+    r = funcionQueNoExiste(1, 2);
+
+    // ERROR: 'r' no es una función
+    r = r(1, 2);
+
+    return r;
+}

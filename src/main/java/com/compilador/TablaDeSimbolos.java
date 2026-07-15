@@ -21,20 +21,37 @@ public class TablaDeSimbolos {
         public final boolean esArray;
         public final Integer tamanioArray; // null si no es array
 
-        // Constructor clásico (variables simples, funciones)
+        // 🔹 NUEVO CAMPO PARA FUNCIONES
+        public final List<String> tiposParametros; // null si no es función
+
+        // Constructor clásico (variables simples, parámetros)
         public Simbolo(String nombre, String tipo, String categoria, int lineaDeclaracion) {
-            this(nombre, tipo, categoria, lineaDeclaracion, false, null);
+            this(nombre, tipo, categoria, lineaDeclaracion, false, null, null);
         }
 
-        // Constructor completo (incluye arrays)
+        // Constructor para funciones (incluye tipos de parámetros)
+        public Simbolo(String nombre, String tipo, String categoria,
+                       int lineaDeclaracion, List<String> tiposParametros) {
+            this(nombre, tipo, categoria, lineaDeclaracion, false, null, tiposParametros);
+        }
+
+        // Constructor con arrays
         public Simbolo(String nombre, String tipo, String categoria,
                        int lineaDeclaracion, boolean esArray, Integer tamanioArray) {
+            this(nombre, tipo, categoria, lineaDeclaracion, esArray, tamanioArray, null);
+        }
+
+        // Constructor completo (arrays + funciones)
+        public Simbolo(String nombre, String tipo, String categoria,
+                       int lineaDeclaracion, boolean esArray, Integer tamanioArray,
+                       List<String> tiposParametros) {
             this.nombre = nombre;
             this.tipo = tipo;
             this.categoria = categoria;
             this.lineaDeclaracion = lineaDeclaracion;
             this.esArray = esArray;
             this.tamanioArray = tamanioArray;
+            this.tiposParametros = tiposParametros;
         }
     }
 
@@ -75,6 +92,16 @@ public class TablaDeSimbolos {
         if (actual.containsKey(nombre)) return false;
 
         actual.put(nombre, new Simbolo(nombre, tipo, categoria, linea, true, tamanio));
+        return true;
+    }
+
+    /** Declarar función (guarda los tipos de sus parámetros para validar llamadas) */
+    public boolean declararFuncion(String nombre, String tipo, String categoria,
+                                   int linea, List<String> tiposParametros) {
+        Map<String, Simbolo> actual = pila.peek();
+        if (actual.containsKey(nombre)) return false;
+
+        actual.put(nombre, new Simbolo(nombre, tipo, categoria, linea, tiposParametros));
         return true;
     }
 

@@ -80,7 +80,12 @@ public class AnalizadorSemantico {
     }
 
     private void declararFuncion(FuncionNodo fun) {
-        boolean ok = tabla.declarar(fun.nombre, fun.tipoRetorno, "funcion", fun.linea);
+        List<String> tiposParametros = new ArrayList<>();
+        for (ParametroNodo p : fun.parametros) {
+            tiposParametros.add(p.tipo);
+        }
+
+        boolean ok = tabla.declararFuncion(fun.nombre, fun.tipoRetorno, "funcion", fun.linea, tiposParametros);
         if (!ok) {
             errores.add(String.format(
                 "ERROR semántico: función '%s' redeclarada (línea %d)",
@@ -123,6 +128,12 @@ public class AnalizadorSemantico {
 
         else if (nodo instanceof ReturnNodo) {
             analizarReturn(fun, (ReturnNodo) nodo);
+        }
+
+        else if (nodo instanceof LlamadaNodo) {
+            // llamada usada como sentencia suelta: foo(); -> validamos igual que
+            // cualquier llamada dentro de una expresión, descartamos el tipo de retorno
+            inferirTipoExpresion((LlamadaNodo) nodo);
         }
 
         /* ================================
@@ -322,11 +333,71 @@ private void analizarAsignacionArray(AsignacionArrayNodo asig) {
 
 
     /* ======================================
+     *      LLAMADA A FUNCIÓN
+     *  Valida que la función exista, que la cantidad de argumentos
+     *  coincida con los parámetros declarados y que los tipos sean
+     *  compatibles. Devuelve el tipo de retorno de la función.
+     * ====================================== */
+    private String inferirTipoLlamada(LlamadaNodo llamada) {
+        TablaDeSimbolos.Simbolo s = tabla.buscar(llamada.nombreFuncion);
+
+        if (s == null) {
+            errores.add(String.format(
+                "ERROR semántico: función '%s' no declarada (línea %d)",
+                llamada.nombreFuncion, llamada.linea));
+            for (ExpresionNodo arg : llamada.hijos) inferirTipoExpresion(arg);
+            return "error";
+        }
+
+        if (!"funcion".equals(s.categoria)) {
+            errores.add(String.format(
+                "ERROR semántico: '%s' no es una función (línea %d)",
+                llamada.nombreFuncion, llamada.linea));
+            for (ExpresionNodo arg : llamada.hijos) inferirTipoExpresion(arg);
+            return "error";
+        }
+
+        s.usado = true;
+
+        List<String> tiposEsperados = s.tiposParametros;
+        int esperados = tiposEsperados != null ? tiposEsperados.size() : 0;
+        int recibidos = llamada.hijos.size();
+
+        if (esperados != recibidos) {
+            errores.add(String.format(
+                "ERROR semántico: la función '%s' espera %d argumento(s) pero se le pasaron %d (línea %d)",
+                llamada.nombreFuncion, esperados, recibidos, llamada.linea));
+        }
+
+        int n = Math.min(esperados, recibidos);
+        for (int i = 0; i < n; i++) {
+            String tipoArg = inferirTipoExpresion(llamada.hijos.get(i));
+            String tipoEsperado = tiposEsperados.get(i);
+            if (tipoArg != null && !tipoCompatible(tipoEsperado, tipoArg)) {
+                errores.add(String.format(
+                    "ERROR semántico: argumento %d de '%s' incompatible. Esperado '%s', encontrado '%s' (línea %d)",
+                    i + 1, llamada.nombreFuncion, tipoEsperado, tipoArg, llamada.linea));
+            }
+        }
+        // si sobran argumentos, igual los inferimos (marca usos, no perdemos otros errores)
+        for (int i = n; i < recibidos; i++) {
+            inferirTipoExpresion(llamada.hijos.get(i));
+        }
+
+        return s.tipo;
+    }
+
+    /* ======================================
      *  INFERENCIA DE TIPOS (inciso 3.2)
      *  Soporta operadores lógicos, comparaciones y ahora arrays.
      * ====================================== */
     private String inferirTipoExpresion(ExpresionNodo expr) {
         if (expr == null) return null;
+
+        // -------- LLAMADA A FUNCIÓN: nombre(args) --------
+        if (expr instanceof LlamadaNodo) {
+            return inferirTipoLlamada((LlamadaNodo) expr);
+        }
 
         // -------- ACCESO A ARRAY: numeros[i] --------
         if (expr instanceof AccesoArrayNodo) {
