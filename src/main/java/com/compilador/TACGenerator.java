@@ -314,6 +314,15 @@ public class TACGenerator {
             return generarLlamada((LlamadaNodo) expr);
         }
 
+        // Acceso a array: x = numeros[i];
+        if (expr instanceof AccesoArrayNodo) {
+            AccesoArrayNodo a = (AccesoArrayNodo) expr;
+            String idx = generarExpresion(a.indice);
+            String t = nuevaTemp();
+            instrucciones.add(t + " = " + a.nombreArray + "[" + idx + "]");
+            return t;
+        }
+
         // Hoja: literal o identificador
         if (expr.hijos.isEmpty()) {
             return expr.etiqueta;
