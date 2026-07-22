@@ -1,0 +1,6 @@
+// Prueba de error SINTACTICO: falta el punto y coma tras la declaracion
+int main() {
+    int x
+    x = 5;
+    return x;
+}

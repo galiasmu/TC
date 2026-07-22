@@ -1,0 +1,6 @@
+// Prueba de error LÉXICO: '@' no es un caracter valido para ningun token
+int main() {
+    int x;
+    x = 5 @ 3;
+    return x;
+}
