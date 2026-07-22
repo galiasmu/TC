@@ -127,14 +127,5 @@ Para seguir el hilo con un caso concreto: `for (int i = 0; i < 10; i = i + 1) { 
 | Subconjunto de C++ completo (tipos, control, funciones, arrays extra) | ✅ |
 | Java + ANTLR4 | ✅ |
 | Repositorio con código, gramática, ejemplos, URL | ✅ (código y ejemplos sí; falta confirmar que el repo esté en **público** en GitHub) |
-| Informe Técnico en PDF | ❌ pendiente |
-| Manual de Usuario | ❌ pendiente |
-| Demostración con ejemplos representativos | ⚠️ están los ejemplos, falta ensayarla en vivo |
-
-### Pendientes
-
-1. **Informe Técnico en PDF** con la estructura completa de la consigna.
-2. **Manual de Usuario**.
-3. Confirmar que el repo de GitHub sea **público**.
-4. Hacer `git push` de los commits que quedaron locales.
-5. Ensayar la demo con los ejemplos de prueba antes de la entrega.
+| Informe Técnico en PDF | ✅ |
+| Manual de Usuario | ✅ |

@@ -67,9 +67,8 @@ src/
 │   │   ├── MiniLenguajeErrorListener.java
 │   │   ├── ASTBuilder.java
 │   │   ├── AnalizadorSemantico.java
-│   │   ├── TACGenerator.java
-│   │   ├── Optimizer.java
-│   │   ├── nodosAST/... (clases de nodos)
+│   │   ├── TACGenerator.java (incluye la optimización)
+│   │   ├── NodoAST.java + subclases (IfNodo, WhileNodo, ForNodo, etc.)
 │   │   └── Archivos ANTLR generados automáticamente
 │   └── antlr4/com/compilador/
 │       └── MiniLenguaje.g4
@@ -184,16 +183,13 @@ Se genera TAC para:
 * While
 * Return
 
-## ✔ 6. Optimizaciones (Optimizer.java)
+## ✔ 6. Optimizaciones (dentro de TACGenerator.java)
 
 * **Constant Folding:**
   `3 + 5 → 8`
 * **Constant Propagation:**
   `t3 = 6; x = t3 → x = 6`
 * **Dead Code Elimination**
-* **Simplificación de expresiones:**
-  `x + 0 → x`
-  `1 * z → z`
 
 Salida generada en:
 
